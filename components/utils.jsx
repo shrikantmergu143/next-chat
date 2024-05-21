@@ -91,11 +91,116 @@ const checkPasswordValidity = (value) => {
     return null;
 }
 
+const crypto = require('crypto');
+
+
+function base64UrlEncode(str) {
+    return Buffer.from(str)
+        .toString('base64')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+}
+
+function generateAuthToken(data) {
+    const header = {
+        typ: 'JWT',
+        alg: 'HS256'
+    };
+
+    const payloadData = {
+        ...data,
+        exp: Math.floor(Date.now() / 1000) + 43200 // 12 hours from now
+    };
+
+    const encodedHeader = base64UrlEncode(JSON.stringify(header));
+    const encodedPayload = base64UrlEncode(JSON.stringify(payloadData));
+    const signature = crypto
+        .createHmac('sha256', `${process.env.TOKEN_KEY}`)
+        .update(`${encodedHeader}.${encodedPayload}`)
+        .digest('base64')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+
+    const jwtToken = `${encodedHeader}.${encodedPayload}.${signature}`;
+
+    return jwtToken;
+}
+
+// Example usage:
+const data = {
+    id: 1,
+    email: 'example@example.com',
+    access_type: 'admin'
+};
+
+// const token = generateAuthToken(data);
+// console.log('Generated Token:', token);
+
+
+function base64UrlDecode(base64Url) {
+  let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  while (base64.length % 4) {
+      base64 += '=';
+  }
+  return Buffer.from(base64, 'base64').toString('utf-8');
+}
+
+function hashEquals(a, b) {
+  if (a.length !== b.length) {
+      return false;
+  }
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+      result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
+
+function validateJWT(jwtToken) {
+  const tokenParts = jwtToken.split('.');
+  if (tokenParts.length === 3) {
+      const decodedHeader = base64UrlDecode(tokenParts[0]);
+      const decodedPayload = base64UrlDecode(tokenParts[1]);
+      const decodedSignature = Buffer.from(tokenParts[2].replace(/-/g, '+').replace(/_/g, '/'), 'base64');
+
+      const expectedSignature = crypto
+          .createHmac('sha256', process.env.TOKEN_KEY)
+          .update(`${tokenParts[0]}.${tokenParts[1]}`)
+          .digest();
+
+      if (hashEquals(decodedSignature.toString('base64'), expectedSignature.toString('base64'))) {
+          const decodedHeaderArray = JSON.parse(decodedHeader);
+          const decodedPayloadArray = JSON.parse(decodedPayload);
+
+          // Validate token expiration
+          if (decodedPayloadArray.exp && decodedPayloadArray.exp >= Math.floor(Date.now() / 1000)) {
+              return { payload: decodedPayloadArray, status: true };
+          } else {
+              return { message: "Token expired", status: false };
+          }
+      } else {
+          return { message: "Invalid JWT: Signatures don't match", status: false };
+      }
+  } else {
+      return { message: "Invalid JWT: Signatures don't match", status: false };
+  }
+}
+
+// // Example usage:
+// const token = 'your.jwt.token.here';
+// const result = validateJWT(token);
+// console.log('Verification Result:', result);
+
+
 const Utils = {
     getCommonEnv: getCommonEnv,
     uuidv4:uuidv4,
     getCurrentURL:getCurrentURL,
     ValidateEmail:ValidateEmail,
     checkPasswordValidity:checkPasswordValidity,
+    validateJWT: validateJWT,
+    generateAuthToken: generateAuthToken,
 }
 export default Utils;

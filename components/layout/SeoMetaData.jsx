@@ -6,30 +6,30 @@ import PropType from "prop-types";
 
 export default function SeoMetaData(pageProps) {
 
-  const scripts= {
-    "@context": "http://schema.org",
-    "@type": "Organization",
-    "name": pageProps?.REACT_APP_DOMAIN_NAME,
-    "description": pageProps?.description,
-    "url": "https://ct.appristine.in/",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://ct.appristine.in/"
-    },
-    "sameAs": [
-        "",
-    ],
-    "logo": "https://ct.appristine.in//assets/logo512x512.png",
-    "email": "myaccademy@gmail.com",
-    "contactPoint": [
-        {
-            "@type": "ContactPoint",
-            "telephone": "+917498074963",
-            "contactType": "Customer Service",
-            "email": "myaccademy@gmail.com"
-        }
-    ]
-  }
+//   const scripts= {
+//     "@context": "http://schema.org",
+//     "@type": "Organization",
+//     "name": pageProps?.REACT_APP_DOMAIN_NAME,
+//     "description": pageProps?.description,
+//     "url": "https://ct.appristine.in/",
+//     "mainEntityOfPage": {
+//         "@type": "WebPage",
+//         "@id": "https://ct.appristine.in/"
+//     },
+//     "sameAs": [
+//         "",
+//     ],
+//     "logo": "https://ct.appristine.in//assets/logo512x512.png",
+//     "email": "myaccademy@gmail.com",
+//     "contactPoint": [
+//         {
+//             "@type": "ContactPoint",
+//             "telephone": "+917498074963",
+//             "contactType": "Customer Service",
+//             "email": "myaccademy@gmail.com"
+//         }
+//     ]
+//   }
   return (
     <Head>
         <title>{pageProps?.title}</title>
@@ -94,10 +94,6 @@ export default function SeoMetaData(pageProps) {
         <meta property="fb:app_id" content="" />
         <meta name="mobile-web-app-capable" content="yes"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <script defer type="application/ld+json" >
-          {JSON.stringify(scripts)}
-        </script>
-        <script src="https://www.paypal.com/sdk/js?client-id=?"></script>
         <script src="https://www.gstatic.com/charts/loader.js" defer  async=""></script>
     </Head>
   )
