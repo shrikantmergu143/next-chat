@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Utils from '../components/utils';
+import Layout from '../components/layout/Layout';
 // import { useDispatch, useSelector } from 'react-redux';
 // import App_url from '../components/common/constant';
 // import { useEffect } from 'react';
@@ -16,9 +17,9 @@ export default function Home() {
     console.log('Verification Result:', verification);
   },[])
   return (
-    <div>
+    <Layout>
       
-    </div>
+    </Layout>
   );
 }
 export async function getServerSideProps(context) {
