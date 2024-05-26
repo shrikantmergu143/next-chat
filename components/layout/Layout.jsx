@@ -1,6 +1,7 @@
 import React from 'react'
 import Icon from '../common/Icon'
 import App_url from '../common/constant'
+import ChannelTabPannel from './ChannelTabPannel'
 
 export default function Layout() {
   return (
@@ -26,18 +27,26 @@ export default function Layout() {
                     </div>
                     <div className='top_nav__middle_container'>
                       <div className='p-top_nav__search__container'>
-                        <button className='p-top_nav__search'>
-
+                        <button className='p-top_nav__search btn'>
+                          <Icon className={"sm"} attrIcon={App_url.icons.SearchIcon}/>
+                          <span class="p-top_nav__search__text" id="search-text">Search Appristine Technology</span>
                         </button>
                       </div>
                     </div>
-                    <div className='top_nav__right_container'>
-                      
-                    </div>
+                    <div className='top_nav__right_container'></div>
                 </div>
             </div>
         </div>
-        <div className='client_workspace_wrapper'></div>
+        <div className='client_workspace_wrapper'>
+          <ChannelTabPannel/>
+          <div className='p-client_workspace'>
+            <div className='client_workspace__layout'>
+              <div className='view_contents--sidebar'></div>
+              <div className='view_contents--chat-content'></div>
+            </div>
+            <div className='client__banners workspace_banner'></div>
+          </div>
+        </div>
       </div>
     </div>
   )

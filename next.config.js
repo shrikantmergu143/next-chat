@@ -36,7 +36,7 @@ const nextConfig = {
       },
     ]
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   compress: true,
   experimental: {
     webVitalsAttribution: ['CLS', 'LCP']
