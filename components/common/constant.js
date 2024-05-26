@@ -11,7 +11,7 @@ const App_url = {
         Notification: "/assets/icons/Notification.svg",
         PlusIcon: "/assets/icons/PlusIcon.svg",
         Setting: "/assets/icons/Setting.svg",
-        ArrowLeft: "/assets/icons/ArrowLeft.svg",
+        Bookmark: "/assets/icons/Bookmark.svg",
         ArrowLeft: "/assets/icons/ArrowLeft.svg",
         ArrowLeft: "/assets/icons/ArrowLeft.svg",
         ArrowLeft: "/assets/icons/ArrowLeft.svg",

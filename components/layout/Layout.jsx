@@ -2,8 +2,9 @@ import React from 'react'
 import Icon from '../common/Icon'
 import App_url from '../common/constant'
 import ChannelTabPannel from './ChannelTabPannel'
+import TabContent from './TabContent'
 
-export default function Layout() {
+export default function Layout(props) {
   return (
     <div className='client_container'>
       <div className='layout_wrapper'>
@@ -41,8 +42,10 @@ export default function Layout() {
           <ChannelTabPannel/>
           <div className='p-client_workspace'>
             <div className='client_workspace__layout'>
-              <div className='view_contents--sidebar'></div>
-              <div className='view_contents--chat-content'></div>
+              <TabContent/>
+              <div className='view_contents--chat-content'>
+                {props?.children}
+              </div>
             </div>
             <div className='client__banners workspace_banner'></div>
           </div>
