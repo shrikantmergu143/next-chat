@@ -36,7 +36,7 @@ export default function ToolTip(props) {
       onToggle={setState}
       show={state}
     >
-      <div className='d-inline'>
+      <div className='d-content'>
         {children}
         {state && (
           <div className='back-drop' onClick={()=>setState(false)}></div>

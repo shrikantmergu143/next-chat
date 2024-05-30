@@ -1,12 +1,31 @@
 import React from 'react'
-import Avatar from '../common/Avatar'
+import dynamic from 'next/dynamic'
 import App_url from '../common/constant'
-import Icon from '../common/Icon'
-import PopOver from '../common/PopOver'
+const Avatar = dynamic(()=>import('../common/Avatar'))
+const Icon = dynamic(()=>import('../common/Icon'))
+const PopOver = dynamic(()=>import('../common/PopOver'))
 
 export default function ChannelTabPannel() {
+    const Loader = () =>{
+        return(
+            <div className='tab_rail'>
+                <div className='button-unstyled account_switcher'>
+                    <div className='tabs__tab_content'></div>
+                    <div className='tab-scroller'></div>
+                    <div className='tabs__tab_content'></div>
+                    <div className='tabs__tab_content'></div>
+                </div>
+            </div>
+        )
+    }
+    // if(true){
+    //     return(
+    //         <Loader/>
+    //     )
+    // }
   return (
-    <div className='tab_rail'>
+   <React.Suspense fallback={<Loader/>}>
+     <div className='tab_rail'>
         <div className='button-unstyled account_switcher'>
             <div className='tabs__tab_content'>
                 <Avatar src={App_url.icons.default_image}/>
@@ -90,5 +109,6 @@ export default function ChannelTabPannel() {
             </div>
         </div>
     </div>
+   </React.Suspense>
   )
 }
