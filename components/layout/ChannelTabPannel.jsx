@@ -12,7 +12,7 @@ export default function ChannelTabPannel() {
                 <Avatar src={App_url.icons.default_image}/>
             </div>
             <div className='tab-scroller'>
-                <PopOver>
+                <PopOver title={"Home"} placement={"right"}>
                     <div className='tabs__tab_content'>
                         <Icon
                             attrIcon={App_url.icons.HomeIcon}
@@ -23,52 +23,62 @@ export default function ChannelTabPannel() {
                         <div class="p-tab_rail__button__label">Home</div>
                     </div>
                 </PopOver>
-                <div className='tabs__tab_content'>
-                    <Icon
-                        attrIcon={App_url.icons.ChatIcon}
-                        button
-                        size={"lg"}
-                        variant={"hover-secondary"}
-                    />
-                    <div class="p-tab_rail__button__label">DMs</div>
-                </div>
-                <div className='tabs__tab_content'>
-                    <Icon
-                        attrIcon={App_url.icons.Ellipsis}
-                        button
-                        size={"lg"}
-                        variant={"hover-secondary"}
-                    />
-                    <div class="p-tab_rail__button__label">More</div>
-                </div>
-                <div className='tabs__tab_content'>
-                    <Icon
-                        attrIcon={App_url.icons.Notification}
-                        button
-                        size={"lg"}
-                        variant={"hover-secondary"}
-                    />
-                    <div class="p-tab_rail__button__label">Activity</div>
-                </div>
-                <div className='tabs__tab_content'>
-                    <Icon
-                        attrIcon={App_url.icons.Bookmark}
-                        button
-                        size={"lg"}
-                        variant={"hover-secondary"}
-                    />
-                    <div class="p-tab_rail__button__label">Later</div>
-                </div>
+                <PopOver title={"Direact Messages"} placement={"right"}>
+                    <div className='tabs__tab_content'>
+                        <Icon
+                            attrIcon={App_url.icons.ChatIcon}
+                            button
+                            size={"lg"}
+                            variant={"hover-secondary"}
+                        />
+                        <div class="p-tab_rail__button__label">DMs</div>
+                    </div>
+                </PopOver>
+                <PopOver title={"More"} placement={"right"}>
+                    <div className='tabs__tab_content'>
+                        <Icon
+                            attrIcon={App_url.icons.Ellipsis}
+                            button
+                            size={"lg"}
+                            variant={"hover-secondary"}
+                        />
+                        <div class="p-tab_rail__button__label">More</div>
+                    </div>
+                </PopOver>
+                <PopOver title={"Activity"} placement={"right"}>
+                    <div className='tabs__tab_content'>
+                        <Icon
+                            attrIcon={App_url.icons.Notification}
+                            button
+                            size={"lg"}
+                            variant={"hover-secondary"}
+                        />
+                        <div class="p-tab_rail__button__label">Activity</div>
+                    </div>
+                </PopOver>
+                <PopOver title={"Saved Messages"} placement={"right"}>
+                    <div className='tabs__tab_content'>
+                        <Icon
+                            attrIcon={App_url.icons.Bookmark}
+                            button
+                            size={"lg"}
+                            variant={"hover-secondary"}
+                        />
+                        <div class="p-tab_rail__button__label">Later</div>
+                    </div>
+                </PopOver>
             </div>
-            <div className='tabs__tab_content'>
-                <Icon
-                    attrIcon={App_url.icons.PlusIcon}
-                    button
-                    size={"lg"}
-                    buttonClassName={"rounded"}
-                    variant={"secondary"}
-                />
-            </div>
+            <PopOver title={"Create New"} placement={"right"}>
+                <div className='tabs__tab_content'>
+                    <Icon
+                        attrIcon={App_url.icons.PlusIcon}
+                        button
+                        size={"lg"}
+                        buttonClassName={"rounded"}
+                        variant={"secondary"}
+                    />
+                </div>
+            </PopOver>
             <div className='tabs__tab_content'>
                 <Icon
                     attrIcon={App_url.icons.Setting}

@@ -3,6 +3,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import DefaultLayout from './../components/layout/DefaultLayout';
 import "./../styles/global.css";
+import "./../styles/animation.css";
+import "./../styles/media.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App({ Component, pageProps }) {
