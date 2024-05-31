@@ -104,7 +104,6 @@ export default function ChannelTabPannel() {
                     button
                     size={"lg"}
                     buttonClassName={"rounded"}
-                    // variant={"secondary"}
                 />
             </div>
         </div>

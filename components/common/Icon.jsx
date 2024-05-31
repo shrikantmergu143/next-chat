@@ -15,7 +15,7 @@ export default function Icon(props) {
       )
     }
     return(
-      <i onClick={props?.onClick} style={{...props?.style, '--icon-url':`url(${props?.attrIcon})`}}  className={`common_icon ${props?.className}`} attr-icon={props?.attrIcon} />
+      <i onClick={props?.onClick} style={{...props?.style, '--icon-url':`url(${props?.attrIcon})`}}  className={`common_icon ${props?.size} ${props?.className}`} attr-icon={props?.attrIcon} />
     )
   }
   const ButtonView = ( ) =>{
