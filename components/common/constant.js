@@ -25,6 +25,9 @@ const App_url = {
         ArrowLeft: "/assets/icons/ArrowLeft.svg",
         ArrowLeft: "/assets/icons/ArrowLeft.svg",
         ArrowLeft: "/assets/icons/ArrowLeft.svg",
+    },
+    link:{
+        Register:"/register"
     }
 }
 

@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function LoginLayout() {
+export default function LoginLayout(props) {
   return (
-    <div>
-      
-    </div>
+    <section className='login-layout'>
+      {props?.children}
+    </section>
   )
 }
