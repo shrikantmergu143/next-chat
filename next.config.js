@@ -46,7 +46,7 @@ const nextConfig = {
   },
   output: 'standalone',
   images: {
-    domains: ['localhost', 'ct.appristine.in', 'ctd.appristine.in'], // Add your localhost or any other domains here
+    domains: ['localhost', 'http://localhost:3000' , 'ct.appristine.in', 'ctd.appristine.in'], // Add your localhost or any other domains here
   },
   skipTrailingSlashRedirect: false,
   env: {
