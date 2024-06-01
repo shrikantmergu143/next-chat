@@ -17,7 +17,7 @@ export default function TabContent() {
               <div className='sidebar_header__controls'>
                 <ToolTip title={"Filter Conversations"}>
                   <Icon
-                    attrIcon={App_url.icons.Filter}
+                    attrIcon={App_url.icons.FilterIcon}
                     button
                     size={"lg"}
                     variant={"hover-secondary-1"}

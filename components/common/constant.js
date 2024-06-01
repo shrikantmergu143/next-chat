@@ -13,7 +13,7 @@ const App_url = {
         Setting: "/assets/icons/Setting.svg",
         Bookmark: "/assets/icons/Bookmark.svg",
         Edit: "/assets/icons/Edit.svg",
-        Filter: "/assets/icons/Filter.svg",
+        FilterIcon: "/assets/icons/FilterIcon.svg",
         Down: "/assets/icons/Down.svg",
         Lock: "/assets/icons/Lock.svg",
         DownDot: "/assets/icons/DownDot.svg",
