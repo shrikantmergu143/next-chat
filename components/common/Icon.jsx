@@ -9,18 +9,18 @@ export default function Icon(props) {
   const IconData = () =>{
     if(props?.image){
       return(
-        <i onClick={props?.onClick} className={`common_icon_image ${props?.className}` }>
+        <i onClick={props?.onClick} className={`common_icon_image radius-${props?.radius} ${props?.className} ${props?.size}` }>
           <Images src={props?.attrIcon} fill auth={props?.auth} />
         </i>
       )
     }
     return(
-      <i onClick={props?.onClick} style={{...props?.style, '--icon-url':`url(${props?.attrIcon})`}}  className={`common_icon ${props?.size} ${props?.className}`} attr-icon={props?.attrIcon} />
+      <i onClick={props?.onClick} style={{...props?.style, '--icon-url':`url(${props?.attrIcon})`}}  className={`common_icon radius-${props?.radius}  ${props?.size} ${props?.className}`} attr-icon={props?.attrIcon} />
     )
   }
   const ButtonView = ( ) =>{
     return(
-      <Button disabled={props?.disabled} onClick={props?.onClick} className={`btn-icon ${props?.buttonClassName}`} variant={props?.variant} size={props?.size}>
+      <Button disabled={props?.disabled} onClick={props?.onClick} className={`btn-icon radius-${props?.radius}  ${props?.buttonClassName}`} variant={props?.variant} size={props?.size}>
           {IconData()}
       </Button>
     )

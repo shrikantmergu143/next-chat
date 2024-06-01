@@ -29,7 +29,7 @@ export default function Layout(props) {
                     <div className='top_nav__middle_container'>
                       <div className='p-top_nav__search__container'>
                         <button className='p-top_nav__search btn'>
-                          <Icon className={"sm"} attrIcon={App_url.icons.SearchIcon}/>
+                          <Icon className={"lsm"} attrIcon={App_url.icons.SearchIcon}/>
                           <span class="p-top_nav__search__text" id="search-text">Search Appristine Technology</span>
                         </button>
                       </div>

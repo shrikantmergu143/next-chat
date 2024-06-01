@@ -56,7 +56,21 @@ export default function TabContent() {
                   </span>
                 </Button>
               </div>
-              
+              {[1,]?.map((item, index)=>(
+                 <div className='channel_sidebar__static_list'>
+                  <Button variant={"hover-secondary-1"} className={"w-100"}>
+                    <Icon
+                      attrIcon={"https://ca.slack-edge.com/T3CJNAPC1-U05EV3R7C4F-96707c818001-24"}
+                      size={"sm"}
+                      image
+                      radius={1}
+                    />
+                    <span>
+                      Channel
+                    </span>
+                  </Button>
+                </div>
+              ))}
             </Scrollbar>
         </div>
     </div>

@@ -17,11 +17,7 @@ export default function Button(props) {
       setLoader(false);
     }
   }
-  useEffect(()=>{
-    if(props?.disabled != undefined){
-      setLoader(props?.disabled)
-    }
-  },[props?.disabled])
+
   return (
     <ReactButton onClick={onClick} disabled={props?.disabled} type={props?.type} variant={props?.variant} className={`btn button ${props?.className} btn-${props?.size}`}>
       {props?.children}

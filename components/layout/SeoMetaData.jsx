@@ -3,6 +3,7 @@
 import Head from 'next/head'
 import React from 'react'
 import PropType from "prop-types";
+import Link from 'next/link';
 
 export default function SeoMetaData(pageProps) {
 
@@ -95,7 +96,7 @@ export default function SeoMetaData(pageProps) {
         <meta name="mobile-web-app-capable" content="yes"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <script src="https://www.gstatic.com/charts/loader.js" defer  async=""></script>
-    </Head>
+        </Head>
   )
 }
 SeoMetaData.propType={

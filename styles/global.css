@@ -101,10 +101,14 @@ body{
 .top_nav__left_container--start, .top_nav__left_container--end{flex-basis: 308.64px;}
 .history_buttons{align-items: center;gap: 4px;display: flex;-webkit-app-region: no-drag;}
 .history_menu_button{align-items: center;gap: 4px;display: flex;-webkit-app-region: no-drag;margin-left: 4px;margin-right: 0;}
+.common_icon.lsm{--height: 15px;--width: 15px;}
 .common_icon.xsm{--height: 12px;--width: 12px;}
-.common_icon.sm{--height: 15px;--width: 15px;}
+.common_icon.sm, .common_icon_image.sm{--height: 20px;--width: 20px;}
+.common_icon.radius-1  , .common_icon_image.radius-1 img{border-radius: 3px;}
 .btn-icon.btn-sm{--height: 26px!important;--width: 26px!important;--bs-btn-padding-y: 4px!important;--bs-btn-padding-x: 4px!important}
 .common_icon {--height: 20px;--width: 20px;--text-primary-color: var(--icon-color);--icon-url: none;mask-position: center;-webkit-mask-position: center;mask-repeat: no-repeat;-webkit-mask-repeat: no-repeat;background-color: var(--text-primary-color);position: relative;-webkit-mask-image: var(--icon-url);mask-image: var(--icon-url);--webkit-mask-image: var(--icon-url);-webkit-mask-size: contain;mask-size: contain;height: var(--height);width: var(--width);display: inline-flex;}
+.common_icon_image{--height: 26px; --width: 26px;height: var(--height);width: var(--width);display: inline-flex;align-items: center;justify-content: center;}
+.common_icon_image .picture-opacity-1 img{height: 100%;width: 100%;}
 body .dropdown{display: contents;}
 .btn.button, body .dropdown .btn.dropdown-toggle {
   --bs-btn-padding-x: 0.75rem;
