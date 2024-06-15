@@ -30,7 +30,7 @@ function authenticateToken(authorizationHeader, req) {
   }
 
   // Extract the token from the Authorization header
-  const token = authorizationHeader.split(' ')[1];
+  const token = authorizationHeader//.split(' ')[1];
 
   // Validate the JWT token
   const userDetails = Utils.validateJWT(token);

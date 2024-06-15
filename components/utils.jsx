@@ -159,7 +159,7 @@ function hashEquals(a, b) {
 }
 
 function validateJWT(jwtToken) {
-  const tokenParts = jwtToken.split('.');
+  const tokenParts = jwtToken?.split('.');
   if (tokenParts.length === 3) {
       const decodedHeader = base64UrlDecode(tokenParts[0]);
       const decodedPayload = base64UrlDecode(tokenParts[1]);

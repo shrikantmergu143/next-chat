@@ -24,6 +24,7 @@ export default async function handler(req, res) {
           res.status(200).json({
             ...newUser,
             access_token: token,
+            userDetails: userDetails
           });
         } catch (error) {
           if (error.message === 'Email already exists') {

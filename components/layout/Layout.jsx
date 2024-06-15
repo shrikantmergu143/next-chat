@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Icon from '../common/Icon'
 import App_url from '../common/constant'
 import ChannelTabPannel from './ChannelTabPannel'
 import TabContent from './TabContent'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetRequestCallAPI } from '../api/GetRequest'
+import { setStoreAccessToken, setStoreUserDetails } from '../../store/Actions'
+import { useRouter } from 'next/router'
 
 export default function Layout(props) {
+  const {access_token} = useSelector(App_url.allReducers);
+  const dispatch = useDispatch();
+  const navigate = useRouter();
+  useEffect(()=>{
+    if(access_token){
+      callUserDetails();
+    }else{
+      navigate.push(App_url.link.Login)
+    }
+  },[])
+  const callUserDetails = async () =>{
+    const response = await GetRequestCallAPI(App_url.api.API_USER_DETAILS, access_token);
+    if(response?.status === 200){
+      dispatch(setStoreUserDetails(response?.data))
+    }else{
+      dispatch(setStoreAccessToken(""))
+    }
+    console.log("response", response)
+  }
   return (
     <div className='client_container'>
       <div className='layout_wrapper'>

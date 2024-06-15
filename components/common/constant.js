@@ -27,7 +27,14 @@ const App_url = {
         ArrowLeft: "/assets/icons/ArrowLeft.svg",
     },
     link:{
-        Register:"/register"
+        Register:"/register",
+        Login:"/login",
+        Home:"/"
+    },
+    api:{
+        API_AUTH_LOGIN: "/api/login",
+        API_REGISTER: "/api/register",
+        API_USER_DETAILS:"/api/users"
     }
 }
 

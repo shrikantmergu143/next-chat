@@ -45,7 +45,7 @@ export async function loginUser(credentials) {
 
   // If user is not found, return null
   if (!user) {
-    throw new Error('Invalid email or password');
+    return {error: 'Invalid email or password', status: false};
   }
 
   // Compare passwords
@@ -53,9 +53,9 @@ export async function loginUser(credentials) {
 
   // If passwords don't match, return null
   if (password !== user.password) {
-    throw new Error('Invalid email or password');
+    return {error: 'Invalid email or password', status: false};
   }
 
   // Return the authenticated user
-  return user;
+  return {user: user, status :true};
 }
