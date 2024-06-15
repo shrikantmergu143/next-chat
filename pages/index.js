@@ -11,8 +11,8 @@ export default function Home() {
   // const dispatch = useDispatch();
   const {access_token} = useSelector(App_url.allReducers);
   // useEffect(()=>{
-  //   const verification = Utils.validateJWT(access_token);
-  //   console.log('Verification Result:', verification);
+    const verification = Utils.validateJWT(access_token);
+    console.log('Verification Result:', verification);
   // },[])
   return (
     <Layout>
