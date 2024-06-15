@@ -11,7 +11,8 @@ export default async function handler(req, res) {
     const { email, password } = req.body;
     const user = await loginUser({ email, password });
     if(user?.status){
-      const token = Utils.generateAuthToken({ ...user, user_id: user._id, email: user.email });
+      const userDetails = user?.user
+      const token = Utils.generateAuthToken({ ...userDetails, user_id: userDetails._id, email: userDetails.email });
       res.status(200).json({ ...user?.user, access_token: token });
     }else{
       return res.status(400).json(user);

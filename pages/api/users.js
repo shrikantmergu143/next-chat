@@ -11,7 +11,7 @@ export default async function handler(req, res) {
           return res.status(401).json({ error: authResult.message });
         }
 
-        const users = await getUsers(authResult?.payload?._id);
+        const users = await getUsers(authResult?.payload?.user_id);
           res.status(200).json({...users});
         break;
       default:
