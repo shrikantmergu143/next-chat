@@ -6,6 +6,9 @@ import "./../styles/global.css";
 import "./../styles/animation.css";
 import "./../styles/media.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ToastContainer } from 'react-toastify';
+import ConfirmModal from '../components/common/ConfirmModal';
+import CreateChannelModal from '../components/common/modal/CreateChannelModal';
 
 function App({ Component, pageProps }) {
   return (
@@ -13,6 +16,9 @@ function App({ Component, pageProps }) {
       <Provider store={store}>
         <PersistGate loading={<div></div>} persistor={persistor}>
             <Component {...pageProps} />
+            <ToastContainer />
+            <CreateChannelModal/>
+            <ConfirmModal/>
         </PersistGate>
       </Provider>
     </DefaultLayout>

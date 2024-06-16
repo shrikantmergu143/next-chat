@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 const getCommonEnv = (env) =>{
     return{
         REACT_APP_DOMAIN_NAME:env?.REACT_APP_DOMAIN_NAME,
@@ -189,11 +191,85 @@ function validateJWT(jwtToken) {
   }
 }
 
-// // Example usage:
-// const token = 'your.jwt.token.here';
-// const result = validateJWT(token);
-// console.log('Verification Result:', result);
+export const GetErrorValidation = (errors) =>{
+  const Error = {};
+  const convertedData = Object.entries(errors).map(([key, value]) => ({ key, value }));
+  const Message =  convertedData?.map((item)=>{
+      const text = item?.value?.toString()
+      Error[item?.key] = text;
+          return{
+          name:item?.key,
+          error:text
+      }
+  });
+  return Error;
+}
+export const ErrorValidateMsg = (response, state, show = true)=>{
+  if(response?.status === 400){
+      let val = true
+      console.log("response", response)
+      if(typeof response?.data?.errors === "object"){
+          if(state){
+              let error = "";
+              if(response?.data?.errors?.email){
+                  error = "This email is already used."
+              }
+              if(response?.data?.errors?.username){
+                  error = "This username is already used."
+              }
+              if(val == true){
+                  val = false;
+                  toast.info(error);
+              }
+          }else{
+              if(response?.data?.errors){
+                  const convertedData = Object.entries(response?.data?.errors).map(([key, value]) => ({ key, value }));
+                  convertedData?.map((item)=>{
+                      const value = item?.value?.toString()?.replaceAll(",", " ")
+                      const text = value?.replaceAll("value", item?.key)
+                      console.log("error", text, val)
+                      if(val == true){
+                          val = false;
+                          toast.info(text);
+                      }
+                  })
+              }
+          }
+      }
+      if(response?.data?.message && val == true){
+          val = false;
+          toast.info(response?.data?.message);
+      }
+      if(response?.data?.error && typeof (response?.data?.errors !== "object")){
+          if(val == true){
+              toast.info(response?.data?.error);
+              val = false;
+          }
+      }
+      if(response?.data?.error === "" && typeof (response?.data?.errors === "string")){
+          if(val == true){
+              toast.info(response?.data?.errors);
+              val = false;
+          }
+      }
+      if(response?.error === "" && typeof (response?.errors === "string")){
+          if(val == true){
+              toast.info(response?.errors);
+              val = false;
+          }
+      }
+  }
+}
+export const AuthenticateVerify = (response, state)=>{
 
+  if(response?.status === 400 ){
+      ErrorValidateMsg(response);
+  }
+  // if(response?.status === 401 || response?.status === 403){
+  //       toast.info(language == "En"?"User is logging in on another device.":"Kullanıcı başka bir cihazda oturum açıyor");
+  //     dispatch(getSetLogout());
+  // }
+}
 
 const Utils = {
     getCommonEnv: getCommonEnv,

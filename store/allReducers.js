@@ -11,7 +11,14 @@ export const initialData = {
             page: "",
             total_pages: ""
         }
-    }
+    },
+    ModalPopup:{
+        title:"",
+        data:{},
+        show:"",
+        callBackModal:()=>null,
+        buttonSuccess:""
+    },
 };
 
 export const allReducers = (state = initialData, action) => {
@@ -39,6 +46,16 @@ export const allReducers = (state = initialData, action) => {
                 channelsList: action?.payload? action?.payload : initialData.channelsList,
             }
         }
+        case ActionTypes.SET_SHOW_MODAL:
+            return{
+                ...state,
+                ModalPopup:action?.payload?.show ? action?.payload:initialData?.ModalPopup
+            }
+        case ActionTypes.SET_CONFIRM_MODAL:
+            return{
+                ...state,
+                ConfirmPopup:action?.payload?.show ? action?.payload:initialData?.ModalPopup
+            }
         default:
             return state;
     }

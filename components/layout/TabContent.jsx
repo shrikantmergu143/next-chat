@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetRequestCallAPI } from '../api/GetRequest'
 import action from '../../store/action'
 import ChannelList from '../channels/ChannelList'
+import { setShowModal } from '../../store/Actions'
 
 export default function TabContent() {
   const {access_token, channelsList} = useSelector(App_url.allReducers);
@@ -32,12 +33,15 @@ export default function TabContent() {
   }
   const onSelect = async (e) =>{
     if(e.key === "create_channels"){
-      const response = await PostRequestAPI(App_url.api.API_CHANNELS, {channel_name:"channelsList"}, access_token);
-      if(response?.status === 200){
-        callGetChannelList();
-      }else{
+      dispatch(setShowModal({
+        show:"CREATE_CHANNEL"
+      }))
+      // const response = await PostRequestAPI(App_url.api.API_CHANNELS, {channel_name:"channelsList"}, access_token);
+      // if(response?.status === 200){
+      //   callGetChannelList();
+      // }else{
 
-      }
+      // }
     }
   }
   console.log("channelsList", channelsList)

@@ -18,7 +18,7 @@ const App_url = {
         Lock: "/assets/icons/Lock.svg",
         DownDot: "/assets/icons/DownDot.svg",
         Hash: "/assets/icons/Hash.svg",
-        ArrowLeft: "/assets/icons/ArrowLeft.svg",
+        Close: "/assets/icons/Close.svg",
         ArrowLeft: "/assets/icons/ArrowLeft.svg",
         ArrowLeft: "/assets/icons/ArrowLeft.svg",
         ArrowLeft: "/assets/icons/ArrowLeft.svg",

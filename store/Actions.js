@@ -3,6 +3,8 @@ export const ActionTypes = {
     SET_STORE_ACCESS_TOKEN:"SET_STORE_ACCESS_TOKEN",
     SET_STORE_USER_DETAILS:"SET_STORE_USER_DETAILS",
     SET_STORE_CHANNELS_LIST:"SET_STORE_CHANNELS_LIST",
+    SET_CONFIRM_MODAL:"SET_CONFIRM_MODAL",
+    SET_SHOW_MODAL:"SET_SHOW_MODAL",
 
 }
 export const setStoreCurrentURL = (token) => {
@@ -27,6 +29,18 @@ export const setStoreUserDetails = (token) => {
 export const setStoreChannelsList = (token) => {
     return {
        type: ActionTypes.SET_STORE_CHANNELS_LIST,
+       payload: token,
+    }
+};
+export const setShowConfirmModal = (token) => {
+    return {
+       type: ActionTypes.SET_CONFIRM_MODAL,
+       payload: token,
+    }
+};
+export const setShowModal = (token) => {
+    return {
+       type: ActionTypes.SET_SHOW_MODAL,
        payload: token,
     }
 };
