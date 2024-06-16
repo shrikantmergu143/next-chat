@@ -1,6 +1,6 @@
 // pages/api/users.js
 import Utils from '../../components/utils';
-import { getUsers, createUser } from '../../controllers/userController';
+import { getUsers } from '../../controllers/userController';
 
 export default async function handler(req, res) {
   try {

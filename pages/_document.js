@@ -5,7 +5,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" theme="dark">
         <Head />
         <body className='dark'>
           <Main />

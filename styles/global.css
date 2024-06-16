@@ -60,6 +60,7 @@ body.dark{
   --bs-emphasis-color: #4b5156;
   --bs-secondary-color: white;
   --bg-secondary-hover-color: white;
+  --bs-dropdown-hover-bg: #65a1df;
 }
 body.light{
   --text-color: black;
@@ -74,6 +75,7 @@ body.light{
   --bs-emphasis-color: #c3c3c3;
   --bs-secondary-color: white;
   --bg-secondary-hover-color: white;
+  --bs-dropdown-hover-bg: #f4f4f4;
 }
 
 .fs-11 {font-size: var(--fs-11)}
@@ -247,13 +249,13 @@ body .fade.show.tooltip.bs-tooltip-bottom{position: fixed!important;}
 .d-content{display: inline-block;}
 .sidebar_header__title{max-width: calc(100% - 74px);font-size: 18px;}
 body .dropdown-menu {
-  --bs-tertiary-bg:var(--dt_color-theme-surf-inv-pry-hover);
+  --bs-tertiary-bg: var(--bs-dropdown-hover-bg);
   --bs-dropdown-zindex: 1000;
   --bs-dropdown-min-width: 10rem;
   --bs-dropdown-padding-x: 0;
-  --bs-dropdown-padding-y: 0.5rem;
+  --bs-dropdown-padding-y: 12px;
   --bs-dropdown-spacer: 0.125rem;
-  --bs-dropdown-font-size: 1rem;
+  --bs-dropdown-font-size: var(--bs-body-font-size);
   --bs-dropdown-color: var(--bs-body-color);
   --bs-dropdown-bg: var(--bs-body-bg);
   --bs-dropdown-border-color: var(--bs-border-color-translucent);
@@ -266,7 +268,7 @@ body .dropdown-menu {
   --bs-dropdown-link-color: var(--bs-body-color);
   --bs-dropdown-link-hover-color: var(--bs-body-color);
   --bs-dropdown-link-hover-bg: var(--bs-tertiary-bg);
-  --bs-dropdown-link-active-color: #fff;
+  --bs-dropdown-link-active-color: var(--bs-body-color);
   --bs-dropdown-link-active-bg: var(--dt_color-theme-surf-inv-pry);
   --bs-dropdown-link-disabled-color: var(--bs-tertiary-color);
   --bs-dropdown-item-padding-x: 1rem;

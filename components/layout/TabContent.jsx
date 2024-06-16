@@ -7,6 +7,21 @@ import DropButton from '../common/DropButton'
 import Button from '../common/Button'
 
 export default function TabContent() {
+  const options = [
+    {
+      title:"Create Channels",
+      key:"create_channels"
+    },
+    {
+      title:"Manage",
+      key:"manage_channels"
+    }
+  ];
+  const onSelect = (e) =>{
+    if(e.key === "create_channels"){
+
+    }
+  }
   return (
     <div className='view_contents--sidebar'>
         <div className='channel_list'>
@@ -42,7 +57,7 @@ export default function TabContent() {
                     button
                     variant={"hover-secondary-1"}
                   />
-                  <DropButton  title={"Channels"} />
+                  <DropButton option={options} title={"Channels"} onSelect={onSelect} />
                 </div>
               </div>
               <div className='channel_sidebar__static_list'>
