@@ -34,7 +34,8 @@ const App_url = {
     api:{
         API_AUTH_LOGIN: "/api/login",
         API_REGISTER: "/api/register",
-        API_USER_DETAILS:"/api/users"
+        API_USER_DETAILS:"/api/users",
+        API_CHANNELS:"/api/channels",
     }
 }
 

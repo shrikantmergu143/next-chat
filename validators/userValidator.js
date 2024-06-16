@@ -1,3 +1,5 @@
+import Utils from "../components/utils";
+
 export const registerValidator = (payload) => {
     let val = false;
     const error = {};
@@ -51,3 +53,40 @@ export const registerValidator = (payload) => {
 
     return val;
 };
+
+export const channelsValidator = (payload) => {
+    let val = false;
+    const error = {};
+
+    if (!payload?.channel_name || payload.channel_name.trim() === "") {
+        error.channel_name = "Channel name field is required";
+        val = true;
+    }
+
+    if (!payload?.created_by || payload.created_by.trim() === "") {
+        error.created_by = "Created by field is required";
+        val = true;
+    }
+
+    if (val) {
+        return error;
+    }
+
+    return val;
+};
+export function authenticateToken(authorizationHeader, req) {
+    // Check if Authorization header is provided
+    if (!authorizationHeader) {
+      return { message: "Authorization header missing", status: false };
+    }
+  
+    // Extract the token from the Authorization header
+    const token = authorizationHeader//.split(' ')[1];
+  
+    // Validate the JWT token
+    const userDetails = Utils.validateJWT(token);
+    if(userDetails?.status){
+      req.user = userDetails?.payload;
+    }
+    return userDetails;
+  }

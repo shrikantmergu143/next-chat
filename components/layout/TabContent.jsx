@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Scrollbar from '../common/Scrollbar'
 import Icon from '../common/Icon'
 import App_url from '../common/constant'
 import ToolTip from '../common/PopOver'
 import DropButton from '../common/DropButton'
 import Button from '../common/Button'
+import { PostRequestAPI } from '../api/PostRequest'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetRequestCallAPI } from '../api/GetRequest'
+import action from '../../store/action'
+import ChannelList from '../channels/ChannelList'
 
 export default function TabContent() {
+  const {access_token, channelsList} = useSelector(App_url.allReducers);
+  const dispatch = useDispatch();
   const options = [
     {
       title:"Create Channels",
@@ -17,11 +24,23 @@ export default function TabContent() {
       key:"manage_channels"
     }
   ];
-  const onSelect = (e) =>{
+  useEffect(()=>{
+    callGetChannelList();
+  },[])
+  const callGetChannelList = async (e) =>{
+      action.getChannelsList(access_token, dispatch);
+  }
+  const onSelect = async (e) =>{
     if(e.key === "create_channels"){
+      const response = await PostRequestAPI(App_url.api.API_CHANNELS, {channel_name:"channelsList"}, access_token);
+      if(response?.status === 200){
+        callGetChannelList();
+      }else{
 
+      }
     }
   }
+  console.log("channelsList", channelsList)
   return (
     <div className='view_contents--sidebar'>
         <div className='channel_list'>
@@ -60,17 +79,7 @@ export default function TabContent() {
                   <DropButton option={options} title={"Channels"} onSelect={onSelect} />
                 </div>
               </div>
-              <div className='channel_sidebar__static_list'>
-                <Button variant={"hover-secondary-1"} className={"w-100"}>
-                  <Icon
-                    attrIcon={App_url.icons.Lock}
-                    size={"sm"}
-                  />
-                  <span>
-                    Channel
-                  </span>
-                </Button>
-              </div>
+              <ChannelList/>
             </Scrollbar>
         </div>
     </div>

@@ -3,6 +3,15 @@ import { ActionTypes } from "./Actions";
 export const initialData = {
     currentUser:{},
     access_token:"",
+    channelsList: {
+        data:[],
+        pagination: {
+            total_records: "",
+            limit: "",
+            page: "",
+            total_pages: ""
+        }
+    }
 };
 
 export const allReducers = (state = initialData, action) => {
@@ -22,6 +31,12 @@ export const allReducers = (state = initialData, action) => {
             return {
                 ...state,
                 currentUser: action?.payload,
+            }
+        }
+        case ActionTypes.SET_STORE_CHANNELS_LIST:{
+            return {
+                ...state,
+                channelsList: action?.payload? action?.payload : initialData.channelsList,
             }
         }
         default:
