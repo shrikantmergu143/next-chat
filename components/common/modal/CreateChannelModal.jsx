@@ -8,10 +8,15 @@ import Icon from "../Icon";
 import App_url from "../constant";
 import { setShowConfirmModal, setShowModal } from "../../../store/Actions";
 import Button from "../Button";
+import InputGroup from "../InputGroup";
 
 export default function CreateChannelModal(datas) {
   const props = { ...datas };
   const { ModalPopup } = useSelector(App_url.allReducers);
+  const [formData, setFormData] = useState({
+    channel_name:"",
+    mode:"",
+  })
   const [load, setLoad] = useState(false);
   const dispatch = useDispatch();
 
@@ -26,8 +31,12 @@ export default function CreateChannelModal(datas) {
   function CloseModal(e) {
     dispatch(setShowModal());
   }
-
-
+  const onChangeHandle = (e) =>{
+    setFormData((data)=>({
+      ...data,
+      [e.target.name]: e.target.value,
+    }))
+  }
   return ModalPopup?.show === "CREATE_CHANNEL" ? (
     <Modal
       centered={true}
@@ -40,12 +49,20 @@ export default function CreateChannelModal(datas) {
           variant={"hover-secondary btn-modal-close"}
           onClick={CloseModal}
           />
-        <h3 className="title">Create a channel</h3>
-        <div className="modal_details">
-          <p className="text-sm text-gray-700 mt-1">
-            {ModalPopup?.description}
-          </p>
-        </div>
+        <h5 className="title mb-3">Create a channel</h5>
+        <InputGroup
+          placeholder={"Name"}
+          onChange={onChangeHandle}
+          name={"channel_name"}
+          value={formData?.channel_name}
+        />
+        <InputGroup
+          placeholder={"Name"}
+          onChange={onChangeHandle}
+          name={"channel_name"}
+          value={formData?.channel_name}
+          type={"select"}
+        />
       </div>
       <div className="modal-footer">
         <Button
