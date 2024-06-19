@@ -50,7 +50,7 @@ export default function TabContent() {
         <div className='channel_list'>
             <div className='sidebar_header '>
               <div className='sidebar_header__title'>
-                <DropButton classNameText={"fs-17 fw-7"} title={"Appristine Technologies"} />
+                <DropButton classNameText={"fs-17 fw-7"} title={"Community"} />
               </div>
               <div className='sidebar_header__controls'>
                 <ToolTip title={"Filter Conversations"}>

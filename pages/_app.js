@@ -5,6 +5,7 @@ import DefaultLayout from './../components/layout/DefaultLayout';
 import "./../styles/global.css";
 import "./../styles/animation.css";
 import "./../styles/media.css";
+import "./../styles/theme.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from 'react-toastify';
 import ConfirmModal from '../components/common/ConfirmModal';

@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   await connectToDatabase();
   if (req.method === 'GET') {
     try {
-        const { page = 1, limit = 5 } = req.query;
+        const { page = 1, limit = 20 } = req.query;
         const userId = req?.user?.user_id;
 
         const channels = await Channels.find({ created_by: userId })

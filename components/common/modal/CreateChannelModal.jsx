@@ -9,34 +9,70 @@ import App_url from "../constant";
 import { setShowConfirmModal, setShowModal } from "../../../store/Actions";
 import Button from "../Button";
 import InputGroup from "../InputGroup";
+import Utils from "../../utils";
+import { PostRequestAPI } from "../../api/PostRequest";
+import action from "../../../store/action";
 
 export default function CreateChannelModal(datas) {
   const props = { ...datas };
-  const { ModalPopup } = useSelector(App_url.allReducers);
+  const { ModalPopup, access_token } = useSelector(App_url.allReducers);
   const [formData, setFormData] = useState({
     channel_name:"",
-    mode:"",
+    mode:"private",
   })
+  const [errors, setErrors] = useState({
+    channel_name:"",
+    mode:"",
+  });
+  
   const [load, setLoad] = useState(false);
   const dispatch = useDispatch();
-
-  async function HandleOnClose() {
-    if (ModalPopup?.callBackModal && load === false) {
-      setLoad(true);
-      await ModalPopup?.callBackModal();
-      setLoad(false);
+  const validate = () =>{
+    let val = true;
+    if(formData?.channel_name == ""){
+      errors.channel_name = "Enter your channel name";
+      val = false;
     }
-    CloseModal();
+    setErrors((error)=>({
+      ...error,
+      ...errors,
+    }));
+    return val;
+  }
+  async function HandleOnClose() {
+    if(validate()){
+        setLoad(true);
+        const response = await PostRequestAPI(App_url.api.API_CHANNELS, formData, access_token);
+        if(response?.status === 200){
+          action.getChannelsList(access_token, dispatch);
+        }else{
+          Utils.AuthenticateVerify(response)
+        }
+        setLoad(false);
+      CloseModal();
+    }
   }
   function CloseModal(e) {
     dispatch(setShowModal());
+    setFormData({
+      channel_name:"",
+      mode:"private",
+    })
   }
   const onChangeHandle = (e) =>{
     setFormData((data)=>({
       ...data,
       [e.target.name]: e.target.value,
+    }));
+    setErrors((error)=>({
+      ...error,
+      [e.target.name]:""
     }))
   }
+  const Options = [
+    { label:"Public", value:"public" }, 
+    { label:"Private", value:"private" }
+  ]
   return ModalPopup?.show === "CREATE_CHANNEL" ? (
     <Modal
       centered={true}
@@ -49,19 +85,25 @@ export default function CreateChannelModal(datas) {
           variant={"hover-secondary btn-modal-close"}
           onClick={CloseModal}
           />
-        <h5 className="title mb-3">Create a channel</h5>
+        <h5 className="title mb-3">Create a Channel</h5>
         <InputGroup
+          formClassName={"mb-3"}
           placeholder={"Name"}
           onChange={onChangeHandle}
           name={"channel_name"}
+          label={"Name"}
           value={formData?.channel_name}
+          error={errors?.channel_name}
         />
         <InputGroup
-          placeholder={"Name"}
+          label={"Channel Mode"}
+          placeholder={"Channel Mode"}
           onChange={onChangeHandle}
-          name={"channel_name"}
-          value={formData?.channel_name}
+          name={"mode"}
+          value={formData?.mode}
           type={"select"}
+          select
+          option={Options}
         />
       </div>
       <div className="modal-footer">
@@ -69,6 +111,7 @@ export default function CreateChannelModal(datas) {
           variant={"secondary"}
           className={"button button-primary  btn-sm"}
           onClick={HandleOnClose}
+          disabled={load}
         >
           Next
         </Button>

@@ -3,7 +3,7 @@ import App_url from "../components/common/constant";
 import { setStoreChannelsList } from "./Actions";
 
 const getChannelsList = async (access_token,  dispatch, payload) =>{
-    const response = await GetRequestCallAPI(App_url.api.API_CHANNELS, access_token);
+    const response = await GetRequestCallAPI(App_url.api.API_CHANNELS, access_token, payload);
     if(response?.status == 200){
         if(dispatch){
             dispatch(setStoreChannelsList(response?.data))
