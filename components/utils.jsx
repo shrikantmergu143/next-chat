@@ -279,5 +279,6 @@ const Utils = {
     checkPasswordValidity:checkPasswordValidity,
     validateJWT: validateJWT,
     generateAuthToken: generateAuthToken,
+    AuthenticateVerify: AuthenticateVerify
 }
 export default Utils;
