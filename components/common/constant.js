@@ -29,7 +29,8 @@ const App_url = {
     link:{
         Register:"/register",
         Login:"/login",
-        Home:"/"
+        Home:"/",
+        Channel:"/channel"
     },
     api:{
         API_AUTH_LOGIN: "/api/login",

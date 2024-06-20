@@ -40,6 +40,14 @@ export function getCurrentURL(context) {
     const protocol = req?.headers['x-forwarded-proto'] || 'http';
     return `${protocol}://${host}`;
 }
+const parseCookies = (cookieString) => {
+    const cookies = {};
+    cookieString.split(';').forEach(cookie => {
+        const [name, value] = cookie.split('=');
+        cookies[name.trim()] = decodeURIComponent(value);
+    });
+    return cookies;
+};
 function checkEmail(emailAddress) {
     return String(emailAddress)
     .toLowerCase()
@@ -279,6 +287,7 @@ const Utils = {
     checkPasswordValidity:checkPasswordValidity,
     validateJWT: validateJWT,
     generateAuthToken: generateAuthToken,
+    parseCookies: parseCookies,
     AuthenticateVerify: AuthenticateVerify
 }
 export default Utils;

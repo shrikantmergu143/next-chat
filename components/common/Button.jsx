@@ -9,6 +9,7 @@ export default function Button(props) {
   const navigate = useRouter();
   const onClick = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
     if (props?.to) {
       navigate.push(props?.to); // Replace router.push with window.location.href
     } else {

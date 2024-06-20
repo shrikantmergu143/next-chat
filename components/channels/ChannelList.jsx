@@ -9,8 +9,8 @@ export default function ChannelList() {
 
   const ChannelItem = ({item}) =>{
     return(
-        <Button variant={"hover-secondary-1"} className={"w-100"}>
-        <Icon attrIcon={`${item?.mode === "public" ? App_url.icons.Hash: App_url.icons.Lock}`} size={"sm"} />
+      <Button to={`${App_url.link.Channel}/${item?.channel_id}`} variant={"hover-secondary-1"} className={"w-100"}>
+        <Icon attrIcon={`${item?.mode === "public" ? App_url.icons.Hash: App_url.icons.Lock}`} size={"ssm"} />
         <span>{item?.channel_name}</span>
       </Button>
     )

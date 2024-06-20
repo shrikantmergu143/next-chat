@@ -19,6 +19,7 @@ export const initialData = {
         callBackModal:()=>null,
         buttonSuccess:""
     },
+    channelDetails: null,
 };
 
 export const allReducers = (state = initialData, action) => {
@@ -55,6 +56,11 @@ export const allReducers = (state = initialData, action) => {
             return{
                 ...state,
                 ConfirmPopup:action?.payload?.show ? action?.payload:initialData?.ModalPopup
+            }
+        case ActionTypes.SET_STORE_CHANNELS_DETAILS:
+            return{
+                ...state,
+                channelDetails: action?.payload,
             }
         default:
             return state;

@@ -4,7 +4,7 @@ import storage from "redux-persist/lib/storage";
 import { allReducers } from "./allReducers";
 
 const persistConfig = {
-    key: "care-traning",
+    key: "cares",
     storage
 };
 
