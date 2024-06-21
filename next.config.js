@@ -53,6 +53,7 @@ const nextConfig = {
     API_URL: process.env.API_URL,
     REACT_APP_API_DOMAIN: process.env.REACT_APP_API_DOMAIN,
     REACT_APP_PUBLIC_LOGO: process.env.REACT_APP_PUBLIC_LOGO,
+    REACT_APP_API: process.env.REACT_APP_API,
     TOKEN_KEY: process.env.TOKEN_KEY,
 
   },

@@ -10,16 +10,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from 'react-toastify';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CreateChannelModal from '../components/common/modal/CreateChannelModal';
+import Context from '../components/context/SocketContext';
 
 function App({ Component, pageProps }) {
   return (
     <DefaultLayout {...pageProps}>
       <Provider store={store}>
         <PersistGate loading={<div></div>} persistor={persistor}>
+          <Context {...pageProps}>
             <Component {...pageProps} />
             <ToastContainer />
             <CreateChannelModal/>
             <ConfirmModal/>
+          </Context>
         </PersistGate>
       </Provider>
     </DefaultLayout>

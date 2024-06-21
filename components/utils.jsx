@@ -13,6 +13,7 @@ const getCommonEnv = (env) =>{
         REACT_APP_NAME:env?.REACT_APP_NAME,
         REACT_APP_PUBLIC_LOGO:env?.REACT_APP_PUBLIC_LOGO,
         API_URL:env?.API_URL,
+        REACT_APP_API:env?.REACT_APP_API,
 
     }
 }

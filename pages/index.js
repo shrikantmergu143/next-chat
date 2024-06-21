@@ -1,19 +1,27 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import Utils from '../components/utils';
 import Layout from '../components/layout/Layout';
 import { useSelector } from 'react-redux';
 import App_url from '../components/common/constant';
+import { SocketConnect } from '../components/context/SocketContext';
+import SendRequest from '../components/context/SocketRequest';
 // import { useDispatch, useSelector } from 'react-redux';
 // import App_url from '../components/common/constant';
 // import { useEffect } from 'react';
 
 export default function Home() {
+  const {connect} = useContext(SocketConnect)
   // const dispatch = useDispatch();
   const {access_token} = useSelector(App_url.allReducers);
   // useEffect(()=>{
     const verification = Utils.validateJWT(access_token);
     console.log('Verification Result:', verification);
   // },[])
+  useEffect(()=>{
+    if(connect){
+      SendRequest(connect, {"url":"get_user_details", "request":{"user_id":"643bae35482bb59a80685acd"}})
+    }
+  },[connect])
   return (
     <Layout>
       

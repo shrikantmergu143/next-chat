@@ -3,6 +3,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "dev-server": "node server.js",
     "start": "next start"
   },
   "dependencies": {
@@ -25,7 +26,8 @@
     "react-toastify": "^10.0.5",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^3.1.0"
+    "redux-thunk": "^3.1.0",
+    "ws": "^8.17.1"
   },
   "engines": {
     "node": ">=18"
