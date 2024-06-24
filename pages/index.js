@@ -19,7 +19,7 @@ export default function Home() {
   // },[])
   useEffect(()=>{
     if(connect){
-      SendRequest(connect, {"url":"get_user_details", "request":{"user_id":"643bae35482bb59a80685acd"}})
+      SendRequest(connect, {"url":"get_user_details", "request":{"user_id":"643bae35482bb59a80685acd",  broadcast:true}, broadcast:true})
     }
   },[connect])
   return (
