@@ -13,34 +13,47 @@ export default function index() {
       },
     },
     {
+      name: "Get Friend Request",
+      param: {"url":"get_friend_request","request":{"status":"accepted", "limit":"20", "page":"1" },"tab_id":"0.6902953025468757","broadcast":true},
+    },
+    {
       name: "Add Friend Request",
       param: {
-        url: "send_friend_request",
-        request: { email_to: "shrikantmergu14311233213@gmail.com" },
-        broadcast: "true",
+        "url": "send_friend_request",
+        "request": { "email_to": "shrikantmergu14311233213@gmail.com" },
+        "tab_id": "0.6902953025468757",
+        "broadcast": "true",
       },
+    },
+    {
+      name: "Update Friend Channels",
+      param: {"url":"update_friend_request","request":{"friend_id":"667996c3c7f680d8955c1d32", "status": "accepted"},"tab_id":"0.6902953025468757","broadcast":true},
+    },
+    {
+      name: "Get Friend Accept List",
+      param: {"url":"get_friend_accepted","request":{"status":"accepted","limit":"20","page":"1"},"tab_id":"0.6902953025468757","broadcast":true},
     },
     {
       name: "Add Channels",
       param: {
         "url": "add_channels",
         "request": {
-          "channel_name":"643bae35482bb59a80685acd",
-          "broadcast": true
+          "channel_name": "643bae35482bb59a80685acd",
+          "broadcast": "true"
         },
         "tab_id": "0.6902953025468757",
-        "broadcast": true
-      }
+        "broadcast": "true"
+      },
     },
     {
       name: "Get Channels",
       param: {
-        "url": "get_channels",
-        "request": { "limit": "20", "page": "1" },
-        "tab_id": "0.6902953025468757",
-        "broadcast": true
-      }
-    }
+        url: "get_channels",
+        request: { limit: "20", page: "1", search: "" },
+        tab_id: "0.6902953025468757",
+        broadcast: true,
+      },
+    },
   ];
   return (
     <div className="container-lg">

@@ -44,7 +44,6 @@ function Context(props) {
           console.log("WebSocket connection closed. Reconnecting...");
           setTimeout(connectWebSocket, 3000);
         });
-        
         setConnect(socket);
       };
       connectWebSocket()
