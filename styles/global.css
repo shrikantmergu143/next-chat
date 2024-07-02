@@ -115,11 +115,7 @@ body{
 .top_nav__left_container:after {content: "";width: 8px;top: 0;bottom: 0;left: 0;}
 .top_nav__left_container--end{    justify-content: flex-end;    margin-right: 8px;}
 .top_nav__left_container--start, .top_nav__left_container--end{flex-basis: 308.64px;}
-.p-view_header--with-bookmarks-bar {
-  z-index: 202;
-  background: rgba(var(--sk_primary_background,255,255,255),1);
-  transition: box-shadow .2s linear;
-}
+.p-view_header--with-bookmarks-bar {z-index: 202;background: rgba(var(--sk_primary_background,255,255,255),1);transition: box-shadow .2s linear;}
 .history_buttons{align-items: center;gap: 4px;display: flex;-webkit-app-region: no-drag;}
 .history_menu_button{align-items: center;gap: 4px;display: flex;-webkit-app-region: no-drag;margin-left: 4px;margin-right: 0;}
 .common_icon.lsm{--height: 15px;--width: 15px;}
@@ -264,4 +260,36 @@ input::placeholder,input::-ms-input-placeholder {color: #BFBFCC !important;opaci
 .form_group.common-input .right_text,.form_group.common-input .left_text {margin: 0px;--bs-border-color: var(--fr-border-color);--bs-tertiary-bg: var(--fr-body-bg);display: flex;align-items: center;justify-content: center; padding: var(--fr-padding);font-size: 1rem;font-weight: 400;line-height: 1.5;color: var(--bs-body-color);text-align: center;white-space: nowrap;background-color: var(--bs-tertiary-bg);border: var(--bs-border-width) solid var(--bs-border-color);border-radius: var(--bs-border-radius);transition: var(--fr-transition);min-width: 30px;}
 .form_group.common-input .form-label, .form-label {font-size: var(--fr-label-font-size);font-weight: var(--fr-label-fw);}
 .form_group.common-input.form-validate,.form_group.common-input.form-validate .input-group-text {--fr-border-color: #dc3545 !important;}
-.form_group.common-input .right_text:not(:last-child){border-right-color: transparent!important;} 
+.form_group.common-input .right_text:not(:last-child){border-right-color: transparent!important;}
+.d-flex-center{display: flex;align-items: center;gap: 5px;}
+.p-view_header .d-content .button-down{--height: 16px;--width: 16px;}
+.p-view_header{padding: 10px 10px;}
+.p-view-footer{
+
+}
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.toolbar {
+  margin-bottom: 10px;
+}
+
+.toolbar button, .toolbar select {
+  margin-right: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.editor {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 200px;
+  text-align: left;
+  cursor: text;
+}
+
+.editor:focus {
+  outline: none;
+}

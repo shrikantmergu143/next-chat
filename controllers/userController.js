@@ -2,6 +2,7 @@
 import { ObjectId } from 'mongodb';
 import clientPromise from '../lib/mongodb';
 import userPayload from '../payloadData/userPayload';
+const bcrypt = require("bcryptjs");
 
 export async function getUsers(user_id = null) {
   const client = await clientPromise;
@@ -28,8 +29,11 @@ export async function createUser(user) {
   if (existingUser) {
     throw new Error('Email already exists');
   }
-
-  const result = await db.collection('users').insertOne(user);
+  const encryptPassword = await bcrypt.hash(user?.password, 10);
+  const result = await db.collection('users').insertOne({
+    ...user,
+    password: encryptPassword
+  });
   return result;
 }
 
