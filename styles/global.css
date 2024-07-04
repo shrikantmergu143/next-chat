@@ -267,29 +267,10 @@ input::placeholder,input::-ms-input-placeholder {color: #BFBFCC !important;opaci
 .p-view-footer{
 
 }
-.App {
-  font-family: sans-serif;
-  text-align: center;
+.text-editor{
+  border: 1px solid var(--fr-form-border);
+  --padding-editor: 8px;
 }
-
-.toolbar {
-  margin-bottom: 10px;
-}
-
-.toolbar button, .toolbar select {
-  margin-right: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.editor {
-  border: 1px solid #ccc;
-  padding: 10px;
-  min-height: 200px;
-  text-align: left;
-  cursor: text;
-}
-
-.editor:focus {
-  outline: none;
-}
+.text-editor .editor, .text-editor .toolbar{border: none;outline: 0px;padding: var(--padding-editor);font-size: 0.91em;}
+.text-editor .editor p{margin-bottom: 5px}
+.text-editor .editor>*:last-child{margin-bottom: 0px!important;}
