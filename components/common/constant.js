@@ -29,10 +29,12 @@ const App_url = {
         Quote: "/assets/icons/Quote.svg",
         Code: "/assets/icons/Code.svg",
         CodeBlock: "/assets/icons/CodeBlock.svg",
-        ArrowLeft: "/assets/icons/ArrowLeft.svg",
-        ArrowLeft: "/assets/icons/ArrowLeft.svg",
-        ArrowLeft: "/assets/icons/ArrowLeft.svg",
-        ArrowLeft: "/assets/icons/ArrowLeft.svg",
+        Underline: "/assets/icons/Underline.svg",
+        Link: "/assets/icons/Link.svg",
+        Undo: "/assets/icons/Undo.svg",
+        Redo: "/assets/icons/Redo.svg",
+        Eraser: "/assets/icons/Eraser.svg",
+
     },
     link:{
         Register:"/register",

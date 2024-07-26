@@ -135,7 +135,7 @@ body .dropdown .btn.dropdown-toggle{--bs-btn-padding-y: 5px!important;--bs-btn-p
 body .dropdown .btn.dropdown-toggle::after{display: none;}
 .btn.button.btn-secondary{--text-color: var(--bs-secondary-color); --bs-btn-bg: var(--dt_color-theme-surf-inv-pry);--icon-color:  var(--bs-secondary-color);}
 .tabs__tab_content:hover .btn.button.btn-hover-secondary, .btn.button.btn-hover-secondary:hover, .btn.btn-hover-secondary:hover{--bs-btn-bg:var(--dt_color-theme-surf-inv-pry)!important;--bs-btn-hover-color: var(--bg-secondary-hover-color)!important;--icon-color:var(--bg-secondary-hover-color)!important;transition: var(--button-transition);}
-.tabs__tab_content:hover .btn.button.btn-hover-secondary-1, .btn.button.btn-hover-secondary-1:hover, .btn.btn-hover-secondary-1:hover{--bs-btn-bg:var(--dt_color-theme-surf-inv-pry-hover)!important;--icon-color: var(--text-color)!important;--text-color: var(--bs-white);transition: var(--button-transition);}
+.tabs__tab_content:hover .btn.button.btn-hover-secondary-1, .btn.button.btn-hover-secondary-1:hover, .btn.btn-hover-secondary-1:hover, .text-button:hover{--bs-btn-bg:var(--dt_color-theme-surf-inv-pry-hover)!important;--icon-color: var(--text-color)!important;--text-color: var(--bs-white);transition: var(--button-transition);}
 .btn.button.rounded{--bs-btn-border-radius:30px}
 .btn-icon.btn{--height: 26px;--width: 26px;height: var(--height);width: var(--width);--bs-btn-padding-x: 3px;--bs-btn-padding-y: 3px;}
 .btn-icon.btn-lg{--height: 36px;--width: 36px;--bs-btn-padding-x: 6px;--bs-btn-padding-y: 8px;}
@@ -264,13 +264,16 @@ input::placeholder,input::-ms-input-placeholder {color: #BFBFCC !important;opaci
 .d-flex-center{display: flex;align-items: center;gap: 5px;}
 .p-view_header .d-content .button-down{--height: 16px;--width: 16px;}
 .p-view_header{padding: 10px 10px;}
-.p-view-footer{
-
-}
-.text-editor{
-  border: 1px solid var(--fr-form-border);
-  --padding-editor: 8px;
-}
+.text-editor{border: 1px solid var(--fr-form-border);--padding-editor: 8px;}
 .text-editor .editor, .text-editor .toolbar{border: none;outline: 0px;padding: var(--padding-editor);font-size: 0.91em;}
+.text-editor .toolbar{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
 .text-editor .editor p{margin-bottom: 5px}
 .text-editor .editor>*:last-child{margin-bottom: 0px!important;}
+.text-editor .text-button{background-color: var(--bs-btn-bg);border-radius: 4px;min-width: 28px;min-height: 28px;width: 28px;height: 28px;padding: 5px;display: flex;align-items: center;justify-content: center;flex: 0 0 28px;border: 0;color: var(--text-color);}
+.text-editor .text-button i{--height: 100%;--width: 100%;color: var(--icon-color);}
+.text-editor .editor.editor-placeholder:before {content: attr(data-placeholder);pointer-events: none;font-style: normal;position: absolute;opacity: 0.4;}

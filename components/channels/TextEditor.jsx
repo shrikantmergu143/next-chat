@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import App_url from '../common/constant';
-import Icon from '../common/Icon';
+import React, { useEffect, useRef, useState } from "react";
+import App_url from "../common/constant";
+import Icon from "../common/Icon";
+import ToolTip from "../common/PopOver";
 
 function TextEditor() {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
   const [selection, setSelection] = useState(null);
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -21,7 +22,7 @@ function TextEditor() {
       const selectedText = range.toString();
       const wrappedText = `${before}${selectedText}${after}`;
       range.deleteContents();
-      const newNode = document.createElement('span');
+      const newNode = document.createElement("span");
       newNode.innerHTML = wrappedText;
       range.insertNode(newNode);
       range.setStartAfter(newNode);
@@ -32,7 +33,6 @@ function TextEditor() {
     }
   };
 
-
   const handleMouseUp = () => {
     setSelection(window.getSelection().toString());
   };
@@ -41,8 +41,8 @@ function TextEditor() {
     // Ensure every text input has a tag
     const editorContent = editorRef.current.innerHTML;
     if (!editorContent.trim()) {
-      setContent('<p><br></p>');
-    } else if (!editorContent.startsWith('<')) {
+      setContent("<p><br></p>");
+    } else if (!editorContent.startsWith("<")) {
       setContent(`<p>${editorContent}</p>`);
     } else {
       setContent(editorContent);
@@ -60,13 +60,17 @@ function TextEditor() {
   };
 
   const cleanAndSaveHistory = (newContent = null) => {
-    const currentContent = newContent !== null ? newContent : editorRef.current.innerHTML;
+    const currentContent =
+      newContent !== null ? newContent : editorRef.current.innerHTML;
     // Remove empty paragraphs
-    const cleanedContent = currentContent.replace(/<p><br><\/p>/g, '').trim();
-    const updatedHistory = [...history.slice(0, historyIndex + 1), cleanedContent];
+    const cleanedContent = currentContent.replace(/<p><br><\/p>/g, "").trim();
+    const updatedHistory = [
+      ...history.slice(0, historyIndex + 1),
+      cleanedContent,
+    ];
     setHistory(updatedHistory);
     setHistoryIndex(updatedHistory.length - 1);
-    setContent(cleanedContent || '<p><br></p>'); // Ensure there's always some content
+    setContent(cleanedContent || "<p><br></p>"); // Ensure there's always some content
   };
 
   const undo = () => {
@@ -85,27 +89,27 @@ function TextEditor() {
     }
   };
 
-  const handleBold = () => execCommand('bold');
-  const handleItalic = () => execCommand('italic');
-  const handleUnderline = () => execCommand('underline');
-  const handleStrikeThrough = () => execCommand('strikeThrough');
-  const handleQuote = () => execCommand('formatBlock', 'blockquote');
-  const handleOrderedList = () => execCommand('insertOrderedList');
-  const handleUnorderedList = () => execCommand('insertUnorderedList');
+  const handleBold = () => execCommand("bold");
+  const handleItalic = () => execCommand("italic");
+  const handleUnderline = () => execCommand("underline");
+  const handleStrikeThrough = () => execCommand("strikeThrough");
+  const handleQuote = () => execCommand("formatBlock", "blockquote");
+  const handleOrderedList = () => execCommand("insertOrderedList");
+  const handleUnorderedList = () => execCommand("insertUnorderedList");
   const handleLink = () => {
-    const url = prompt('Enter the link URL');
-    if (url) execCommand('createLink', url);
+    const url = prompt("Enter the link URL");
+    if (url) execCommand("createLink", url);
   };
   const handleImage = () => {
-    const url = prompt('Enter the image URL');
-    if (url) execCommand('insertImage', url);
+    const url = prompt("Enter the image URL");
+    if (url) execCommand("insertImage", url);
   };
-  const handleClean = () => execCommand('removeFormat');
-  const handleCode = () => wrapSelection('<code>', '</code>');
-  const handleCodeBlock = () => wrapSelection('<pre><code>', '</code></pre>');
+  const handleClean = () => execCommand("removeFormat");
+  const handleCode = () => wrapSelection("<code>", "</code>");
+  const handleCodeBlock = () => wrapSelection("<pre><code>", "</code></pre>");
 
   useEffect(() => {
-    document.execCommand('defaultParagraphSeparator', false, 'p');
+    document.execCommand("defaultParagraphSeparator", false, "p");
     if (editorRef.current) {
       setCursorToEnd(editorRef.current);
     }
@@ -113,19 +117,19 @@ function TextEditor() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.ctrlKey && e.key === 'z') {
+      if (e.ctrlKey && e.key === "z") {
         e.preventDefault();
         undo();
       }
-      if (e.ctrlKey && e.key === 'y') {
+      if (e.ctrlKey && e.key === "y") {
         e.preventDefault();
         redo();
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [historyIndex, history]);
 
@@ -135,41 +139,46 @@ function TextEditor() {
 
   useEffect(() => {
     if (!content) {
-      setContent('<p><br></p>');
+      setContent("<p><br></p>");
     }
   }, []);
-
-  console.log("content", content);
+  const buttons = [
+    { title: "Bold", function: () => handleBold(), icon: App_url?.icons?.Bold },
+    { title: "Italic", function: () => handleItalic(), icon: App_url?.icons?.Italic },
+    { title: "Underline", function: () => handleUnderline(), icon: App_url?.icons?.Underline },
+    { title: "StrikeThrough", function: () => handleStrikeThrough(), icon: App_url?.icons?.Strike },
+    { title: "Quote", function: () => handleQuote(), icon: App_url?.icons?.Quote },
+    { title: "Ordered List", function: () => handleOrderedList(), icon: App_url?.icons?.OrderList },
+    { title: "Unordered List", function: () => handleUnorderedList(), icon: App_url?.icons?.UnOrderList },
+    { title: "Link", function: () => handleLink(), icon: App_url?.icons?.Link },
+    { title: "Image", function: () => handleImage(), icon: App_url?.icons?.Attach },
+    { title: "Clean", function: () => handleClean(), icon: App_url?.icons?.Eraser },
+    { title: "Code", function: () =>  handleCode(), icon: App_url?.icons?.Code },
+    { title: "Code Block", function: () => handleCodeBlock(), icon: App_url?.icons?.CodeBlock },
+    { title: "Undo", function: ()=> undo(), icon: App_url?.icons?.Undo },
+    { title: "Redo", function: ()=> redo(), icon: App_url?.icons?.Redo },
+  ];
+  console.log("content", content)
   return (
     <div className="p-view-footer">
-      <div className='text-editor'>
+      <div className="text-editor">
         <div className="toolbar">
-          <button onClick={handleBold}>
-            <Icon attrIcon={App_url?.icons?.Bold}/>
-          </button>
-          <button onClick={handleItalic}>
-            <Icon attrIcon={App_url?.icons?.Italic}/>
-          </button>
-          <button onClick={handleUnderline}>Underline</button>
-          <button onClick={handleStrikeThrough}>Strike</button>
-          <button onClick={handleQuote}>Quote</button>
-          <button onClick={handleOrderedList}>Ordered List</button>
-          <button onClick={handleUnorderedList}>Bullet List</button>
-          <button onClick={handleLink}>Link</button>
-          <button onClick={handleImage}>Image</button>
-          <button onClick={handleClean}>Clean</button>
-          <button onClick={handleCode}>Code</button>
-          <button onClick={handleCodeBlock}>Code Block</button>
-          <button onClick={undo}>Undo</button>
-          <button onClick={redo}>Redo</button>
+          {buttons.map((button, index) => (
+            <ToolTip key={index} title={button.title} placement={"top"}>
+              <button className="text-button" onClick={button.function}>
+                <Icon attrIcon={button.icon} />
+              </button>
+            </ToolTip>
+          ))}
         </div>
         <div
           ref={editorRef}
-          className="editor"
+          className={`editor ${content == "" || content == "<p><br></p>"?"editor-placeholder":""}`}
           contentEditable
           onMouseUp={handleMouseUp}
           dangerouslySetInnerHTML={{ __html: content }}
           onInput={handleInput}
+          data-placeholder="Shrikant"
         ></div>
       </div>
     </div>

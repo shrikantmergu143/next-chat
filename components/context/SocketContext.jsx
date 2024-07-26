@@ -55,43 +55,6 @@ function Context(props) {
       }
     };
   }, [access_token ]);
-  
-  useEffect(() => {
-    if(!access_token && state){
-      if (!connection) {
-        const connectWebSocket = () => {
-          const socket = new WebSocket(`wss://${process.env.REACT_APP_API_DOMAIN}/ws/guest/`);
-          socket.addEventListener("open", (event) => {
-            console.log("WebSocket connection established.");
-            return { type: "WEBSOCKET_CONNECTED", payload: socket }
-
-          });
-          socket.addEventListener("message", (event) => {
-            Ws_OnMessage({evt:event, ws:socket, dispatch:dispatch, device_id:device_id})
-          });
-
-          // Error handling
-          socket.addEventListener("error", (error) => {
-            console.error("WebSocket error:", error);
-          });
-          // Close handling
-          socket.addEventListener("close", (event) => {
-            console.log("WebSocket connection closed. Reconnecting...");
-            setTimeout(connectWebSocket, 3000);
-          });
-          
-          setConnect(socket);
-        };
-        connectWebSocket()
-      }
-    }
-    return () => {
-      if (connection) {
-        connection.close();
-        console.log("WebSocket connection closed.");
-      }
-    };
-  }, [  state, !access_token ]);
 
   useEffect(()=>{
     if(data?.access_token){
