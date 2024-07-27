@@ -27,13 +27,18 @@ const LazyIcon = ({ iconUrl, style, className, onClick }) => {
     };
   }, [iconUrl]);
 
+  const Icon = () =>{
+    return(
+      <i
+        ref={iconRef}
+        onClick={onClick}
+        className={`${className} ${loaded ? 'loaded' : ''}`}
+        style={style}
+      />
+    )
+  }
   return (
-    <i
-      ref={iconRef}
-      onClick={onClick}
-      className={`${className} ${loaded ? 'loaded' : ''}`}
-      style={style}
-    />
+    Icon()
   );
 };
 

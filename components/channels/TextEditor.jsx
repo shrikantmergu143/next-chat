@@ -3,7 +3,7 @@ import App_url from "../common/constant";
 import Icon from "../common/Icon";
 import ToolTip from "../common/PopOver";
 
-function TextEditor() {
+function TextEditor(props) {
   const [content, setContent] = useState("");
   const [selection, setSelection] = useState(null);
   const [history, setHistory] = useState([]);
@@ -93,7 +93,45 @@ function TextEditor() {
   const handleItalic = () => execCommand("italic");
   const handleUnderline = () => execCommand("underline");
   const handleStrikeThrough = () => execCommand("strikeThrough");
-  const handleQuote = () => execCommand("formatBlock", "blockquote");
+  const isSelectionInBlockquote = () => {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      let container = range.commonAncestorContainer;
+      while (container) {
+        if (container.nodeType === 1 && container.tagName === "BLOCKQUOTE") {
+          return true;
+        }
+        container = container.parentNode;
+      }
+    }
+    return false;
+  };
+  const removeBlockquote = () => {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      let container = range.commonAncestorContainer;
+      while (container && container.tagName !== "BLOCKQUOTE") {
+        container = container.parentNode;
+      }
+      if (container && container.tagName === "BLOCKQUOTE") {
+        const parent = container.parentNode;
+        while (container.firstChild) {
+          parent.insertBefore(container.firstChild, container);
+        }
+        parent.removeChild(container);
+        cleanAndSaveHistory();
+      }
+    }
+  };
+  const handleQuote = () => {
+    if (isSelectionInBlockquote()) {
+      removeBlockquote();
+    } else {
+      execCommand("formatBlock", "blockquote");
+    }
+  };
   const handleOrderedList = () => execCommand("insertOrderedList");
   const handleUnorderedList = () => execCommand("insertUnorderedList");
   const handleLink = () => {
@@ -142,44 +180,119 @@ function TextEditor() {
       setContent("<p><br></p>");
     }
   }, []);
+  useEffect(() => {
+    const handleClick = (event) => {
+      const pViewFooter = document.getElementById("p-view-footer");
+      if (pViewFooter && pViewFooter.contains(event.target)) {
+        if (editorRef.current) {
+          editorRef.current.focus();
+        }
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
   const buttons = [
-    { title: "Bold", function: () => handleBold(), icon: App_url?.icons?.Bold },
-    { title: "Italic", function: () => handleItalic(), icon: App_url?.icons?.Italic },
-    { title: "Underline", function: () => handleUnderline(), icon: App_url?.icons?.Underline },
-    { title: "StrikeThrough", function: () => handleStrikeThrough(), icon: App_url?.icons?.Strike },
-    { title: "Quote", function: () => handleQuote(), icon: App_url?.icons?.Quote },
-    { title: "Ordered List", function: () => handleOrderedList(), icon: App_url?.icons?.OrderList },
-    { title: "Unordered List", function: () => handleUnorderedList(), icon: App_url?.icons?.UnOrderList },
-    { title: "Link", function: () => handleLink(), icon: App_url?.icons?.Link },
-    { title: "Image", function: () => handleImage(), icon: App_url?.icons?.Attach },
-    { title: "Clean", function: () => handleClean(), icon: App_url?.icons?.Eraser },
-    { title: "Code", function: () =>  handleCode(), icon: App_url?.icons?.Code },
-    { title: "Code Block", function: () => handleCodeBlock(), icon: App_url?.icons?.CodeBlock },
-    { title: "Undo", function: ()=> undo(), icon: App_url?.icons?.Undo },
-    { title: "Redo", function: ()=> redo(), icon: App_url?.icons?.Redo },
+    { title: "Bold", function: (e) => handleBold(e), icon: App_url?.icons?.Bold },
+    { title: "Italic", function: (e) => handleItalic(e), icon: App_url?.icons?.Italic },
+    { title: "Underline", function: (e) => handleUnderline(e), icon: App_url?.icons?.Underline },
+    { title: "StrikeThrough", function: (e) => handleStrikeThrough(e), icon: App_url?.icons?.Strike },
+    { title: "Quote", function: (e) => handleQuote(e), icon: App_url?.icons?.Quote },
+    { title: "Ordered List", function: (e) => handleOrderedList(e), icon: App_url?.icons?.OrderList },
+    { title: "Unordered List", function: (e) => handleUnorderedList(e), icon: App_url?.icons?.UnOrderList },
+    // { title: "Link", function: (e) => handleLink(e), icon: App_url?.icons?.Link },
+    // { title: "Image", function: (e) => handleImage(e), icon: App_url?.icons?.Attach },
+    // { title: "Clean", function: (e) => handleClean(e), icon: App_url?.icons?.Eraser },
+    { title: "Code", function: (e) =>  handleCode(e), icon: App_url?.icons?.Code },
+    { title: "Code Block", function: (e) => handleCodeBlock(e), icon: App_url?.icons?.CodeBlock },
+    // { title: "Undo", function: ()=> undo(), icon: App_url?.icons?.Undo },
+    // { title: "Redo", function: ()=> redo(), icon: App_url?.icons?.Redo },
   ];
+  const buttonFooterAction = [
+    {
+      align:"left",
+      actionList:[
+        { title: "Bold", function: (e) => handleBold(e), icon: App_url?.icons?.PlusIcon, className:"rounded" },
+        { title: "Alphabet", function: (e) => handleBold(e), icon: App_url?.icons?.Alphabet, },
+        { title: "Smile", function: (e) => handleBold(e), icon: App_url?.icons?.Smile, },
+        { title: "VideoRecording", function: (e) => handleBold(e), icon: App_url?.icons?.VideoRecording, },
+        { title: "AudioRecording", function: (e) => handleBold(e), icon: App_url?.icons?.AudioRecording, },
+
+      ]
+    },
+    {
+      align:"left",
+      actionList:[
+        { function: (e) => handleBold(e), icon: App_url?.icons?.Send, },
+      ]
+    }
+  ]
+  const ButtonEditor = (props) =>{
+    const onClick = (e) =>{
+      e.preventDefault();
+      e.stopPropagation();
+      props?.onClick(e)
+    }
+    const renderButton = () =>{
+      return(
+        <button className={`${props?.className}`} onClick={onClick}>
+          {props?.children}
+        </button>
+      )
+    }
+    if(!props.title){
+      return renderButton();
+    }
+    return(
+      <ToolTip title={props.title} placement={"top"}>
+        {renderButton()}
+      </ToolTip>
+    )
+  }
   console.log("content", content)
   return (
-    <div className="p-view-footer">
-      <div className="text-editor">
-        <div className="toolbar">
-          {buttons.map((button, index) => (
-            <ToolTip key={index} title={button.title} placement={"top"}>
-              <button className="text-button" onClick={button.function}>
-                <Icon attrIcon={button.icon} />
-              </button>
-            </ToolTip>
-          ))}
+    <div className="p-view-footer" id="p-view-footer">
+      <div className="position-relative h-100 w-100">
+        <div className="text-editor">
+          <div className="toolbar">
+            {buttons.map((item, index) => (
+              <ButtonEditor {...item} className="text-button" key={index} onClick={item.function}>
+                <Icon attrIcon={item.icon} />
+              </ButtonEditor>
+            ))}
+          </div>
+          <div className="ql-editor">
+
+          <div
+            ref={editorRef}
+            className={`editor ${content == "" || content == "<p><br></p>"?"editor-placeholder":""}`}
+            contentEditable
+            onMouseUp={handleMouseUp}
+            dangerouslySetInnerHTML={{ __html: content }}
+            onInput={handleInput}
+            data-placeholder={props?.placeholder}
+          ></div>
+          </div>
+
+          <div className="footer-action">
+            {buttonFooterAction.map((action, index) => (
+              <React.Fragment>
+                <div className={`action-${action?.align}`}>
+                {action?.actionList.map((item, index) => (
+                  <React.Fragment key={index} >
+                    <ButtonEditor {...item} className={`text-button ${item?.className}`} onClick={item.function}>
+                      <Icon attrIcon={item.icon} />
+                    </ButtonEditor>
+                  </React.Fragment>
+                ))}
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
         </div>
-        <div
-          ref={editorRef}
-          className={`editor ${content == "" || content == "<p><br></p>"?"editor-placeholder":""}`}
-          contentEditable
-          onMouseUp={handleMouseUp}
-          dangerouslySetInnerHTML={{ __html: content }}
-          onInput={handleInput}
-          data-placeholder="Shrikant"
-        ></div>
       </div>
     </div>
   );

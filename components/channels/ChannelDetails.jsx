@@ -14,13 +14,13 @@ export default function ChannelDetails(props) {
             <ToolTip title={"Get channel details"}>
               <div className='d-flex-center'>
                 <Icon attrIcon={App_url.icons.Lock} />
-                <span>{props?.channelDetails?.channel_name} {props?.channelDetails?.channel_name} {props?.channelDetails?.channel_name}</span>
+                <span>{props?.channelDetails?.channel_name}</span>
               </div>
             </ToolTip>
           } />
       </div>
       <div className='p-view-body'>
-        <Scrollbar style={{height:`calc(100vh - 2000px)`}} >
+        <Scrollbar style={{height:`calc(100vh - 204px)`}} >
 
         </Scrollbar>
       </div>

@@ -10,13 +10,13 @@ export default function Icon(props) {
   const IconData = () =>{
     if(props?.image){
       return(
-        <LazyIcon onClick={props?.onClick} className={`common_icon_image radius-${props?.radius} ${props?.className} ${props?.size}` }>
+        <i onClick={props?.onClick} className={`common_icon_image radius-${props?.radius} ${props?.className} ${props?.size}` }>
           <Images src={props?.attrIcon} fill auth={props?.auth} />
-        </LazyIcon>
+        </i>
       )
     }
     return(
-      <LazyIcon iconUrl={props?.attrIcon} onClick={props?.onClick} style={{...props?.style }}  className={`common_icon radius-${props?.radius}  ${props?.size} ${props?.className}`} attr-icon={props?.attrIcon} />
+      <LazyIcon iconUrl={props?.attrIcon} onClick={props?.onClick} style={{...props?.style, '--icon-url':  `url(${props?.attrIcon})` }}  className={`common_icon radius-${props?.radius}  ${props?.size} ${props?.className}`} attr-icon={props?.attrIcon} />
     )
   }
   const ButtonView = ( ) =>{
