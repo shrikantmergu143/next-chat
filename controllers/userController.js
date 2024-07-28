@@ -55,8 +55,8 @@ export async function loginUser(credentials) {
   // Compare passwords
   // const passwordMatch = await comparePasswords(password, user.password);
 
-  // If passwords don't match, return null
-  if (password !== user.password) {
+  // If passwords don't match, return null;
+  if (!await bcrypt.compare(password, user.password) ) {
     return {error: 'Invalid email or password', status: false};
   }
 
