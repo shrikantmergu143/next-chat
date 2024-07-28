@@ -13,7 +13,7 @@ export default function ChannelDetails(props) {
           <DropButton title={
             <ToolTip title={"Get channel details"}>
               <div className='d-flex-center'>
-                <Icon attrIcon={App_url.icons.Lock} />
+                <Icon attrIcon={props?.channelDetails?.mode == "public" ? App_url.icons.Hash:App_url.icons.Lock} />
                 <span>{props?.channelDetails?.channel_name}</span>
               </div>
             </ToolTip>

@@ -145,6 +145,12 @@ function TextEditor(props) {
   const handleClean = () => execCommand("removeFormat");
   const handleCode = () => wrapSelection("<code>", "</code>");
   const handleCodeBlock = () => wrapSelection("<pre><code>", "</code></pre>");
+  const handleSubmit = async () =>{
+    if(content!="<p><br></p>" && props?.onSendMessage){
+      props?.onSendMessage(content);
+    }
+    setContent("<p><br></p>");
+  }
 
   useEffect(() => {
     document.execCommand("defaultParagraphSeparator", false, "p");
@@ -199,10 +205,13 @@ function TextEditor(props) {
     { title: "Bold", function: (e) => handleBold(e), icon: App_url?.icons?.Bold },
     { title: "Italic", function: (e) => handleItalic(e), icon: App_url?.icons?.Italic },
     { title: "Underline", function: (e) => handleUnderline(e), icon: App_url?.icons?.Underline },
+    { divider:true },
     { title: "StrikeThrough", function: (e) => handleStrikeThrough(e), icon: App_url?.icons?.Strike },
-    { title: "Quote", function: (e) => handleQuote(e), icon: App_url?.icons?.Quote },
+    { divider:true },
+    // { title: "Quote", function: (e) => handleQuote(e), icon: App_url?.icons?.Quote },
     { title: "Ordered List", function: (e) => handleOrderedList(e), icon: App_url?.icons?.OrderList },
     { title: "Unordered List", function: (e) => handleUnorderedList(e), icon: App_url?.icons?.UnOrderList },
+    { divider:true },
     // { title: "Link", function: (e) => handleLink(e), icon: App_url?.icons?.Link },
     // { title: "Image", function: (e) => handleImage(e), icon: App_url?.icons?.Attach },
     // { title: "Clean", function: (e) => handleClean(e), icon: App_url?.icons?.Eraser },
@@ -218,7 +227,9 @@ function TextEditor(props) {
         { title: "Bold", function: (e) => handleBold(e), icon: App_url?.icons?.PlusIcon, className:"rounded" },
         { title: "Alphabet", function: (e) => handleBold(e), icon: App_url?.icons?.Alphabet, },
         { title: "Smile", function: (e) => handleBold(e), icon: App_url?.icons?.Smile, },
+        { divider:true },
         { title: "VideoRecording", function: (e) => handleBold(e), icon: App_url?.icons?.VideoRecording, },
+        { divider:true },
         { title: "AudioRecording", function: (e) => handleBold(e), icon: App_url?.icons?.AudioRecording, },
 
       ]
@@ -226,7 +237,7 @@ function TextEditor(props) {
     {
       align:"left",
       actionList:[
-        { function: (e) => handleBold(e), icon: App_url?.icons?.Send, },
+        { function: (e) => handleSubmit(e), icon: App_url?.icons?.Send, },
       ]
     }
   ]
@@ -241,6 +252,13 @@ function TextEditor(props) {
         <button className={`${props?.className}`} onClick={onClick}>
           {props?.children}
         </button>
+      )
+    }
+    if(props?.divider){
+      return(
+        <React.Fragment>
+        <span className="divider" />
+      </React.Fragment>
       )
     }
     if(!props.title){
