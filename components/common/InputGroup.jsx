@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import {
   FloatingLabel,
@@ -45,12 +45,37 @@ export const FormGroupControl = (props) => {
     </Form.Group>
   );
 };
+const validate = (value, rules, label, path) => {
+  if (rules.required) {
+    if (!value) {
+      return rules.required;
+    }
+  }
+
+  if (typeof rules.validate === 'function') {
+    const customValidationResult = rules.validate(value, path);
+    if (customValidationResult !== true) {
+      return customValidationResult;
+    }
+  }
+
+  if (rules.minLength && value.length < rules.minLength) {
+    return `Minimum length is ${rules.minLength}`;
+  }
+  if (rules.maxLength && value.length > rules.maxLength) {
+    return `Maximum length is ${rules.maxLength}`;
+  }
+  if (rules.pattern && !rules.pattern.test(value)) {
+    return 'Invalid format';
+  }
+
+  return null;
+};
 export default function InputGroup(props) {
   const {
     className,
     label,
     Label,
-    onChange,
     error,
     name,
     type,
@@ -62,9 +87,11 @@ export default function InputGroup(props) {
     value,
     icon_circle,
     circle,
-    floatStyle
+    floatStyle,
+    rules
   } = props;
   let ids = useMemo(() => props?.id != "" ? props?.id : Utils.uuidv4(), []); // removed name dependency from here
+  const [errors, setErrors] = useState({});
 
   const callSelectedValue = () => {
     if (props?.value !== undefined) {
@@ -94,6 +121,19 @@ export default function InputGroup(props) {
       return null;
     }
   }
+  const onChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const updatedValue = type === 'checkbox' ? checked : value;
+    // setFormValues((prevValues) => ({ ...prevValues, [name]: updatedValue }));
+
+    if (rules && rules[name]) {
+      const error = validate(updatedValue, rules[name], props?.label);
+      console.log("error",error)
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+    }
+
+    props?.onChange(e);
+  };
   const selectValue = useMemo(callSelectedValue, [props?.value, props?.value?.length])
   // let FormGroupControl = Form.Group
   const data = {};
@@ -145,7 +185,6 @@ export default function InputGroup(props) {
     return cleanedValue;
   }
   function changeHandler(e) {
-    const { name, checked, type } = e.target;
     if (props?.inputType !== "select") {
       const substring = "";
       if (e.target.value != " ") {
@@ -154,60 +193,29 @@ export default function InputGroup(props) {
         e.target.value = "";
       }
     }
-    // if (props?.number) {
-    //   let { value } = e.target;
-    //   value = value.replace(/^0+(?=\d)/, '');
-    //   const dotCount = (value.match(/\./g) || []).length;
-    //   if (dotCount > 1) {
-    //     value = value.slice(0, value.lastIndexOf('.'));
-    //   }
-    //   value = value.replace(/\.+/g, '.');
-    //   const regex = props?.digit ? /^\d*$/ : /^[0-9]*(\.[0-9]{0,2})?$/;
-    //   const isValid = regex.test(value);
-    //   if (e.target.value == "") {
-    //     e.target.value = '';
-    //   } else if (isValid) {
-    //     e.target.value = parseFloat(value);
-    //   } else if(props?.value){
-    //     e.target.value = parseFloat(props?.value);
-    //   }else{
-    //     e.target.value = "";
-    //   }
-    // }
     if (props?.number) {
       let { value } = e.target;
       value = value.replace(/^0+(?=\d)/, '');
-    
-      // Count the number of dots in the value
       const dotCount = (value.match(/\./g) || []).length;
-    
-      // If more than one dot is found, remove all but the first dot
       if (dotCount > 1) {
         const firstDotIndex = value.indexOf('.');
         const lastDotIndex = value.lastIndexOf('.');
         value = value.slice(0, lastDotIndex) + value.slice(lastDotIndex).replace(/\./g, '');
       }
-    
-      // New prop to allow dots
       const allowDot = props?.allowDot || false;
-      // const regex = allowDot ? /^[0-9]*(\.[0-9]*)?$/ : /^\d*$/;
       const regex = allowDot ? /^[0-9]*\.?[0-9]{0,2}$/ : /^\d*$/;
       const isValid = regex.test(value);
-    
       if (e.target.value === "") {
         e.target.value = '';
       } else if (isValid) {
-        e.target.value = value; // No need to parse for now
+        e.target.value = value;
       } else if (props?.value) {
         e.target.value = parseFloat(props?.value);
       } else {
         e.target.value = "";
       }
     }
-    
-    
     if (props?.phone) {
-      // Remove dots from the input value if phone is true
       e.target.value = e.target.value.replace(/\./g, '');
     }
     if (e.target.name === "email") {
@@ -219,6 +227,7 @@ export default function InputGroup(props) {
     }
     onChange(e);
   }
+
   function changeOtpHandler(e) {
     const data = {
       target: {
@@ -634,6 +643,7 @@ InputGroup.propTypes = {
   as: PropTypes.any,
   radius: PropTypes.number,
   size: PropTypes.any,
+  rules: PropTypes.object,
   number: PropTypes?.bool,
   phone: PropTypes?.bool,
   labelFloat: PropTypes?.bool,

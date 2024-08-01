@@ -1,6 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import App_url from '../common/constant'
+const DropButton = dynamic(()=>import('../common/DropButton'))
 const Avatar = dynamic(()=>import('../common/Avatar'))
 const Icon = dynamic(()=>import('../common/Icon'))
 const PopOver = dynamic(()=>import('../common/PopOver'))
@@ -23,6 +24,14 @@ export default function ChannelTabPannel() {
     //         <Loader/>
     //     )
     // }
+    const option = [
+        {title:"Add Friend", value:"add_friend"},
+    ]
+    const onSelect = (item) =>{
+        if(item?.value == "add_friend"){
+            
+        }
+    }
   return (
    <React.Suspense fallback={<Loader/>}>
      <div className='tab_rail'>
@@ -87,17 +96,17 @@ export default function ChannelTabPannel() {
                     </div>
                 </PopOver>
             </div>
-            <PopOver title={"Create New"} placement={"right"}>
-                <div className='tabs__tab_content'>
-                    <Icon
-                        attrIcon={App_url.icons.PlusIcon}
-                        button
-                        size={"lg"}
-                        buttonClassName={"rounded"}
-                        variant={"secondary"}
-                    />
-                </div>
-            </PopOver>
+                <DropButton onSelect={onSelect} buttonClassName={"p-0 hover-none"} option={option}>
+                    <div className='tabs__tab_content'>
+                        <Icon
+                            attrIcon={App_url.icons.PlusIcon}
+                            button
+                            size={"lg"}
+                            buttonClassName={"rounded"}
+                            variant={"secondary"}
+                        />
+                    </div>
+            </DropButton>
             <div className='tabs__tab_content'>
                 <Icon
                     attrIcon={App_url.icons.Setting}

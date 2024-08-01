@@ -1,33 +1,66 @@
-import React from 'react'
-import { Dropdown } from 'react-bootstrap'
-import Icon from './Icon'
-import App_url from './constant'
-import PropTypes from "prop-types"
+import React, { useState } from 'react';
+import { Dropdown } from 'react-bootstrap';
+import Icon from './Icon';
+import App_url from './constant';
+import PropTypes from 'prop-types';
+
 export default function DropButton(props) {
+  // State to manage the visibility of the dropdown menu
+  const [show, setShow] = useState(false);
+
+  // Toggle function to handle dropdown menu visibility
+  const handleToggle = (e) => {
+    if(e){
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setShow(!show);
+  };
+
   return (
-    <Dropdown className={`${props?.className}`}>
-        <Dropdown.Toggle variant='hover-secondary-1'>
-          <span className={`${props?.classNameText}`}>{props?.title}</span> <Icon className={'ms-1 xsm'} attrIcon={App_url.icons.Down} />
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {props?.option?.map((item, index)=>(
-            <Dropdown.Item key={index} onClick={()=>props?.onSelect(item)}>{item?.title}</Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
+    <Dropdown className={`${props?.className}`} show={show} onToggle={handleToggle}>
+      <Dropdown.Toggle
+        variant='hover-secondary-1'
+        className={`${props?.buttonClassName}`}
+        onClick={handleToggle}
+      >
+        {props?.children ? (
+          <React.Fragment>
+            {props?.children}
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <span className={`${props?.classNameText}`}>{props?.title}</span>
+            <Icon className={'ms-1 xsm'} attrIcon={App_url.icons.Down} />
+          </React.Fragment>
+        )}
+      </Dropdown.Toggle>
+      <Dropdown.Menu show={show}>
+        {props?.option?.map((item, index) => (
+          <Dropdown.Item key={index} onClick={() => {
+            props?.onSelect(item);
+            setShow(false); // Hide the menu after selecting an option
+          }}>
+            {item?.title}
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
     </Dropdown>
-  )
+  );
 }
 
 DropButton.propTypes = {
-  className: PropTypes.any,
-  title: PropTypes.any,
+  className: PropTypes.string,
+  buttonClassName: PropTypes.string,
+  title: PropTypes.string,
   onSelect: PropTypes.func,
   option: PropTypes.array,
-}
+};
 
 DropButton.defaultProps = {
   className: "",
+  buttonClassName: "",
   title: "",
-  onSelect: ()=>{},
+  onSelect: () => {},
   option: [],
-}
+};
