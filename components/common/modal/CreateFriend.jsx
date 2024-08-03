@@ -12,25 +12,24 @@ import InputGroup from "../InputGroup";
 import Utils from "../../utils";
 import { PostRequestAPI } from "../../api/PostRequest";
 import action from "../../../store/action";
+import { SocketConnect, useWebSocket } from "../../context/SocketContext";
 
-export default function CreateFriend(datas) {
-  const props = { ...datas };
+export default function CreateFriend(props) {
   const { ModalPopup, access_token } = useSelector(App_url.allReducers);
   const [formData, setFormData] = useState({
-    channel_name:"",
-    mode:"private",
+    email_to:"",
   })
   const [errors, setErrors] = useState({
-    channel_name:"",
-    mode:"",
+    email_to:"",
   });
+  const {send} = useWebSocket();
   
   const [load, setLoad] = useState(false);
   const dispatch = useDispatch();
   const validate = () =>{
     let val = true;
-    if(formData?.channel_name == ""){
-      errors.channel_name = "Enter your channel name";
+    if(formData?.email_to == ""){
+      errors.email_to = "Enter your channel name";
       val = false;
     }
     setErrors((error)=>({
@@ -41,22 +40,29 @@ export default function CreateFriend(datas) {
   }
   async function HandleOnClose() {
     if(validate()){
-        setLoad(true);
-        const response = await PostRequestAPI(App_url.api.API_CHANNELS, formData, access_token);
-        if(response?.status === 200){
-          action.getChannelsList(access_token, dispatch);
-        }else{
-          Utils.AuthenticateVerify(response)
-        }
-        setLoad(false);
-      CloseModal();
+      const param = {
+        "url":"send_friend_request",
+        "request":{
+          "email_to":formData?.email_to
+        },
+        "broadcast":"true"
+      }
+      send(param)
+        // setLoad(true);
+        // const response = await PostRequestAPI(App_url.api.API_CHANNELS, formData, access_token);
+        // if(response?.status === 200){
+        //   action.getChannelsList(access_token, dispatch);
+        // }else{
+        //   Utils.AuthenticateVerify(response)
+        // }
+        // setLoad(false);
+      // CloseModal();
     }
   }
   function CloseModal(e) {
     dispatch(setShowModal());
     setFormData({
-      channel_name:"",
-      mode:"private",
+      email_to:"",
     })
   }
   const onChangeHandle = (e) =>{
@@ -69,11 +75,7 @@ export default function CreateFriend(datas) {
       [e.target.name]:""
     }))
   }
-  const Options = [
-    { label:"Public", value:"public" }, 
-    { label:"Private", value:"private" }
-  ]
-  if(ModalPopup?.show === "CREATE_CHANNEL" ){
+  if(ModalPopup?.show !== "CREATE_FRIEND" ){
     return (
       <React.Fragment></React.Fragment>
     );
@@ -82,45 +84,35 @@ export default function CreateFriend(datas) {
     <Modal
       centered={true}
       onHide={CloseModal}
-      show={ModalPopup?.show === "CREATE_CHANNEL"}
+      show
       className={`confirm-modal ${ModalPopup?.variant}`}
     >
-      <div className="modal-body" >
-        <Icon attrIcon={App_url.icons.Close} className={"hover"} button
-          variant={"hover-secondary btn-modal-close"}
-          onClick={CloseModal}
+        <div className="modal-body" >
+          <Icon attrIcon={App_url.icons.Close} className={"hover"} button
+            variant={"hover-secondary btn-modal-close"}
+            onClick={CloseModal}
+            />
+          <h5 className="title mb-3">Add New Friend</h5>
+          <InputGroup
+            formClassName={"mb-3"}
+            placeholder={"Enter email"}
+            onChange={onChangeHandle}
+            name={"email_to"}
+            label={"Email"}
+            value={formData?.email_to}
+            error={errors?.email_to}
           />
-        <h5 className="title mb-3">Create a Channel</h5>
-        <InputGroup
-          formClassName={"mb-3"}
-          placeholder={"Name"}
-          onChange={onChangeHandle}
-          name={"channel_name"}
-          label={"Name"}
-          value={formData?.channel_name}
-          error={errors?.channel_name}
-        />
-        <InputGroup
-          label={"Channel Mode"}
-          placeholder={"Channel Mode"}
-          onChange={onChangeHandle}
-          name={"mode"}
-          value={formData?.mode}
-          type={"select"}
-          select
-          option={Options}
-        />
-      </div>
-      <div className="modal-footer">
-        <Button
-          variant={"secondary"}
-          className={"button button-primary  btn-sm"}
-          onClick={HandleOnClose}
-          disabled={load}
-        >
-          Next
-        </Button>
-      </div>
+        </div>
+        <div className="modal-footer">
+          <Button
+            variant={"secondary"}
+            className={"button button-primary  btn-sm"}
+            onClick={HandleOnClose}
+            disabled={load}
+          >
+            Add Friend
+          </Button>
+        </div>
     </Modal>
   )
 }

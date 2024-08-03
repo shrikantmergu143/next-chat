@@ -18,7 +18,7 @@ export default function DropButton(props) {
   };
 
   return (
-    <Dropdown className={`${props?.className}`} show={show} onToggle={handleToggle}>
+    <Dropdown className={`${props?.className}`} show={show} onToggle={handleToggle} placement={props?.placement}>
       <Dropdown.Toggle
         variant='hover-secondary-1'
         className={`${props?.buttonClassName}`}
@@ -35,7 +35,7 @@ export default function DropButton(props) {
           </React.Fragment>
         )}
       </Dropdown.Toggle>
-      <Dropdown.Menu show={show}>
+      <Dropdown.Menu show={show} >
         {props?.option?.map((item, index) => (
           <Dropdown.Item key={index} onClick={() => {
             props?.onSelect(item);
@@ -55,6 +55,7 @@ DropButton.propTypes = {
   title: PropTypes.string,
   onSelect: PropTypes.func,
   option: PropTypes.array,
+  placement: PropTypes.string,
 };
 
 DropButton.defaultProps = {
@@ -63,4 +64,5 @@ DropButton.defaultProps = {
   title: "",
   onSelect: () => {},
   option: [],
+  placement: "auto",
 };

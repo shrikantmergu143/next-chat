@@ -1,12 +1,15 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import App_url from '../common/constant'
+import { setShowModal } from '../../store/Actions'
+import { useDispatch } from 'react-redux'
 const DropButton = dynamic(()=>import('../common/DropButton'))
 const Avatar = dynamic(()=>import('../common/Avatar'))
 const Icon = dynamic(()=>import('../common/Icon'))
 const PopOver = dynamic(()=>import('../common/PopOver'))
 
 export default function ChannelTabPannel() {
+    const dispatch = useDispatch();
     const Loader = () =>{
         return(
             <div className='tab_rail'>
@@ -29,7 +32,9 @@ export default function ChannelTabPannel() {
     ]
     const onSelect = (item) =>{
         if(item?.value == "add_friend"){
-            
+            dispatch(setShowModal({
+                show:"CREATE_FRIEND",
+            }))
         }
     }
   return (
@@ -96,7 +101,7 @@ export default function ChannelTabPannel() {
                     </div>
                 </PopOver>
             </div>
-                <DropButton onSelect={onSelect} buttonClassName={"p-0 hover-none"} option={option}>
+                <DropButton onSelect={onSelect} placement={"top-end"} buttonClassName={"p-0 hover-none"} option={option}>
                     <div className='tabs__tab_content'>
                         <Icon
                             attrIcon={App_url.icons.PlusIcon}

@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import ConfirmModal from '../components/common/ConfirmModal';
 import CreateChannelModal from '../components/common/modal/CreateChannelModal';
 import Context from '../components/context/SocketContext';
+import CreateFriend from '../components/common/modal/CreateFriend';
 
 function App({ Component, pageProps }) {
   return (
@@ -22,6 +23,7 @@ function App({ Component, pageProps }) {
             <ToastContainer />
             <CreateChannelModal/>
             <ConfirmModal/>
+            <CreateFriend/>
           </Context>
         </PersistGate>
       </Provider>

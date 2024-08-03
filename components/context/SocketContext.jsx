@@ -1,16 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use strict";
 "use client";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import App_url from "../common/constant";
 import { WebSocketOnMessage } from "./SocketResponse";
 import SendRequest from "./SocketRequest";
-
 export const SocketConnect = createContext(null);
 
+
+export const useWebSocket = () => {
+  const context = useContext(SocketConnect);
+  if (!context) {
+    throw new Error("useWebSocket must be used within a WebSocketProvider");
+  }
+  return context;
+};
+
 function Context(props) {
-  const [state, setState] = useState("")
   const { children } = props
   const [connection, setConnect] = useState(null);
   const [access_token, setAccess_token] = useState(null);
@@ -20,6 +27,9 @@ function Context(props) {
 
   useEffect(() => {
     if(access_token){
+      if (connection) {
+        return;
+      }
       const connectWebSocket = () => {
         const socket = new WebSocket(`wss://${process.env.REACT_APP_API}/ws/${access_token}/`);
         socket.addEventListener("open", (event) => {
@@ -59,17 +69,19 @@ function Context(props) {
   useEffect(()=>{
     if(data?.access_token){
       setAccess_token(data?.access_token);
-      setState(false);
-
     }else{
       setAccess_token("");
-      setState(true)
     }
   },[data?.access_token])
 
-  const Env = props?.env ? JSON.parse(props?.env):null
+  const Env = props?.env ? JSON.parse(props?.env):null;
+  const sendRequest = (param) =>{
+    if(connection){
+      SendRequest(connection, param, device_id);
+    }
+  }
   return (
-    <SocketConnect.Provider value={{connect:connection, setAccess_token:()=>{}, env: Env}}>
+    <SocketConnect.Provider value={{connect:connection, send:sendRequest, setAccess_token:()=>{}, env: Env}}>
       {children}
       {/* <ToastContainer/> */}
     </SocketConnect.Provider>
