@@ -26,6 +26,7 @@ export default function ResumePage() {
             body{
               -webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;
             }
+              .d-none-print{display:none;}
             @page {size: A4;margin: 0;padding: 0px;display: block;}
           }
             @page {size: A4;margin: 0;padding: 0px;display: block;}
@@ -224,7 +225,7 @@ export default function ResumePage() {
               </div>
           </page>
         </div>
-        <Button onClick={generateAndDownloadPdf}>Download</Button>
+        <Button className={"d-none-print"} onClick={generateAndDownloadPdf}>Download</Button>
       </div>
     </React.Fragment>
   )

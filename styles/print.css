@@ -8,11 +8,12 @@
       -webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;
       scale: 0.9;
     }
+    .d-none-print{display:none;}
 }
 .page a{color: var(--text-color);text-decoration: none;}
 .page h5{font-size: 1.94em;}
 .page h6{font-size: 1.4em;margin-bottom: 5px;}
-.page hr{margin-bottom: 10px;width: 100%;border-bottom: 0.1em solid;padding-top: 5px;border-top: none;margin-top: 0;}
+.page hr{margin-bottom: 5px;width: 100%;border-bottom: 0.1em solid;padding-top: 5px;border-top: none;margin-top: 0;}
 .page p, .page ul{margin-bottom: 7px;}
 .page .title-1{font-size: 1.2em;}
 .page .title-2{font-size: 1.1em;font-weight: 550;}
