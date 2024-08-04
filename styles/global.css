@@ -58,7 +58,7 @@ body{
   --select-menu-item-bg-color: #383d41;
   --select-menu-bg-color: #383d41;
 }
-.white-theme{background-color: var(--bs-body-bg);color: var(--text-color);height: 100vh;overflow-y: scroll;scrollbar-width: 0px;padding: 0px;font-size: var(--fs-12);}
+.white-theme{background-color: var(--bs-body-bg);color: var(--text-color);height: 100vh;overflow-y: scroll;scrollbar-width: 0px;padding: 0px;font-size: 0.8em;}
 .white-theme::-webkit-scrollbar{width: 0px;}
 .fs-11 {font-size: var(--fs-11)}
 .fs-12 {font-size: var(--fs-12)}
