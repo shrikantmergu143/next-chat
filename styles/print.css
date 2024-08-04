@@ -1,0 +1,12 @@
+.resume-page{margin: 0 auto;padding: 0 !important;display: flex;justify-content: center;}
+@page {size: A4;margin: 0;padding: 0px;display: block;height: auto;}
+.page {width: 21cm;min-height: 29.7cm;margin: 0px auto;display: block;margin-left: -30px;margin-right: -30px;}
+.page table>tr>*{padding: 0.24rem;word-break: break-word;}
+.d-block{display: block;}
+@media print {
+    body{
+      -webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;
+      scale: 0.9;
+    }
+}
+.page a{color: var(--text-color);text-decoration: none;}

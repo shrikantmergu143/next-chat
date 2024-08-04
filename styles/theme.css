@@ -46,7 +46,7 @@ body.dark{
     --lightningcss-dark: initial;
     color-scheme: dark;
   }
-  body.light{
+  body.light, body .white-theme{
     --text-color: black;
     --bs-body-bg: #ffffff !important;
     --dt_color-theme-surf-inv-pry: var(--t-primary);
