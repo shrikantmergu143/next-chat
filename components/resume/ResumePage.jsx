@@ -68,7 +68,7 @@ export default function ResumePage() {
                         Email:
                       </th>
                       <td align={"right"}>
-                        <AnchorLink to={"mailto:shrikantmergu123@gmail.com"} target={"_blank"} >shrikantmergu123@gmail.com</AnchorLink>
+                        <AnchorLink to={"mailto:shrikantmergu143@gmail.com"} target={"_blank"} >shrikantmergu143@gmail.com</AnchorLink>
                       </td>
                     </tr>
                     <tr>
@@ -148,7 +148,7 @@ export default function ResumePage() {
                   </div>
                   <h6 className='title-2 text-secondary'>Hirachand Nemchand College of Commerce, Solapur</h6>
                 </div>
-                <div className='pb-2'>
+                {/* <div className='pb-2'>
                   <div className='d-flex'>
                     <h6 className='title-1'>12th STD | HSC (Commerce)<span className='ms-1 fw-5 text-secondary-1'>| Percentage - 66.92%</span></h6>
                     <h6 className='title-1 ms-auto text-secondary mb-0'>JUN/2015 — MAR/2017</h6>
@@ -161,16 +161,65 @@ export default function ResumePage() {
                     <h6 className='title-1 ms-auto text-secondary mb-0'>JUN/2013 — MAR/2014</h6>
                   </div>
                   <h6 className='title-2 text-secondary'>Shri Markandeya Highschool, Solapur</h6>
-                </div>
+                </div> */}
               </div>
+              <hr/>
               <div>
                 <h6 className='mb-2'>ADDITIONAL INFORMATION</h6>
                 <div className='pb-2'>
-                  <span>
-                      <h6 className='title-2 d-inline fw-7'>Technical Skills:
-                      <p className='mb-0 d-inline ps-2 fw-5'>React.js, Next.js, Node.js, Vite.js, PHP, MongoDB, Laravel, Mysqli, HTML, CSS, JavaScript, Material UI, TypeScript.</p>
-                      </h6>
-                  </span>
+                  <h6 className='title-2 d-inline fw-7'>Technical Skills:
+                    <p className='mb-0 d-inline ps-2 fw-5'>React.js, Next.js, Node.js, Vite.js, PHP, MongoDB, Laravel, Mysqli, HTML, CSS, JavaScript, Material UI, TypeScript.</p>
+                  </h6>
+                </div>
+                <div className='pb-2'>
+                  <h6 className='title-2 d-inline fw-7'>Soft Skills:
+                    <p className='mb-0 d-inline ps-2 fw-5'>Teamwork, Remote Collaboration, Flexibility, Leadership, Adaptability.</p>
+                  </h6>
+                </div>
+                <div className='pb-2'>
+                  <h6 className='title-2 d-inline fw-7'>Languages:
+                    <p className='mb-0 d-inline ps-2 fw-5'>English, Hindi, Marathi, Telugu.</p>
+                  </h6>
+                </div>
+              </div>
+              <hr/>
+              <div>
+                <h6 className='mb-2'>WORKED PROJECTS</h6>
+                <div className='pb-0'>
+                  <h6 className='title-2 d-inline fw-7'>Fellame:
+                    <p className='mb-0 d-inline ps-2 fw-5'>Technologies - React.js, Redux, Laravel, Payment Gateway, RozarPay.</p>
+                  </h6>
+                  <div>
+                    <ul>
+                      <li>Fellame is a online shopping web application and developing project by using react. In this project we provides various printed fabric T`Shirt with different colors and sizes.</li>
+                      <li>In this application we provide online payment on order products and apply coupon by users, so users can make order instantally.</li>
+                      <li>We provide OTP base user login in application.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className='pb-2'>
+                  <h6 className='title-2 d-inline fw-7'>CareTraings:
+                    <p className='mb-0 d-inline ps-2 fw-5'>Technologies - Next.js, Express.js, React.js, WebSocket, Redux, MongoDB.</p>
+                  </h6>
+                  <div>
+                    <ul className='mb-0'>
+                      <li>Led the development of the CareTrainings platform, utilizing React JS for the front end and Node.js for the back end.</li>
+                      <li>Integrated user-friendly features such as course management, progress tracking, and interactive learning modules.</li>
+                      <li>Utilized Next.js for server-side rendering, optimizing application speed and SEO.</li>
+                      <li>Employed Vite for fast builds and efficient development, while using Redux for effective state management.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className='pb-0'>
+                  <h6 className='title-2 d-inline fw-7'>Girne:
+                    <p className='mb-0 d-inline ps-2 fw-5'>Technologies - React.js, Redux, Payment Gateway.</p>
+                  </h6>
+                  <div>
+                    <ul className='mb-0'>
+                      <li>We have developed Girne, an online marketplace in Turkey, with an aim to build a bridge between buyers and sellers through the virtual medium.</li>
+                      <li>People have become well-accustomed to online shopping nowadays, and the success of the online business world has inspired us to bring a platform that commits benefits for both buyers and sellers.</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
           </page>
