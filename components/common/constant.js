@@ -61,6 +61,7 @@ const App_url = {
         API_REGISTER: "/api/register",
         API_USER_DETAILS:"/api/users",
         API_CHANNELS:"/api/channels",
+        SEND_FRIEND_REQUEST:"/api/friends",
     }
 }
 

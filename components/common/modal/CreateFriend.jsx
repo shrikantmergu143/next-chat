@@ -1,18 +1,18 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { setShowModal } from "../../../store/Actions";
+import { PostRequestAPI } from "../../api/PostRequest";
+import { useWebSocket } from "../../context/SocketContext";
+import InputGroup from "../InputGroup";
+import Button from "../Button";
+import Utils from "../../utils";
+import action from "../../../store/action";
 import Icon from "../Icon";
 import App_url from "../constant";
-import { setShowConfirmModal, setShowModal } from "../../../store/Actions";
-import Button from "../Button";
-import InputGroup from "../InputGroup";
-import Utils from "../../utils";
-import { PostRequestAPI } from "../../api/PostRequest";
-import action from "../../../store/action";
-import { SocketConnect, useWebSocket } from "../../context/SocketContext";
 
 export default function CreateFriend(props) {
   const { ModalPopup, access_token } = useSelector(App_url.allReducers);
@@ -40,23 +40,24 @@ export default function CreateFriend(props) {
   }
   async function HandleOnClose() {
     if(validate()){
-      const param = {
-        "url":"send_friend_request",
-        "request":{
-          "email_to":formData?.email_to
-        },
-        "broadcast":"true"
-      }
-      send(param)
-        // setLoad(true);
-        // const response = await PostRequestAPI(App_url.api.API_CHANNELS, formData, access_token);
-        // if(response?.status === 200){
-        //   action.getChannelsList(access_token, dispatch);
-        // }else{
-        //   Utils.AuthenticateVerify(response)
-        // }
-        // setLoad(false);
-      // CloseModal();
+      // const param = {
+      //   "url":"send_friend_request",
+      //   "request":{
+      //     "email_to":formData?.email_to
+      //   },
+      //   "broadcast":"true"
+      // }
+      // send(param)
+        setLoad(true);
+        const response = await PostRequestAPI(App_url.api.SEND_FRIEND_REQUEST, formData, access_token);
+        console.log("response",response)
+        if(response?.status === 200){
+          action.getChannelsList(access_token, dispatch);
+          CloseModal();
+        }else{
+          Utils.AuthenticateVerify(response)
+        }
+        setLoad(false);
     }
   }
   function CloseModal(e) {

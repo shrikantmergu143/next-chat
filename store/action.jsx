@@ -41,8 +41,25 @@ const getChannelsDetails = async (access_token,  dispatch, payload) =>{
         }
     }
 }
+const getFriendList = async (access_token,  dispatch, payload) =>{
+    const response = await GetRequestCallAPI(`${App_url.api.API_CHANNELS}/${payload}`, access_token);
+    if(response?.status == 200){
+        if(dispatch){
+            dispatch(setStoreChannelsDetails(response?.data?.data))
+        }else{
+            return response;
+        }
+    }else{
+        if(dispatch){
+            dispatch(setStoreChannelsDetails())
+        }else{
+            return response;
+        }
+    }
+}
 const action = {
     getChannelsList: getChannelsList,
-    getChannelsDetails: getChannelsDetails
+    getChannelsDetails: getChannelsDetails,
+    getFriendList: getFriendList,
 }
 export default action;
