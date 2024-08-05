@@ -12,6 +12,15 @@ export const initialData = {
             total_pages: ""
         }
     },
+    friendsList: {
+        data:[],
+        pagination: {
+            total_records: "",
+            limit: "",
+            page: "",
+            total_pages: ""
+        }
+    },
     ModalPopup:{
         title:"",
         data:{},
@@ -45,6 +54,12 @@ export const allReducers = (state = initialData, action) => {
             return {
                 ...state,
                 channelsList: action?.payload? action?.payload : initialData.channelsList,
+            }
+        }
+        case ActionTypes.SET_STORE_FRIEND_LIST:{
+            return {
+                ...state,
+                friendsList: action?.payload? action?.payload : initialData.friendsList,
             }
         }
         case ActionTypes.SET_SHOW_MODAL:

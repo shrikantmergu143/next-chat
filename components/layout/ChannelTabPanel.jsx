@@ -8,7 +8,7 @@ const Avatar = dynamic(()=>import('../common/Avatar'))
 const Icon = dynamic(()=>import('../common/Icon'))
 const PopOver = dynamic(()=>import('../common/PopOver'))
 
-export default function ChannelTabPannel() {
+export default function ChannelTabPannel(props) {
     const dispatch = useDispatch();
     const Loader = () =>{
         return(
@@ -101,7 +101,7 @@ export default function ChannelTabPannel() {
                     </div>
                 </PopOver>
             </div>
-                <DropButton onSelect={onSelect} placement={"top-end"} buttonClassName={"p-0 hover-none"} option={option}>
+                <DropButton onSelect={props?.onSelect} placement={"top-end"} buttonClassName={"p-0 hover-none"} option={props?.optionsChannel}>
                     <div className='tabs__tab_content'>
                         <Icon
                             attrIcon={App_url.icons.PlusIcon}

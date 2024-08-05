@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import Icon from '../common/Icon'
 import App_url from '../common/constant'
-import ChannelTabPannel from './ChannelTabPannel'
+import ChannelTabPanel from './ChannelTabPanel'
 import TabContent from './TabContent'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetRequestCallAPI } from '../api/GetRequest'
-import { setStoreAccessToken, setStoreUserDetails } from '../../store/Actions'
+import { setShowModal, setStoreAccessToken, setStoreUserDetails } from '../../store/Actions'
 import { useRouter } from 'next/router'
 
 export default function Layout(props) {
@@ -27,6 +27,16 @@ export default function Layout(props) {
       dispatch(setStoreAccessToken(""))
     }
     console.log("response", response)
+  }
+  const option = [
+    {title:"Add Friend", value:"add_friend"},
+  ]
+  const onSelect = (item) =>{
+      if(item?.value == "add_friend"){
+          dispatch(setShowModal({
+              show:"CREATE_FRIEND",
+          }))
+      }
   }
   return (
     <div className='client_container'>
@@ -62,10 +72,10 @@ export default function Layout(props) {
             </div>
         </div>
         <div className='client_workspace_wrapper'>
-          <ChannelTabPannel/>
+          <ChannelTabPanel optionsChannel={option} onSelect={onSelect}/>
           <div className='p-client_workspace'>
             <div className='client_workspace__layout'>
-              <TabContent/>
+              <TabContent optionsChannel={option} onSelect={onSelect}/>
               <div className='view_contents--chat-content'>
                 {props?.children}
               </div>

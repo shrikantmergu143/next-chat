@@ -6,6 +6,7 @@ export const ActionTypes = {
     SET_CONFIRM_MODAL:"SET_CONFIRM_MODAL",
     SET_SHOW_MODAL:"SET_SHOW_MODAL",
     SET_STORE_CHANNELS_DETAILS:"SET_STORE_CHANNELS_DETAILS",
+    SET_STORE_FRIEND_LIST:"SET_STORE_FRIEND_LIST",
 
 }
 export const setStoreCurrentURL = (token) => {
@@ -48,6 +49,12 @@ export const setShowModal = (token) => {
 export const setStoreChannelsDetails = (token) => {
     return {
        type: ActionTypes.SET_STORE_CHANNELS_DETAILS,
+       payload: token,
+    }
+};
+export const setStoreFriendList = (token) => {
+    return {
+       type: ActionTypes.SET_STORE_FRIEND_LIST,
        payload: token,
     }
 };

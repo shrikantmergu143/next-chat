@@ -283,5 +283,14 @@ input::placeholder,input::-ms-input-placeholder {color: #BFBFCC !important;opaci
 .view_contents--chat-content{width: calc(100% - 300px);height: calc(100vh - 45px);position: relative;}
 .p-client_workspace{padding-right: 5px;}
 .text-editor .divider{background-color: var(--border-color);flex-shrink: 0;align-self: center;width: 1px;height: 20px;margin: 2px 4px;}
-
 .bg-light {background-color: #f8f9fa;border: 1px solid #ddd;--bs-body-bg:white;padding: 20px;border-radius: 4px;--bs-heading-color: black;color: black;--bs-card-color:black;--bs-body-color: black}
+.rotate-90{rotate: 90deg;}
+.rotate-120{rotate: 120deg;}
+.rotate-150{rotate: 150deg;}
+.rotate-135{rotate: 135deg;}
+.rotate-180{rotate: 180deg;}
+.rotate-240{rotate: 240deg;}
+.rotate--90{rotate: -90deg;}
+.rotate--120{rotate: -120deg;}
+.rotate--180{rotate: -180deg;}
+.rotate--240{rotate: -240deg;}
