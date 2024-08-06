@@ -7,15 +7,15 @@ import App_url from '../../components/common/constant';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ChannelId(props) {
-    const {access_token, channelDetails} = useSelector(App_url.allReducers);
+    const {access_token, friendsDetails} = useSelector(App_url.allReducers);
     const dispatch = useDispatch();
     useEffect(()=>{
         callChannelDetails()
-    }, [props?.channel_id]);
+    }, [props?.friend_id]);
     const callChannelDetails = async () =>{
-       await action.getChannelsDetails(access_token, dispatch, props?.channel_id)
+       await action.getFriendsDetails(access_token, dispatch, props?.friend_id)
     };
-    if(channelDetails?.channel_id !== props?.channel_id){
+    if(friendsDetails?.friend_id !== props?.friend_id){
         return (
             <Layout {...props}>
             </Layout>
@@ -23,7 +23,7 @@ export default function ChannelId(props) {
     }
     return (
         <Layout {...props}>
-            <ChannelDetails chatGroupDetails={channelDetails} />
+            <ChannelDetails chatGroupDetails={friendsDetails} />
         </Layout>
     );
 }
@@ -36,16 +36,13 @@ export async function getServerSideProps(context) {
     const access_token = cookies.access_token;
 
     try {
-        // const response = await GetFetchRequestAPI(`${App_url.api.API_CHANNELS}/${params?.channel_id}`, access_token);
-        // console.log("response", response, access_token, false, params?.channel_id);
         return {
             props: {
                 title: title,
                 description: description,
                 env: JSON.stringify(Utils.getCommonEnv(process?.env)),
                 localhost_url: Utils.getCurrentURL(context),
-                channel_id: params?.channel_id
-                // channelData: response, // Pass the fetched channel data to props
+                friend_id: params?.friend_id
             },  
         };
     } catch (error) {

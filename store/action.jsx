@@ -1,6 +1,6 @@
 import { GetRequestCallAPI } from "../components/api/GetRequest";
 import App_url from "../components/common/constant";
-import { setStoreChannelsDetails, setStoreChannelsList, setStoreFriendList } from "./Actions";
+import { setStoreChannelsDetails, setStoreChannelsList, setStoreFriendDetails, setStoreFriendList } from "./Actions";
 
 const getChannelsList = async (access_token,  dispatch, payload) =>{
     const formData = { page: 1, limit: 40 };
@@ -58,9 +58,27 @@ const getFriendList = async (access_token,  dispatch, payload) =>{
         }
     }
 }
+const getFriendsDetails = async (access_token,  dispatch, payload) =>{
+    const response = await GetRequestCallAPI(`${App_url.api.SEND_FRIEND_REQUEST}/${payload}`, access_token);
+    console.log("response", response)
+    if(response?.status == 200){
+        if(dispatch){
+            dispatch(setStoreFriendDetails(response?.data?.data))
+        }else{
+            return response;
+        }
+    }else{
+        if(dispatch){
+            dispatch(setStoreFriendDetails())
+        }else{
+            return response;
+        }
+    }
+}
 const action = {
     getChannelsList: getChannelsList,
     getChannelsDetails: getChannelsDetails,
     getFriendList: getFriendList,
+    getFriendsDetails: getFriendsDetails,
 }
 export default action;

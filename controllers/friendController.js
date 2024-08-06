@@ -65,7 +65,7 @@ export const setFriendRequest = async (payload1, req,) => {
             friend_id: utils.uuidv4(),
         };
     
-        const response = await friendRequest.findOne({
+        const response = await friends.findOne({
             $or: [
                 { email_to: email_to, email_from: user?.email },
                 { email_from: email_to, email_to: user?.email },
@@ -76,7 +76,7 @@ export const setFriendRequest = async (payload1, req,) => {
             return  { error: "A friend request exists between the two users.", status: 400 };
         }
     
-        const createdFriendRequest = await friendRequest.create(payload);
+        const createdFriendRequest = await friends.create(payload);
     
         if (!createdFriendRequest) {
             return { error: 'Friend request inserted unsuccessfully', status: 400 }

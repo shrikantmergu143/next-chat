@@ -29,6 +29,7 @@ export const initialData = {
         buttonSuccess:""
     },
     channelDetails: null,
+    friendsDetails: null,
 };
 
 export const allReducers = (state = initialData, action) => {
@@ -60,6 +61,12 @@ export const allReducers = (state = initialData, action) => {
             return {
                 ...state,
                 friendsList: action?.payload? action?.payload : initialData.friendsList,
+            }
+        }
+        case ActionTypes.SET_STORE_FRIEND_DETAILS:{
+            return {
+                ...state,
+                friendsDetails: action?.payload? action?.payload : initialData.friendsDetails,
             }
         }
         case ActionTypes.SET_SHOW_MODAL:

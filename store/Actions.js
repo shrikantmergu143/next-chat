@@ -7,7 +7,7 @@ export const ActionTypes = {
     SET_SHOW_MODAL:"SET_SHOW_MODAL",
     SET_STORE_CHANNELS_DETAILS:"SET_STORE_CHANNELS_DETAILS",
     SET_STORE_FRIEND_LIST:"SET_STORE_FRIEND_LIST",
-
+    SET_STORE_FRIEND_DETAILS:"SET_STORE_FRIEND_DETAILS",
 }
 export const setStoreCurrentURL = (token) => {
     return {
@@ -55,6 +55,12 @@ export const setStoreChannelsDetails = (token) => {
 export const setStoreFriendList = (token) => {
     return {
        type: ActionTypes.SET_STORE_FRIEND_LIST,
+       payload: token,
+    }
+};
+export const setStoreFriendDetails = (token) => {
+    return {
+       type: ActionTypes.SET_STORE_FRIEND_DETAILS,
        payload: token,
     }
 };

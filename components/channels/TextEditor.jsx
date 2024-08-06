@@ -287,7 +287,7 @@ function TextEditor(props) {
           <div
             ref={editorRef}
             className={`editor ${content == "" || content == "<p><br></p>"?"editor-placeholder":""}`}
-            contentEditable
+            contentEditable="plaintext-only"
             onMouseUp={handleMouseUp}
             dangerouslySetInnerHTML={{ __html: content }}
             onInput={handleInput}

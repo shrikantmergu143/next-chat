@@ -92,12 +92,31 @@ export default function ResumePage() {
               </Row>
               <hr/>
               <div>
-                <h6 className='mb-2'>SUMMARY</h6>
+                <h6 className='mb-2 header-title text-center'>SUMMARY</h6>
                 <p>Seasoned Senior React Developer with extensive experience in <b className='fw-5'>React.js</b>, <b className='fw-5'>Express.js</b>, and <b className='fw-5'>Next.js</b>. Proven track record of building high-performance web applications and leading development teams. Expert in creating scalable solutions, optimizing user experiences, and leveraging modern <b className='fw-5'>JavaScript</b> technologies to drive innovation and efficiency.</p>
               </div>
               <hr/>
               <div>
-                <h6 className='mb-2'>WORK EXPERIENCE</h6>
+                <h6 className='mb-2 header-title text-center'>ADDITIONAL INFORMATION</h6>
+                <div className='pb-2'>
+                  <h6 className='title-2 d-inline fw-7'>Technical Skills:
+                    <p className='mb-0 d-inline ps-2 fw-5'>React.js, Next.js, Node.js, Vite.js, PHP, MongoDB, Laravel, Mysqli, HTML, CSS, JavaScript, Material UI, TypeScript.</p>
+                  </h6>
+                </div>
+                <div className='pb-2'>
+                  <h6 className='title-2 d-inline fw-7'>Soft Skills:
+                    <p className='mb-0 d-inline ps-2 fw-5'>Teamwork, Remote Collaboration, Flexibility, Leadership, Adaptability.</p>
+                  </h6>
+                </div>
+                <div className='pb-2'>
+                  <h6 className='title-2 d-inline fw-7'>Languages:
+                    <p className='mb-0 d-inline ps-2 fw-5'>English, Hindi, Marathi, Telugu.</p>
+                  </h6>
+                </div>
+              </div>
+              <hr/>
+              <div>
+                <h6 className='mb-2 header-title text-center'>WORK EXPERIENCE</h6>
                 <div className='pb-2'>
                   <div className='d-flex'>
                     <h6 className='title-1'>Jr. PHP Developer | NewSoft Solutions PVT. LTD.</h6>
@@ -134,7 +153,7 @@ export default function ResumePage() {
               </div>
               <hr/>
               <div>
-                <h6 className='mb-2'>EDUCATION</h6>
+                <h6 className='mb-2 header-title text-center'>EDUCATION</h6>
                 <div className='pb-2'>
                   <div className='d-flex'>
                     <h6 className='title-1'>Master of Computer Application<span className='ms-1 fw-5 text-secondary-1'>| Percentage - 60.20%</span></h6>
@@ -166,26 +185,7 @@ export default function ResumePage() {
               </div>
               <hr/>
               <div>
-                <h6 className='mb-2'>ADDITIONAL INFORMATION</h6>
-                <div className='pb-2'>
-                  <h6 className='title-2 d-inline fw-7'>Technical Skills:
-                    <p className='mb-0 d-inline ps-2 fw-5'>React.js, Next.js, Node.js, Vite.js, PHP, MongoDB, Laravel, Mysqli, HTML, CSS, JavaScript, Material UI, TypeScript.</p>
-                  </h6>
-                </div>
-                <div className='pb-2'>
-                  <h6 className='title-2 d-inline fw-7'>Soft Skills:
-                    <p className='mb-0 d-inline ps-2 fw-5'>Teamwork, Remote Collaboration, Flexibility, Leadership, Adaptability.</p>
-                  </h6>
-                </div>
-                <div className='pb-2'>
-                  <h6 className='title-2 d-inline fw-7'>Languages:
-                    <p className='mb-0 d-inline ps-2 fw-5'>English, Hindi, Marathi, Telugu.</p>
-                  </h6>
-                </div>
-              </div>
-              <hr/>
-              <div>
-                <h6 className='mb-2'>WORKED PROJECTS</h6>
+                <h6 className='mb-2 header-title text-center'>WORKED PROJECTS</h6>
                 <div className='pb-0'>
                   <h6 className='title-2 d-inline fw-7'>Fellame:
                     <p className='mb-0 d-inline ps-2 fw-5'>Technologies - React.js, Redux, Laravel, Payment Gateway, RozarPay.</p>
@@ -225,7 +225,7 @@ export default function ResumePage() {
               </div>
           </page>
         </div>
-        <Button className={"d-none-print"} onClick={generateAndDownloadPdf}>Download</Button>
+        {/* <Button className={"d-none-print"} onClick={generateAndDownloadPdf}>Download</Button> */}
       </div>
     </React.Fragment>
   )

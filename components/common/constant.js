@@ -54,7 +54,8 @@ const App_url = {
         Register:"/register",
         Login:"/login",
         Home:"/",
-        Channel:"/channel"
+        Channel:"/channel",
+        Friend:"/friend",
     },
     api:{
         API_AUTH_LOGIN: "/api/login",

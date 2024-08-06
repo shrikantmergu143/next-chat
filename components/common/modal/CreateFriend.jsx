@@ -52,7 +52,7 @@ export default function CreateFriend(props) {
         const response = await PostRequestAPI(App_url.api.SEND_FRIEND_REQUEST, formData, access_token);
         console.log("response",response)
         if(response?.status === 200){
-          action.getChannelsList(access_token, dispatch);
+          action.getFriendList(access_token, dispatch);
           CloseModal();
         }else{
           Utils.AuthenticateVerify(response)

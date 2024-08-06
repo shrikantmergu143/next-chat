@@ -30,7 +30,7 @@ export default function DropButton(props) {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <span className={`${props?.classNameText}`}>{props?.title}</span>
+            <span className={`${props?.classNameText} dropdown-span`}>{props?.title}</span>
             <Icon className={'ms-1 xsm'} attrIcon={App_url.icons.Down} />
           </React.Fragment>
         )}

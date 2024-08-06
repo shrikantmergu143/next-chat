@@ -65,7 +65,7 @@ export default function TabContent(props) {
                 </ToolTip>
               </div>
             </div>
-            <Scrollbar style={{height: "calc(100vh - 100px)"}} >
+            <Scrollbar style={{height: "calc(100vh - 94px)"}} >
               <div className='channel_sidebar__static_list'>
                 <div className='channel_sidebar__section_heading'>
                   <Icon
