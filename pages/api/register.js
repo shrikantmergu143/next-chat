@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         try {
           const newUser = await createUser(user);
           const userDetails = userPayload(newUser)
-          const token = Utils.generateAuthToken({ ...user, user_id: user.insertedId, email: user.email })
+          const token = Utils.generateAuthToken({ ...user, _id: newUser?.insertedId, password: newUser?.email })
           res.status(200).json({
             ...newUser,
             access_token: token,

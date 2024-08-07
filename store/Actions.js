@@ -8,7 +8,15 @@ export const ActionTypes = {
     SET_STORE_CHANNELS_DETAILS:"SET_STORE_CHANNELS_DETAILS",
     SET_STORE_FRIEND_LIST:"SET_STORE_FRIEND_LIST",
     SET_STORE_FRIEND_DETAILS:"SET_STORE_FRIEND_DETAILS",
+    SET_STORE_ACTIVE_TAB:"SET_STORE_ACTIVE_TAB",
+
 }
+export const setStoreActiveTab = (token) => {
+    return {
+       type: ActionTypes.SET_STORE_ACTIVE_TAB,
+       payload: token,
+    }
+};
 export const setStoreCurrentURL = (token) => {
     return {
        type: ActionTypes.GET_CURRENT_URL,

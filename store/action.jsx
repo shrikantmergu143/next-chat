@@ -42,7 +42,8 @@ const getChannelsDetails = async (access_token,  dispatch, payload) =>{
     }
 }
 const getFriendList = async (access_token,  dispatch, payload) =>{
-    const response = await GetRequestCallAPI(`${App_url.api.SEND_FRIEND_REQUEST}`, access_token);
+    
+    const response = await GetRequestCallAPI(`${App_url.api.SEND_FRIEND_REQUEST}`, access_token, payload);
     console.log("response", response)
     if(response?.status == 200){
         if(dispatch){

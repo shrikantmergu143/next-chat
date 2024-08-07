@@ -34,7 +34,10 @@ export async function createUser(user) {
     ...user,
     password: encryptPassword
   });
-  return result;
+  return {
+    ...result,
+    password: encryptPassword
+  };
 }
 
 

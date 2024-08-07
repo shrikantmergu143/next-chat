@@ -12,10 +12,10 @@ import SendRequest from '../components/context/SocketRequest';
 export default function Home() {
   const {connect} = useContext(SocketConnect)
   // const dispatch = useDispatch();
-  const {access_token} = useSelector(App_url.allReducers);
+  // const {access_token} = useSelector(App_url.allReducers);
   // useEffect(()=>{
-    const verification = Utils.validateJWT(access_token);
-    console.log('Verification Result:', verification);
+    // const verification = Utils.validateJWT(access_token);
+    // console.log('Verification Result:', verification);
   // },[])
   useEffect(()=>{
     if(connect){

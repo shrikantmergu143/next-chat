@@ -140,16 +140,6 @@ function generateAuthToken(data) {
     return jwtToken;
 }
 
-// Example usage:
-const data = {
-    id: 1,
-    email: 'example@example.com',
-    access_type: 'admin'
-};
-
-// const token = generateAuthToken(data);
-// console.log('Generated Token:', token);
-
 
 function base64UrlDecode(base64Url) {
   let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

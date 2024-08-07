@@ -1,19 +1,16 @@
-.resume-page{margin: 0 auto;padding: 0 !important;display: flex;justify-content: center;}
-@page {size: A4;margin: 0;padding: 0px;display: block;height: auto;}
-.page {max-width: 21cm;min-height: 29.7cm;margin: 0px auto;display: block;margin-left: -90px;margin-right: -90px;width: calc(100% + 180px);display: flex;flex-direction: column;}
+.resume-page{display: flex;justify-content: center;flex-direction: column;align-items: center;max-width: 21cm !important;}
+@page {size: 21cm 29cm;margin: 0;padding: 10px;display: block;}
+.page {max-width: 21cm;margin: 0px auto;display: block;display: flex;flex-direction: column;}
 .page table>tr>*{padding: 0.28rem 0.24rem;word-break: break-word;}
 .d-block{display: block;}
 @media print {
-    body{
-      -webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;
-      scale: 0.9;
-    }
-    .d-none-print{display:none;}
+    body{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;scale: 0.9;}
+    .d-none-print{display:none!important;}
 }
 .page a{color: var(--text-color);text-decoration: none;}
 .page h5{font-size: 1.94em;}
 .page h6{font-size: 1.4em;margin-bottom: 5px;}
-.page hr{margin-bottom: 5px;width: 100%;border-bottom: 0.1em solid;padding-top: 5px;border-top: none;margin-top: 0;}
+.page hr{margin-bottom: 5px;width: 100%;border-bottom: 0.1em solid;padding-top: 10px;border-top: none;margin-top: 0;}
 .page p, .page ul{margin-bottom: 7px;}
 .page .title-1{font-size: 1.2em;}
 .page .title-2{font-size: 1.1em;font-weight: 550;}

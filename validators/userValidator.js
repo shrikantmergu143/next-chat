@@ -63,10 +63,10 @@ export const channelsValidator = (payload) => {
         val = true;
     }
 
-    if (!payload?.created_by || payload.created_by.trim() === "") {
-        error.created_by = "Created by field is required";
-        val = true;
-    }
+    // if (!payload?.created_by || payload.created_by.trim() === "") {
+    //     error.created_by = "Created by field is required";
+    //     val = true;
+    // }
 
     if (val) {
         return error;
@@ -87,6 +87,7 @@ export function authenticateToken(authorizationHeader, req) {
     const userDetails = Utils.validateJWT(token);
     if(userDetails?.status){
       req.user = userDetails?.payload;
+      console.log("req.user", req.user)
     }
     return userDetails;
   }

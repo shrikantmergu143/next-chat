@@ -1,7 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import App_url from '../common/constant'
-import { setShowModal } from '../../store/Actions'
+import { setShowModal, setStoreActiveTab } from '../../store/Actions'
 import { useDispatch } from 'react-redux'
 const DropButton = dynamic(()=>import('../common/DropButton'))
 const Avatar = dynamic(()=>import('../common/Avatar'))
@@ -22,21 +22,42 @@ export default function ChannelTabPannel(props) {
             </div>
         )
     }
-    // if(true){
-    //     return(
-    //         <Loader/>
-    //     )
-    // }
-    const option = [
-        {title:"Add Friend", value:"add_friend"},
-    ]
-    const onSelect = (item) =>{
-        if(item?.value == "add_friend"){
-            dispatch(setShowModal({
-                show:"CREATE_FRIEND",
-            }))
+    const popOverItems = [
+        {
+            title: "Home",
+            name: "Home",
+            icon: App_url.icons.HomeIcon,
+            size: "lg"
+        },
+        {
+            title: "Direct Messages",
+            name: "DMs",
+            icon: App_url.icons.ChatIcon,
+            size: "lg"
+        },
+        {
+            title: "More",
+            name: "More",
+            icon: App_url.icons.Ellipsis,
+            size: "lg"
+        },
+        {
+            title: "Activity",
+            name: "Activity",
+            icon: App_url.icons.Notification,
+            size: "lg"
+        },
+        {
+            title: "Saved Messages",
+            name: "Later",
+            icon: App_url.icons.Bookmark,
+            size: "lg"
         }
+    ];
+    const callSelectedTab = (e, item) =>{
+        dispatch(setStoreActiveTab(item?.name))
     }
+    
   return (
    <React.Suspense fallback={<Loader/>}>
      <div className='tab_rail'>
@@ -45,61 +66,19 @@ export default function ChannelTabPannel(props) {
                 <Avatar src={App_url.icons.default_image}/>
             </div>
             <div className='tab-scroller'>
-                <PopOver title={"Home"} placement={"right"}>
-                    <div className='tabs__tab_content'>
-                        <Icon
-                            attrIcon={App_url.icons.HomeIcon}
-                            button
-                            size={"lg"}
-                            variant={"secondary"}
-                        />
-                        <div class="p-tab_rail__button__label">Home</div>
-                    </div>
-                </PopOver>
-                <PopOver title={"Direact Messages"} placement={"right"}>
-                    <div className='tabs__tab_content'>
-                        <Icon
-                            attrIcon={App_url.icons.ChatIcon}
-                            button
-                            size={"lg"}
-                            variant={"hover-secondary"}
-                        />
-                        <div class="p-tab_rail__button__label">DMs</div>
-                    </div>
-                </PopOver>
-                <PopOver title={"More"} placement={"right"}>
-                    <div className='tabs__tab_content'>
-                        <Icon
-                            attrIcon={App_url.icons.Ellipsis}
-                            button
-                            size={"lg"}
-                            variant={"hover-secondary"}
-                        />
-                        <div class="p-tab_rail__button__label">More</div>
-                    </div>
-                </PopOver>
-                <PopOver title={"Activity"} placement={"right"}>
-                    <div className='tabs__tab_content'>
-                        <Icon
-                            attrIcon={App_url.icons.Notification}
-                            button
-                            size={"lg"}
-                            variant={"hover-secondary"}
-                        />
-                        <div class="p-tab_rail__button__label">Activity</div>
-                    </div>
-                </PopOver>
-                <PopOver title={"Saved Messages"} placement={"right"}>
-                    <div className='tabs__tab_content'>
-                        <Icon
-                            attrIcon={App_url.icons.Bookmark}
-                            button
-                            size={"lg"}
-                            variant={"hover-secondary"}
-                        />
-                        <div class="p-tab_rail__button__label">Later</div>
-                    </div>
-                </PopOver>
+                {popOverItems.map((item, index) => (
+                    <PopOver key={index} title={item.title} placement={"right"}>
+                        <div className='tabs__tab_content' onClick={(e)=>callSelectedTab(e, item)}>
+                            <Icon
+                                attrIcon={item.icon}
+                                button
+                                size={item.size}
+                                variant={"hover-secondary"} // Adjust as needed
+                            />
+                            <div className="p-tab_rail__button__label">{item.name}</div>
+                        </div>
+                    </PopOver>
+                ))}
             </div>
                 <DropButton onSelect={props?.onSelect} placement={"top-end"} buttonClassName={"p-0 hover-none"} option={props?.optionsChannel}>
                     <div className='tabs__tab_content'>

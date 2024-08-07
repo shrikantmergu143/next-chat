@@ -30,10 +30,17 @@ export const initialData = {
     },
     channelDetails: null,
     friendsDetails: null,
+    activeTab: "Home",
 };
 
 export const allReducers = (state = initialData, action) => {
     switch (action?.type) {
+        case ActionTypes.SET_STORE_ACTIVE_TAB:{
+            return {
+                ...state,
+                activeTab: action?.payload,
+            }
+        }
         case ActionTypes.GET_CURRENT_URL:
             return {
                 ...state,

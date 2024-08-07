@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     const user = await loginUser({ email, password });
     if(user?.status){
       const userDetails = user?.user
-      const token = Utils.generateAuthToken({ ...userDetails, user_id: userDetails._id, email: userDetails.email });
+      const token = Utils.generateAuthToken({ ...userDetails, _id: userDetails._id, email: userDetails.email });
        // Assuming authentication is successful, set cookie
       res.setHeader('Set-Cookie', `access_token=${token}; Path=/; HttpOnly`);
 
