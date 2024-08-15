@@ -3,7 +3,7 @@ import App_url from "../common/constant";
 import Icon from "../common/Icon";
 import ToolTip from "../common/PopOver";
 
-function TextEditor() {
+function TextEditor(props) {
   const [content, setContent] = useState("");
   const [selection, setSelection] = useState(null);
   const [history, setHistory] = useState([]);
