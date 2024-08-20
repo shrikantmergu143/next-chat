@@ -40,14 +40,22 @@ function TextEditor(props) {
   const handleInput = (e) => {
     // Ensure every text input has a tag
     const editorContent = editorRef.current.innerHTML;
-    if (!editorContent.trim()) {
+    if (!editorContent.startsWith("<") || !editorContent) {
+      if(!editorContent){
+        setContent(`<p><br></p>`);
+      }else{
+        setContent(`<p>${editorContent}</p>`);
+      }
+    } else if (!editorContent.trim() || editorContent === "<p><br></p>") {
       setContent("<p><br></p>");
     } else if (!editorContent.startsWith("<")) {
       setContent(`<p>${editorContent}</p>`);
+      cleanAndSaveHistory(editorContent);
     } else {
       setContent(editorContent);
+      console.log("editorContent", editorContent);
+      cleanAndSaveHistory(editorContent);
     }
-    cleanAndSaveHistory(editorContent);
   };
 
   const setCursorToEnd = (element) => {
@@ -88,7 +96,9 @@ function TextEditor(props) {
     }
   };
 
-  const handleBold = () => execCommand("bold");
+  const handleBold = () => {
+    execCommand("bold");
+  };
   const handleItalic = () => execCommand("italic");
   const handleUnderline = () => execCommand("underline");
   const handleStrikeThrough = () => execCommand("strikeThrough");
@@ -112,7 +122,6 @@ function TextEditor(props) {
     if (editorRef.current) {
       setCursorToEnd(editorRef.current);
     }
-    console.log("editorRef", editorRef)
   }, [content]);
 
   useEffect(() => {
@@ -152,12 +161,28 @@ function TextEditor(props) {
   const buttons = [
     { title: "Bold", function: handleBold, icon: App_url?.icons?.Bold },
     { title: "Italic", function: handleItalic, icon: App_url?.icons?.Italic },
-    { title: "Underline", function: handleUnderline, icon: App_url?.icons?.Underline, },
+    {
+      title: "Underline",
+      function: handleUnderline,
+      icon: App_url?.icons?.Underline,
+    },
     { divider: true },
-    { title: "StrikeThrough", function: handleStrikeThrough, icon: App_url?.icons?.Strike, },
+    {
+      title: "StrikeThrough",
+      function: handleStrikeThrough,
+      icon: App_url?.icons?.Strike,
+    },
     { divider: true },
-    { title: "Ordered List", function: handleOrderedList, icon: App_url?.icons?.OrderList, },
-    { title: "Unordered List", function: handleUnorderedList, icon: App_url?.icons?.UnOrderList, },
+    {
+      title: "Ordered List",
+      function: handleOrderedList,
+      icon: App_url?.icons?.OrderList,
+    },
+    {
+      title: "Unordered List",
+      function: handleUnorderedList,
+      icon: App_url?.icons?.UnOrderList,
+    },
     // { divider: true },
     // { title: "Link", function: handleLink, icon: App_url?.icons?.Link },
     // { title: "Image", function: handleImage, icon: App_url?.icons?.Attach },
@@ -165,31 +190,46 @@ function TextEditor(props) {
   ];
   const buttonFooterAction = [
     {
-      align:"left",
-      actionList:[
-        { title: "Bold", function:handleBold, icon: App_url?.icons?.PlusIcon, className:"rounded" },
-        { title: "Alphabet", function:handleBold, icon: App_url?.icons?.Alphabet, },
-        { title: "Smile", function:handleBold, icon: App_url?.icons?.Smile, },
-        { divider:true },
-        { title: "VideoRecording", function:handleBold, icon: App_url?.icons?.VideoRecording, },
-        { divider:true },
-        { title: "AudioRecording", function:handleBold, icon: App_url?.icons?.AudioRecording, },
-      ]
+      align: "left",
+      actionList: [
+        {
+          title: "Bold",
+          function: handleBold,
+          icon: App_url?.icons?.PlusIcon,
+          className: "rounded",
+        },
+        {
+          title: "Alphabet",
+          function: handleBold,
+          icon: App_url?.icons?.Alphabet,
+        },
+        { title: "Smile", function: handleBold, icon: App_url?.icons?.Smile },
+        { divider: true },
+        {
+          title: "VideoRecording",
+          function: handleBold,
+          icon: App_url?.icons?.VideoRecording,
+        },
+        { divider: true },
+        {
+          title: "AudioRecording",
+          function: handleBold,
+          icon: App_url?.icons?.AudioRecording,
+        },
+      ],
     },
     {
-      align:"left",
-      actionList:[
-        { function:handleSubmit, icon: App_url?.icons?.Send, },
-      ]
-    }
-  ]
+      align: "left",
+      actionList: [{ function: handleSubmit, icon: App_url?.icons?.Send }],
+    },
+  ];
 
   const ButtonEditor = (props) => {
     const onClick = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      console.log("props", props);
       props?.function(e);
+      handleFooterClick();
     };
     const renderButton = () => {
       return (
@@ -210,15 +250,34 @@ function TextEditor(props) {
     }
     return (
       // <ToolTip title={props.title} placement={"top"}>
-        renderButton()
+      renderButton()
       // </ToolTip>
     );
   };
-  console.log("content", content);
-  return (
-    <div className="p-view-footer" id="p-view-footer">
-      <div className="position-relative h-100 w-100">
-      <div className="text-editor">
+
+  const handleFooterClick = () => {
+    if (editorRef.current) {
+      setCursorToEnd(editorRef.current);
+    }
+  };
+  const inputGroupText = () => {
+    return (
+      <div
+        ref={editorRef}
+        className={`editor ${
+          content == "" || content == "<p><br></p>" ? "editor-placeholder" : ""
+        }`}
+        contentEditable
+        onMouseUp={handleMouseUp}
+        dangerouslySetInnerHTML={{ __html: content }}
+        onInput={handleInput}
+        data-placeholder={props?.placeholder}
+      ></div>
+    );
+  };
+  const ButtonIconContent = () => {
+    return (
+      <React.Fragment>
         <div className="toolbar">
           {buttons.map((item, index) => (
             <React.Fragment key={index}>
@@ -226,32 +285,44 @@ function TextEditor(props) {
             </React.Fragment>
           ))}
         </div>
-        <div
-          ref={editorRef}
-          className={`editor ${ content == "" || content == "<p><br></p>" ? "editor-placeholder" : "" }`}
-          contentEditable
-          onMouseUp={handleMouseUp}
-          dangerouslySetInnerHTML={{ __html: content }}
-          onInput={handleInput}
-          data-placeholder={props?.placeholder}
-          ></div>
-        <div className="footer-action">
-            {buttonFooterAction.map((action, index) => (
-              <React.Fragment>
-                <div className={`action-${action?.align}`}>
-                {action?.actionList.map((item, index) => (
-                  <React.Fragment key={index} >
-                    <ButtonEditor {...item} className={`text-button ${item?.className}`} onClick={item.function}/>
-                  </React.Fragment>
-                ))}
-                </div>
-              </React.Fragment>
-            ))}
+      </React.Fragment>
+    );
+  };
+  console.log("content", content);
+  const renderTextEditor = () => {
+    return (
+      <div
+        className="p-view-footer"
+        id="p-view-footer"
+        onClick={handleFooterClick}
+      >
+        <div className="position-relative h-100 w-100">
+          <div className="text-editor">
+            {ButtonIconContent()}
+            {inputGroupText()}
+            <div className="footer-action">
+              {buttonFooterAction.map((action, index) => (
+                <React.Fragment>
+                  <div className={`action-${action?.align}`}>
+                    {action?.actionList.map((item, index) => (
+                      <React.Fragment key={index}>
+                        <ButtonEditor
+                          {...item}
+                          className={`text-button ${item?.className}`}
+                          onClick={item.function}
+                        />
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-      </div>
-    </div>
-  );
+    );
+  };
+  return renderTextEditor();
 }
 
 export default TextEditor;
