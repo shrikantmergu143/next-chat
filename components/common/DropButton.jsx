@@ -18,7 +18,7 @@ export default function DropButton(props) {
   };
 
   return (
-    <Dropdown className={`${props?.className}`} show={show} onToggle={handleToggle} placement={props?.placement}>
+    <Dropdown className={`dropdown ${props?.className}`} show={show} onToggle={handleToggle} drop={props?.placement}>
       <Dropdown.Toggle
         variant='hover-secondary-1'
         className={`${props?.buttonClassName}`}

@@ -80,7 +80,7 @@ export default function ChannelTabPannel(props) {
                     </PopOver>
                 ))}
             </div>
-                <DropButton onSelect={props?.onSelect} placement={"top-end"} buttonClassName={"p-0 hover-none"} option={props?.optionsChannel}>
+                <DropButton onSelect={props?.onSelect} placement={"top-start"} buttonClassName={"p-0 hover-none"} option={props?.optionsChannel}>
                     <div className='tabs__tab_content'>
                         <Icon
                             attrIcon={App_url.icons.PlusIcon}
