@@ -19,7 +19,6 @@ export async function getUsers(user_id = null) {
   }
 }
 
-
 export async function createUser(user) {
   const client = await clientPromise;
   const db = client.db(process.env.MONGODB_DATABASE);
@@ -39,7 +38,6 @@ export async function createUser(user) {
     password: encryptPassword
   };
 }
-
 
 export async function loginUser(credentials) {
   const { email, password } = credentials;

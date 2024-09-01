@@ -1,5 +1,7 @@
 // pages/api/channels/index.js
+import { updateFriendRequest } from '../../../controllers/Friend/UpdateFriendRequest';
 import friends from '../../../models/friendRequest';
+import { registerValidator } from '../../../validators/userValidator';
 import Authenticate from '../checkAuth';
 
 export default async function handler(req, res) {
@@ -15,7 +17,14 @@ export default async function handler(req, res) {
             } catch (error) {
                 res.status(500).json({ success: false, message: 'Failed to fetch channels.' });
             }
-          } else {
+          }else if(req.method === "PUT"){
+            const { status } = req.body;
+            if(status!="accepted" && status!="rejected"){
+              res.status(400).json({ success: false, message: 'Status is required valid only Accepted and Rejected' });
+            }else{
+              updateFriendRequest(req, res);
+            }
+          }else {
             res.status(405).json({ success: false, message: 'Method not allowed.' });
           }
     })
