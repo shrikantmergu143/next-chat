@@ -1,7 +1,7 @@
 import friends from "../models/friendRequest"
 import utils from '../components/utils';
 import friendPayload from '../payloadData/friendPayload';
-import user from "../models/user";
+import user from "../models/User";
 import usersPayload from "../payloadData/usersPayload";
 const getFriendRequest = async (req, res) => {
     const { page = 1, limit = 20, status } = req;
