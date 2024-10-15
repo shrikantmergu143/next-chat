@@ -36,7 +36,13 @@ function TextEditor(props) {
   const handleMouseUp = () => {
     setSelection(window.getSelection().toString());
   };
-
+  // PLACE CARET BACK IN POSITION
+  function placeCaret(position) {
+    const root = editorRef.current;
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    range.setStart(root.firstChild.firstChild, position);
+  }
   const handleInput = (e) => {
     // Ensure every text input has a tag
     const editorContent = editorRef.current.innerHTML;
@@ -56,6 +62,9 @@ function TextEditor(props) {
       console.log("editorContent", editorContent);
       cleanAndSaveHistory(editorContent);
     }
+    console.log("e", e)
+    placeCaret(editorRef?.current?.innerText?.length)
+
   };
 
   const setCursorToEnd = (element) => {
@@ -117,12 +126,12 @@ function TextEditor(props) {
   const handleCode = () => wrapSelection("<code>", "</code>");
   const handleCodeBlock = () => wrapSelection("<pre><code>", "</code></pre>");
 
-  useEffect(() => {
-    document.execCommand("defaultParagraphSeparator", false, "p");
-    if (editorRef.current) {
-      setCursorToEnd(editorRef.current);
-    }
-  }, [content]);
+  // useEffect(() => {
+  //   document.execCommand("defaultParagraphSeparator", false, "p");
+  //   if (editorRef.current) {
+  //     setCursorToEnd(editorRef.current);
+  //   }
+  // }, [content]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {

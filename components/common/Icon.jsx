@@ -46,6 +46,7 @@ Icon.propTypes = {
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
     loading: PropTypes.any,
+    button: PropTypes.bool,
     attrIcon: PropTypes.any,
 }
 
