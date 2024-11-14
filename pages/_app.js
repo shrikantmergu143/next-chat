@@ -13,6 +13,7 @@ import ConfirmModal from '../components/common/ConfirmModal';
 import CreateChannelModal from '../components/common/modal/CreateChannelModal';
 import Context from '../components/context/SocketContext';
 import CreateFriend from '../components/common/modal/CreateFriend';
+import PageLoad from './PageLoad';
 
 function App({ Component, pageProps }) {
   return (
@@ -26,6 +27,7 @@ function App({ Component, pageProps }) {
             <ConfirmModal/>
             <CreateFriend/>
           </Context>
+          <PageLoad/>
         </PersistGate>
       </Provider>
     </DefaultLayout>

@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import App_url from "../common/constant";
 import Icon from "../common/Icon";
 import ToolTip from "../common/PopOver";
+import { useWebSocket } from "../context/SocketContext";
 
 function TextEditor(props) {
   const [content, setContent] = useState("");
   const [selection, setSelection] = useState(null);
+  const { send } = useWebSocket();
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const editorRef = useRef(null);
@@ -47,9 +49,9 @@ function TextEditor(props) {
     // Ensure every text input has a tag
     const editorContent = editorRef.current.innerHTML;
     if (!editorContent.startsWith("<") || !editorContent) {
-      if(!editorContent){
+      if (!editorContent) {
         setContent(`<p><br></p>`);
-      }else{
+      } else {
         setContent(`<p>${editorContent}</p>`);
       }
     } else if (!editorContent.trim() || editorContent === "<p><br></p>") {
@@ -62,9 +64,8 @@ function TextEditor(props) {
       console.log("editorContent", editorContent);
       cleanAndSaveHistory(editorContent);
     }
-    console.log("e", e)
-    placeCaret(editorRef?.current?.innerText?.length)
-
+    console.log("e", e);
+    placeCaret(editorRef?.current?.innerText?.length);
   };
 
   const setCursorToEnd = (element) => {
@@ -125,13 +126,50 @@ function TextEditor(props) {
   const handleClean = () => execCommand("removeFormat");
   const handleCode = () => wrapSelection("<code>", "</code>");
   const handleCodeBlock = () => wrapSelection("<pre><code>", "</code></pre>");
-
+  const [startRecording, setStartRecording] = useState(false);
   // useEffect(() => {
   //   document.execCommand("defaultParagraphSeparator", false, "p");
   //   if (editorRef.current) {
   //     setCursorToEnd(editorRef.current);
   //   }
   // }, [content]);
+  const mediaRecorderRef = useRef(null);
+
+  const handleAudioRecording = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    
+    if (stream) {
+        if (!startRecording) {
+            setStartRecording(true);
+            mediaRecorderRef.current = new MediaRecorder(stream);
+
+            mediaRecorderRef.current.ondataavailable = async (event) => {
+                if (event.data.size > 0) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        const base64Audio = reader.result.split(',')[1]; // Get Base64 part
+                        // Send the audio data as Base64
+                        send({ audio: base64Audio });
+                    };
+                    reader.readAsDataURL(event.data);
+                }
+            };
+
+            mediaRecorderRef.current.start(100); // Send data every 100ms
+        } else {
+            if (mediaRecorderRef.current) {
+                mediaRecorderRef.current.stop();
+            }
+            setStartRecording(false);
+        }
+    }
+};
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+    }
+  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -222,7 +260,7 @@ function TextEditor(props) {
         { divider: true },
         {
           title: "AudioRecording",
-          function: handleBold,
+          function: handleAudioRecording,
           icon: App_url?.icons?.AudioRecording,
         },
       ],

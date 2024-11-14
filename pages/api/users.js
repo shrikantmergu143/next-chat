@@ -1,8 +1,10 @@
 // pages/api/users.js
 import Utils from '../../components/utils';
 import { getUsers } from '../../controllers/userController';
+import connectToDatabase from '../../lib/configData';
 
 export default async function handler(req, res) {
+  await connectToDatabase();
   try {
     switch (req.method) {
       case 'GET':

@@ -1,10 +1,12 @@
 // pages/api/users.js
 import Utils from '../../components/utils';
 import { getUsers, createUser } from '../../controllers/userController';
+import connectToDatabase from '../../lib/configData';
 import userPayload from '../../payloadData/userPayload';
 import { registerValidator } from '../../validators/userValidator';
 
 export default async function handler(req, res) {
+  await connectToDatabase();
   try {
     switch (req.method) {
       case 'POST':

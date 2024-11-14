@@ -1,9 +1,11 @@
 // pages/api/login.js
 import Utils from '../../components/utils';
 import { loginUser } from '../../controllers/userController';
+import connectToDatabase from '../../lib/configData';
 import userPayload from '../../payloadData/userPayload';
 
 export default async function handler(req, res) {
+  await connectToDatabase();
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }

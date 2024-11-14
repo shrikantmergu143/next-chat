@@ -9,8 +9,15 @@ export const ActionTypes = {
     SET_STORE_FRIEND_LIST:"SET_STORE_FRIEND_LIST",
     SET_STORE_FRIEND_DETAILS:"SET_STORE_FRIEND_DETAILS",
     SET_STORE_ACTIVE_TAB:"SET_STORE_ACTIVE_TAB",
+    SET_STORE_DEVICE_ID:"SET_STORE_DEVICE_ID",
 
 }
+export const setStoreDeviceId = (token) => {
+    return {
+       type: ActionTypes.SET_STORE_DEVICE_ID,
+       payload: token,
+    }
+};
 export const setStoreActiveTab = (token) => {
     return {
        type: ActionTypes.SET_STORE_ACTIVE_TAB,

@@ -1,3 +1,4 @@
+import { uuidv4 } from "../components/utils";
 import { ActionTypes } from "./Actions";
 
 export const initialData = {
@@ -31,6 +32,7 @@ export const initialData = {
     channelDetails: null,
     friendsDetails: null,
     activeTab: "Home",
+    device_id:uuidv4()
 };
 
 export const allReducers = (state = initialData, action) => {
@@ -90,6 +92,11 @@ export const allReducers = (state = initialData, action) => {
             return{
                 ...state,
                 channelDetails: action?.payload,
+            }
+        case ActionTypes.SET_STORE_DEVICE_ID:
+            return{
+                ...state,
+                device_id: action?.payload,
             }
         default:
             return state;

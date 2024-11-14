@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import App_url from '../components/common/constant';
 import { SocketConnect } from '../components/context/SocketContext';
 import SendRequest from '../components/context/SocketRequest';
+import WebRTCChat from '../components/video_chat/VideoChatPage';
+import VideoChat from '../components/video_chat/VideoBase';
 // import { useDispatch, useSelector } from 'react-redux';
 // import App_url from '../components/common/constant';
 // import { useEffect } from 'react';
@@ -24,7 +26,7 @@ export default function Home() {
   },[connect])
   return (
     <Layout>
-      
+      <VideoChat/>
     </Layout>
   );
 }
