@@ -2,8 +2,8 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import App_url from './components/common/constant';
 
-export function middleware(request) {
-    const cookieStore = cookies();
+export async function middleware(request) {
+    const cookieStore = await cookies();
     const access_token = cookieStore.get('access_token');
     const requestedUrl = new URL(request.url).pathname;
 

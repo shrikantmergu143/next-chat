@@ -21,11 +21,11 @@ export default function Layout(props) {
   },[])
   const callUserDetails = async () =>{
     const response = await GetRequestCallAPI(App_url.api.API_USER_DETAILS, access_token);
-    if(response?.status === 200){
-      dispatch(setStoreUserDetails(response?.data))
-    }else{
-      dispatch(setStoreAccessToken(""))
-    }
+    // if(response?.status === 200){
+    //   dispatch(setStoreUserDetails(response?.data?.data))
+    // }else{
+    //   dispatch(setStoreAccessToken(""))
+    // }
     console.log("response", response)
   }
   const option = [

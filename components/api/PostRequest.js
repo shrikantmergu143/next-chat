@@ -1,12 +1,11 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: process.env.API_URL, // Replace this with your API base URL
 });
 
 instance.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-export const PostRequestAPI = async (apiurl, payload, access_token, contentType, responseType, config) => {
+export const PostRequestAPI = async (api_url, payload, access_token, contentType, responseType, config) => {
 
     const headers = {
       'Accept':"application/json",
@@ -26,7 +25,7 @@ export const PostRequestAPI = async (apiurl, payload, access_token, contentType,
     if(config){
       contentMethod.onUploadProgress = (e) =>config.onUploadProgress(e);
     }
-    const getResponse = axios.post(`${apiurl}`,payload, contentMethod).then(function (result) {
+    const getResponse = axios.post(`${process.env.REACT_APP_API_URL}/${api_url}`,payload, contentMethod).then(function (result) {
       return result;
     }).catch((e)=>e.response);
     return getResponse;

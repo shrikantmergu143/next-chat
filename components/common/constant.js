@@ -58,11 +58,16 @@ const App_url = {
         Friend:"/friend",
     },
     api:{
-        API_AUTH_LOGIN: "/api/login",
-        API_REGISTER: "/api/register",
-        API_USER_DETAILS:"/api/users",
-        API_CHANNELS:"/api/channels",
-        SEND_FRIEND_REQUEST:"/api/friends",
+        API_AUTH_LOGIN: "api/login",
+        API_REGISTER: "api/register",
+        API_CHANNELS:"api/channels",
+        SEND_FRIEND_REQUEST:"api/friends",
+        // express.ts api
+        API_LOGIN:"api/sign-in",
+        API_SIGN_UP:"api/sign-up",
+        API_GET_GROUPS:"api/chat/get-group",
+        API_USER_DETAILS:"api/user-details",
+        API_CREATE_GROUP:"api/chat/create-group",
     }
 }
 

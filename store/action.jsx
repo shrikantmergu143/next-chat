@@ -3,17 +3,17 @@ import App_url from "../components/common/constant";
 import { setStoreChannelsDetails, setStoreChannelsList, setStoreFriendDetails, setStoreFriendList } from "./Actions";
 
 const getChannelsList = async (access_token,  dispatch, payload) =>{
-    const formData = { page: 1, limit: 40 };
+    const formData = { page: 1, limit: 40, search:"", group_type:"" };
     if(payload?.page){
         formData.page = payload.page
     }
     if(payload?.limit){
         formData.limit = payload.limit
     }
-    const response = await GetRequestCallAPI(App_url.api.API_CHANNELS, access_token, formData);
+    const response = await GetRequestCallAPI(App_url.api.API_GET_GROUPS, access_token, formData);
     if(response?.status == 200){
         if(dispatch){
-            dispatch(setStoreChannelsList(response?.data))
+            dispatch(setStoreChannelsList(response?.data?.data))
         }else{
             return response;
         }
@@ -26,7 +26,7 @@ const getChannelsList = async (access_token,  dispatch, payload) =>{
     }
 }
 const getChannelsDetails = async (access_token,  dispatch, payload) =>{
-    const response = await GetRequestCallAPI(`${App_url.api.API_CHANNELS}/${payload}`, access_token);
+    const response = await GetRequestCallAPI(`${App_url.api.API_GET_GROUPS}/${payload}`, access_token);
     if(response?.status == 200){
         if(dispatch){
             dispatch(setStoreChannelsDetails(response?.data?.data))

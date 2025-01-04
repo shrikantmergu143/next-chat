@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { usePosterReducers } from "../context/usePostReducer";
+import { usePosterReducers } from "../context/usePosterReducers";
 
 const WebRTCChat = () => {
   const { access_token } = usePosterReducers();

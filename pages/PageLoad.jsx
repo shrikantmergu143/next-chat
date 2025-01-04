@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { usePosterReducers } from '../components/context/usePostReducer';
+import { usePosterReducers } from '../components/context/usePosterReducers';
 import { setStoreDeviceId } from '../store/Actions';
 import { uuidv4 } from '../components/utils';
 import { useDispatch } from 'react-redux';

@@ -65,26 +65,25 @@ export default function Home() {
                 last_name:formData?.last_name,
                 username:formData?.username,
             }
-                const response = await PostRequestAPI(`${App_url.api.API_REGISTER}`,payload);
-                console.log("resp", response)
-                if(response?.status === 200){
-                    console.log("response", response)
-                    dispatch(setStoreAccessToken(response?.data?.access_token));
-                    navigate.push(App_url.link.Home)
-                }else{
-                    if(response?.data?.errors){
-                        setErrors((errors)=>({
-                            ...errors,
-                            ...response?.data?.errors
-                        }))
-                    }
-                    if(response?.data?.error){
-                        setErrors((errors)=>({
-                            ...errors,
-                            email: response?.data?.error
-                        }))
-                    }
+            const response = await PostRequestAPI(`${App_url.api.API_SIGN_UP}`,payload);
+            console.log("resp", response)
+            if(response?.status === 200){
+                dispatch(setStoreAccessToken(response?.data?.data?.access_token));
+                navigate.push(App_url.link.Home)
+            }else{
+                if(response?.data?.errors){
+                    setErrors((errors)=>({
+                        ...errors,
+                        ...response?.data?.errors
+                    }))
                 }
+                if(response?.data?.error){
+                    setErrors((errors)=>({
+                        ...errors,
+                        email: response?.data?.error
+                    }))
+                }
+            }
         }
     }
   return (

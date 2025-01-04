@@ -9,7 +9,7 @@ export default function SideBarListItem(item) {
         return(
           <Button to={`${App_url.link.Friend}/${item?.friend_id}`} variant={"hover-secondary-1"} className={`list-sidebar w-100 ${isActive?"active":""} mb-1`}>
             <div className="avatar_image">
-              <Icon attrIcon={`${item?.mode === "public" ? App_url.icons.Hash: App_url.icons.Lock}`} size={"ssm"} />
+              <Icon attrIcon={`${item?.mode !== "private" ? App_url.icons.Hash: App_url.icons.Lock}`} size={"ssm"} />
             </div>
             <span className='ellipsis'>{item?.email_to}</span>
           </Button>
@@ -20,9 +20,9 @@ export default function SideBarListItem(item) {
         return(
             <Button to={`${App_url.link.Channel}/${item?.channel_id}`} variant={"hover-secondary-1"} className={`list-sidebar w-100 ${isActive?"active":""} mb-1`}>
                 <div className="avatar_image">
-                    <Icon attrIcon={`${item?.mode === "public" ? App_url.icons.Hash: App_url.icons.Lock}`} size={"ssm"} />
+                    <Icon attrIcon={`${item?.mode !== "private" ? App_url.icons.Hash: App_url.icons.Lock}`} size={"ssm"} />
                 </div>
-                <span className='ellipsis'>{item?.channel_name}</span>
+                <span className='ellipsis'>{item?.channel_name || item?.name}</span>
             </Button>
         )
     }

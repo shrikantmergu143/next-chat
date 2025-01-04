@@ -10,6 +10,7 @@ import { PostRequestAPI } from '../../components/api/PostRequest';
 import { useRouter } from 'next/router';
 import { setStoreAccessToken } from '../../store/Actions';
 import { useDispatch } from 'react-redux';
+import usePosterReducers from '../../components/context/usePosterReducers';
 // import { useDispatch, useSelector } from 'react-redux';
 // import App_url from '../components/common/constant';
 // import { useEffect } from 'react';
@@ -24,7 +25,13 @@ export default function Home() {
         email:"",
         password:""
     });
-    const navigate = useRouter()
+    const navigate = useRouter();
+    const {access_token} = usePosterReducers();
+    useEffect(()=>{
+        if(access_token){
+            navigate.push(App_url.link.Home)
+        }
+    },[])
     const onChange = (e) =>{
         let value = e.target.value
         if(e.target.name === "email"){
@@ -63,10 +70,10 @@ export default function Home() {
                 password:formData?.password,
             }
             // if(response?.status){
-                const response = await PostRequestAPI(`${App_url.api.API_AUTH_LOGIN}`,payload);
+                const response = await PostRequestAPI(`${App_url.api.API_LOGIN}`,payload);
                 console.log("response", response)
                 if(response?.status === 200){
-                    dispatch(setStoreAccessToken(response?.data?.access_token));
+                    dispatch(setStoreAccessToken(response?.data?.data?.access_token));
                     navigate.push(App_url.link.Home)
                 }else{
                     if(response?.data?.error){
@@ -128,7 +135,6 @@ export default function Home() {
 
                 <div className="text-center mt-8">
                     <p>Don't have an account yet? <AnchorLink to={App_url.link.Register} >Sign up</AnchorLink></p>
-                    {/* <p><AnchorLink >Forgot Password?</AnchorLink></p> */}
                 </div>
             </div>
         </div> 

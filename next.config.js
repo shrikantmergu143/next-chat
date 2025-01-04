@@ -54,55 +54,13 @@ const nextConfig = {
     REACT_APP_API_DOMAIN: process.env.REACT_APP_API_DOMAIN,
     REACT_APP_PUBLIC_LOGO: process.env.REACT_APP_PUBLIC_LOGO,
     REACT_APP_API: process.env.REACT_APP_API,
+    REACT_APP_API_URL: process.env.REACT_APP_API_URL,
     TOKEN_KEY: process.env.TOKEN_KEY,
 
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
-  // webpack: (config, { isServer }) => {
-  //   if (!isServer) {
-  //     // Optimize JavaScript
-  //     config.optimization.minimize = true;
-  //     config.optimization.minimizer = [new TerserPlugin()];
-
-  //     // Optimize Images
-  //     config.module.rules.push({
-  //       test: /\.(png|jpe?g|gif|svg)$/i,
-  //       use: [
-  //         {
-  //           loader: 'image-webpack-loader',
-  //           options: {
-  //             mozjpeg: {
-  //               progressive: true,
-  //             },
-  //             optipng: {
-  //               enabled: false,
-  //             },
-  //             pngquant: {
-  //               quality: [0.65, 0.90],
-  //               speed: 4,
-  //             },
-  //             gifsicle: {
-  //               interlaced: false,
-  //             },
-  //             webp: {
-  //               quality: 75,
-  //             },
-  //           },
-  //         },
-  //       ],
-  //     });
-
-  //     // Enable Web Fonts Optimization
-  //     config.module.rules.push({
-  //       test: /\.(woff|woff2|eot|ttf|otf)$/i,
-  //       type: 'asset/resource',
-  //     });
-  //   }
-
-  //   return config;
-  // },
 }
 
 module.exports = nextConfig

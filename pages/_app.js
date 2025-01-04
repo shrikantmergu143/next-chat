@@ -14,19 +14,26 @@ import CreateChannelModal from '../components/common/modal/CreateChannelModal';
 import Context from '../components/context/SocketContext';
 import CreateFriend from '../components/common/modal/CreateFriend';
 import PageLoad from './PageLoad';
+import React from 'react';
 
 function App({ Component, pageProps }) {
+  const loadComponent = () =>{
+    return (
+      <Context {...pageProps}>
+        <Component {...pageProps} />
+        <ToastContainer />
+        <CreateChannelModal/>
+        <ConfirmModal/>
+        <CreateFriend/>
+      </Context>
+    )
+  }
+
   return (
     <DefaultLayout {...pageProps}>
       <Provider store={store}>
         <PersistGate loading={<div></div>} persistor={persistor}>
-          <Context {...pageProps}>
-            <Component {...pageProps} />
-            <ToastContainer />
-            <CreateChannelModal/>
-            <ConfirmModal/>
-            <CreateFriend/>
-          </Context>
+          {loadComponent()}
           <PageLoad/>
         </PersistGate>
       </Provider>

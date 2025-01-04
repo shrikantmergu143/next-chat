@@ -36,8 +36,6 @@ export async function getServerSideProps(context) {
     const access_token = cookies.access_token;
 
     try {
-        // const response = await GetFetchRequestAPI(`${App_url.api.API_CHANNELS}/${params?.channel_id}`, access_token);
-        // console.log("response", response, access_token, false, params?.channel_id);
         return {
             props: {
                 title: title,

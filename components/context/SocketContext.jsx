@@ -30,11 +30,11 @@ function Context(props) {
   const peerConnection = useRef(null);
 
   useEffect(() => {
-    if (access_token) {
+    if (access_token && process.env.REACT_APP_API) {
       if (connection) return;
 
       const connectWebSocket = () => {
-        const socket = new WebSocket(`ws://${process.env.REACT_APP_API}/ws/${access_token}/`);
+        const socket = new WebSocket(`ws://${process.env.REACT_APP_API}/ws/${access_token}`);
         
         socket.addEventListener("open", () => {
           console.log("WebSocket connection established.");

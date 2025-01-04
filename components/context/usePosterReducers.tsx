@@ -12,3 +12,4 @@ const selectPosterReducers = createSelector(
 export const usePosterReducers = () => {
   return useSelector(selectPosterReducers);
 };
+export default usePosterReducers;
