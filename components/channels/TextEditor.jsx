@@ -41,31 +41,38 @@ function TextEditor(props) {
   // PLACE CARET BACK IN POSITION
   function placeCaret(position) {
     const root = editorRef.current;
+    if (!root) return;
+  
     const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    range.setStart(root.firstChild.firstChild, position);
+    const range = document.createRange();
+  
+    const textNode = root.firstChild?.firstChild; // Assuming a valid <p> structure
+    if (textNode && typeof position === "number" && position <= textNode.textContent.length) {
+      range.setStart(textNode, position);
+    } else {
+      range.selectNodeContents(root); // Fallback to the end of the editor
+      range.collapse(false);
+    }
+  
+    selection.removeAllRanges();
+    selection.addRange(range);
   }
-  const handleInput = (e) => {
-    // Ensure every text input has a tag
+  const handleInput = () => {
     const editorContent = editorRef.current.innerHTML;
-    if (!editorContent.startsWith("<") || !editorContent) {
-      if (!editorContent) {
-        setContent(`<p><br></p>`);
-      } else {
-        setContent(`<p>${editorContent}</p>`);
-      }
-    } else if (!editorContent.trim() || editorContent === "<p><br></p>") {
+  
+    if (!editorContent.trim() || editorContent === "<p><br></p>") {
       setContent("<p><br></p>");
     } else if (!editorContent.startsWith("<")) {
       setContent(`<p>${editorContent}</p>`);
-      cleanAndSaveHistory(editorContent);
     } else {
       setContent(editorContent);
-      console.log("editorContent", editorContent);
-      cleanAndSaveHistory(editorContent);
     }
-    console.log("e", e);
-    placeCaret(editorRef?.current?.innerText?.length);
+  
+    cleanAndSaveHistory(editorContent);
+  
+    // Place caret at the end of the current content
+    const position = editorRef.current.innerText.length;
+    placeCaret(position);
   };
 
   const setCursorToEnd = (element) => {
@@ -316,7 +323,7 @@ function TextEditor(props) {
         }`}
         contentEditable
         onMouseUp={handleMouseUp}
-        dangerouslySetInnerHTML={{ __html: content }}
+        // dangerouslySetInnerHTML={{ __html: content }}
         onInput={handleInput}
         data-placeholder={props?.placeholder}
       ></div>

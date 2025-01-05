@@ -21,7 +21,7 @@ export default function ChannelDetails(props) {
                       : App_url.icons.Lock
                   }
                 />
-                <span>{props?.chatGroupDetails?.channel_name || props?.chatGroupDetails?.email_to}</span>
+                <span>{props?.chatGroupDetails?.channel_name || props?.chatGroupDetails?.name}</span>
               </div>
             </ToolTip>
           }

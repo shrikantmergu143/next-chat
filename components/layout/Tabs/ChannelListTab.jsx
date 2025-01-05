@@ -42,7 +42,7 @@ export default function ChannelListTab(props) {
           <div className="channel_sidebar__section_heading">
             <Icon
               attrIcon={App_url.icons.DownDot}
-              size={"sm"}
+              size={"xsm"}
               className={`rotate-${toggleChannel ? "-90" : ""}`}
               button
               variant={"hover-secondary-1"}

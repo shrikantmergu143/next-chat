@@ -7,15 +7,15 @@ import App_url from '../../components/common/constant';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ChannelId(props) {
-    const {access_token, friendsDetails} = useSelector(App_url.allReducers);
+    const {access_token, channelDetails} = useSelector(App_url.allReducers);
     const dispatch = useDispatch();
     useEffect(()=>{
         callChannelDetails()
     }, [props?.chat_group_id]);
     const callChannelDetails = async () =>{
-       await action.getFriendsDetails(access_token, dispatch, props?.chat_group_id)
+       await action.getChannelsDetails(access_token, dispatch, props?.chat_group_id)
     };
-    if(friendsDetails?.chat_group_id !== props?.chat_group_id){
+    if(channelDetails?.id !== props?.chat_group_id){
         return (
             <Layout {...props}>
             </Layout>
@@ -23,7 +23,7 @@ export default function ChannelId(props) {
     }
     return (
         <Layout {...props}>
-            <ChannelDetails chatGroupDetails={friendsDetails} />
+            <ChannelDetails chatGroupDetails={channelDetails} />
         </Layout>
     );
 }

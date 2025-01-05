@@ -24,7 +24,6 @@ export default function Layout(props) {
     if(response?.status === 200){
       dispatch(setStoreUserDetails(response?.data?.data))
     }else{
-      dispatch(setStoreAccessToken(""))
     }
   }
   const option = [

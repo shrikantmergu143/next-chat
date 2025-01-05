@@ -36,7 +36,7 @@ export default function TabChatPanel(props) {
           </ToolTip>
         </div>
       </div>
-      <Scrollbar style={{ height: "calc(100vh - 94px)" }}>
+      <Scrollbar style={{ height: "calc(100vh - 90px)" }}>
         <ChannelListTab {...props}/>
         <FriendListTab {...props}/>
       </Scrollbar>

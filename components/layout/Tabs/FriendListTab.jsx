@@ -9,11 +9,11 @@ export default function FriendListTab(props) {
 
   return (
     <React.Fragment >
-        <div className="channel_sidebar__static_list mt-4">
+        <div className="channel_sidebar__static_list mt-1">
           <div className="channel_sidebar__section_heading">
             <Icon
               attrIcon={App_url.icons.DownDot}
-              size={`sm`}
+              size={`xsm`}
               button
               className={`rotate-${toggleFriend ? "-90" : ""}`}
               variant={"hover-secondary-1"}
