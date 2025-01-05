@@ -281,7 +281,7 @@ input::placeholder,input::-ms-input-placeholder {color: #BFBFCC !important;opaci
 .view_contents--chat-content .p-view-footer .text-editor{position: absolute;width: 100%;bottom: 0px;}
 .text-editor .footer-action, .text-editor .footer-action .action-left{display: flex;justify-content: space-between;gap:10px;}
 .text-editor .ql-editor {max-height: calc(60vh - 80px);overflow: auto;}
-.view_contents--chat-content .p-view-footer{position: relative;max-height: 106px; padding-bottom: 10px;height: 100%;}
+.view_contents--chat-content .p-view-footer{position: relative;max-height: 120px; padding-bottom: 10px;height: 100%;}
 .client_workspace_wrapper{width: 100vw;height: calc(100vh - 40px);display: grid;grid-template-columns: 70px auto;grid-area: client_workspace_wrapper;grid-template: "tab-rail p-client-workspace" / 70px auto;}
 .tab_rail{width: 70px;z-index: 1000;background-color: #0000;flex-direction: column;grid-area: tab-rail;align-items: center;row-gap: 12px;padding-top: 8px;display: flex;position: relative;align-items: center;padding-top: 8px;padding-bottom: 14px;height: 100%;}
 .p-client-workspace{grid-template:"client_workspace__layout" 1fr"client__banners" / auto;grid-area: p-client-workspace;padding-bottom: 4px;padding-right: 4px;display: grid;position: relative;}
