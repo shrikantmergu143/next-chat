@@ -21,12 +21,11 @@ export default function Layout(props) {
   },[])
   const callUserDetails = async () =>{
     const response = await GetRequestCallAPI(App_url.api.API_USER_DETAILS, access_token);
-    // if(response?.status === 200){
-    //   dispatch(setStoreUserDetails(response?.data?.data))
-    // }else{
-    //   dispatch(setStoreAccessToken(""))
-    // }
-    console.log("response", response)
+    if(response?.status === 200){
+      dispatch(setStoreUserDetails(response?.data?.data))
+    }else{
+      dispatch(setStoreAccessToken(""))
+    }
   }
   const option = [
     {title:"Add Friend", value:"add_friend"},

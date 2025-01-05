@@ -26,7 +26,7 @@ const getChannelsList = async (access_token,  dispatch, payload) =>{
     }
 }
 const getChannelsDetails = async (access_token,  dispatch, payload) =>{
-    const response = await GetRequestCallAPI(`${App_url.api.API_GET_GROUPS}/${payload}`, access_token);
+    const response = await GetRequestCallAPI(`${App_url.api.API_GET_GROUP_DETAILS}/${payload}`, access_token);
     if(response?.status == 200){
         if(dispatch){
             dispatch(setStoreChannelsDetails(response?.data?.data))
@@ -43,7 +43,7 @@ const getChannelsDetails = async (access_token,  dispatch, payload) =>{
 }
 const getFriendList = async (access_token,  dispatch, payload) =>{
     
-    const response = await GetRequestCallAPI(`${App_url.api.SEND_FRIEND_REQUEST}`, access_token, payload);
+    const response = await GetRequestCallAPI(`${App_url.api.API_GET_GROUPS}`, access_token, payload);
     console.log("response", response)
     if(response?.status == 200){
         if(dispatch){
@@ -60,21 +60,21 @@ const getFriendList = async (access_token,  dispatch, payload) =>{
     }
 }
 const getFriendsDetails = async (access_token,  dispatch, payload) =>{
-    const response = await GetRequestCallAPI(`${App_url.api.SEND_FRIEND_REQUEST}/${payload}`, access_token);
+    const response = await GetRequestCallAPI(`${App_url.api.API_GET_GROUP_DETAILS}/${payload}`, access_token);
     console.log("response", response)
-    if(response?.status == 200){
-        if(dispatch){
-            dispatch(setStoreFriendDetails(response?.data?.data))
-        }else{
-            return response;
-        }
-    }else{
-        if(dispatch){
-            dispatch(setStoreFriendDetails())
-        }else{
-            return response;
-        }
-    }
+    // if(response?.status == 200){
+    //     if(dispatch){
+    //         dispatch(setStoreFriendDetails(response?.data?.data))
+    //     }else{
+    //         return response;
+    //     }
+    // }else{
+    //     if(dispatch){
+    //         dispatch(setStoreFriendDetails())
+    //     }else{
+    //         return response;
+    //     }
+    // }
 }
 const action = {
     getChannelsList: getChannelsList,

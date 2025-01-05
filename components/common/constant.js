@@ -55,6 +55,7 @@ const App_url = {
         Login:"/login",
         Home:"/",
         Channel:"/channel",
+        ChatGroup:"/channel-group",
         Friend:"/friend",
     },
     api:{
@@ -68,6 +69,7 @@ const App_url = {
         API_GET_GROUPS:"api/chat/get-group",
         API_USER_DETAILS:"api/user-details",
         API_CREATE_GROUP:"api/chat/create-group",
+        API_GET_GROUP_DETAILS:"api/chat/get-group-details",
     }
 }
 

@@ -15,12 +15,12 @@ import Icon from "../Icon";
 import App_url from "../constant";
 
 export default function CreateFriend(props) {
-  const { ModalPopup, access_token } = useSelector(App_url.allReducers);
+  const { ModalPopup, access_token, currentUser } = useSelector(App_url.allReducers);
   const [formData, setFormData] = useState({
-    email_to:"",
+    users:"",
   })
   const [errors, setErrors] = useState({
-    email_to:"",
+    users:"",
   });
   const {send} = useWebSocket();
   
@@ -28,8 +28,8 @@ export default function CreateFriend(props) {
   const dispatch = useDispatch();
   const validate = () =>{
     let val = true;
-    if(formData?.email_to == ""){
-      errors.email_to = "Enter your channel name";
+    if(formData?.users == ""){
+      errors.users = "Enter your channel name";
       val = false;
     }
     setErrors((error)=>({
@@ -40,19 +40,16 @@ export default function CreateFriend(props) {
   }
   async function HandleOnClose() {
     if(validate()){
-      // const param = {
-      //   "url":"send_friend_request",
-      //   "request":{
-      //     "email_to":formData?.email_to
-      //   },
-      //   "broadcast":"true"
-      // }
-      // send(param)
         setLoad(true);
-        const response = await PostRequestAPI(App_url.api.SEND_FRIEND_REQUEST, formData, access_token);
+        const payload = {
+          users: [currentUser?.email, formData?.users],
+          group_type:"direct",
+          mode:"private",
+        }
+        const response = await PostRequestAPI(App_url.api.API_CREATE_GROUP, payload, access_token);
         console.log("response",response)
         if(response?.status === 200){
-          action.getFriendList(access_token, dispatch);
+          action.getChannelsList(access_token, dispatch);
           CloseModal();
         }else{
           Utils.AuthenticateVerify(response)
@@ -63,7 +60,7 @@ export default function CreateFriend(props) {
   function CloseModal(e) {
     dispatch(setShowModal());
     setFormData({
-      email_to:"",
+      users:"",
     })
   }
   const onChangeHandle = (e) =>{
@@ -98,10 +95,10 @@ export default function CreateFriend(props) {
             formClassName={"mb-3"}
             placeholder={"Enter email"}
             onChange={onChangeHandle}
-            name={"email_to"}
+            name={"users"}
             label={"Email"}
-            value={formData?.email_to}
-            error={errors?.email_to}
+            value={formData?.users}
+            error={errors?.users}
           />
         </div>
         <div className="modal-footer">

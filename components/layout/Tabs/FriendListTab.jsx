@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Icon from "../../common/Icon";
 import App_url from "../../common/constant";
 import DropButton from "../../common/DropButton";
-import { useDispatch, useSelector } from "react-redux";
-import FriendsList from "../../channels/FriendsList";
-import action from "../../../store/action";
+import ChannelList from "../../channels/ChannelList";
 
 export default function FriendListTab(props) {
-  const { access_token } = useSelector(App_url.allReducers);
   const [toggleFriend, setToggleFriend] = useState(false);
-  const dispatch = useDispatch()
-
-  useEffect(()=>{
-    action.getFriendList(access_token, dispatch);
-  },[]);
 
   return (
     <React.Fragment >
@@ -34,7 +26,7 @@ export default function FriendListTab(props) {
             />
           </div>
         </div>
-        {!toggleFriend && <FriendsList className={""} />}
+        {!toggleFriend && <ChannelList group_type="direct" />}
     </React.Fragment>
   );
 }

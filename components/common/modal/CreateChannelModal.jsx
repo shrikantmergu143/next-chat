@@ -17,11 +17,13 @@ export default function CreateChannelModal(datas) {
   const props = { ...datas };
   const { ModalPopup, access_token } = useSelector(App_url.allReducers);
   const [formData, setFormData] = useState({
-    channel_name:"",
+    name:"",
     mode:"private",
+    group_type:"group",
+    users:[],
   })
   const [errors, setErrors] = useState({
-    channel_name:"",
+    name:"",
     mode:"",
   });
   
@@ -29,8 +31,8 @@ export default function CreateChannelModal(datas) {
   const dispatch = useDispatch();
   const validate = () =>{
     let val = true;
-    if(formData?.channel_name == ""){
-      errors.channel_name = "Enter your channel name";
+    if(formData?.name == ""){
+      errors.name = "Enter your channel name";
       val = false;
     }
     setErrors((error)=>({
@@ -42,7 +44,7 @@ export default function CreateChannelModal(datas) {
   async function HandleOnClose() {
     if(validate()){
         setLoad(true);
-        const response = await PostRequestAPI(App_url.api.API_CHANNELS, formData, access_token);
+        const response = await PostRequestAPI(App_url.api.API_CREATE_GROUP, formData, access_token);
         if(response?.status === 200){
           action.getChannelsList(access_token, dispatch);
         }else{
@@ -55,7 +57,7 @@ export default function CreateChannelModal(datas) {
   function CloseModal(e) {
     dispatch(setShowModal());
     setFormData({
-      channel_name:"",
+      name:"",
       mode:"private",
     })
   }
@@ -90,10 +92,10 @@ export default function CreateChannelModal(datas) {
           formClassName={"mb-3"}
           placeholder={"Name"}
           onChange={onChangeHandle}
-          name={"channel_name"}
+          name={"name"}
           label={"Name"}
-          value={formData?.channel_name}
-          error={errors?.channel_name}
+          value={formData?.name}
+          error={errors?.name}
         />
         <InputGroup
           label={"Channel Mode"}

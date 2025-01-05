@@ -5,20 +5,20 @@ import Icon from '../common/Icon';
 
 export default function SideBarListItem(item) {
     const FriendsItem = () =>{
-        const isActive = `${App_url.link.Friend}/${item?.friend_id}` == `${window.location.pathname}`;
+        const isActive = `${App_url.link.ChatGroup}/${item?.id}` == `${window.location.pathname}`;
         return(
-          <Button to={`${App_url.link.Friend}/${item?.friend_id}`} variant={"hover-secondary-1"} className={`list-sidebar w-100 ${isActive?"active":""} mb-1`}>
+          <Button to={`${App_url.link.ChatGroup}/${item?.id}`} variant={"hover-secondary-1"} className={`list-sidebar w-100 ${isActive?"active":""} mb-1`}>
             <div className="avatar_image">
-              <Icon attrIcon={`${item?.mode !== "private" ? App_url.icons.Hash: App_url.icons.Lock}`} size={"ssm"} />
+              <Icon attrIcon={`${App_url.icons.default_image}`} image size={"ssm"} />
             </div>
-            <span className='ellipsis'>{item?.email_to}</span>
+            <span className='ellipsis'>{item?.name}</span>
           </Button>
         )
     }
     const renderBody = () =>{
-        const isActive = `${App_url.link.Channel}/${item?.channel_id}` == `${window.location.pathname}`;
+        const isActive = `${App_url.link.ChatGroup}/${item?.id}` == `${window.location.pathname}`;
         return(
-            <Button to={`${App_url.link.Channel}/${item?.channel_id}`} variant={"hover-secondary-1"} className={`list-sidebar w-100 ${isActive?"active":""} mb-1`}>
+            <Button to={`${App_url.link.ChatGroup}/${item?.id}`} variant={"hover-secondary-1"} className={`list-sidebar w-100 ${isActive?"active":""} mb-1`}>
                 <div className="avatar_image">
                     <Icon attrIcon={`${item?.mode !== "private" ? App_url.icons.Hash: App_url.icons.Lock}`} size={"ssm"} />
                 </div>
@@ -26,7 +26,7 @@ export default function SideBarListItem(item) {
             </Button>
         )
     }
-    if(item?.friend_id){
+    if(item?.group_type === "direct"){
         return (
             FriendsItem()
         )

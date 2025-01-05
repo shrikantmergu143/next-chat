@@ -11,11 +11,11 @@ export default function ChannelId(props) {
     const dispatch = useDispatch();
     useEffect(()=>{
         callChannelDetails()
-    }, [props?.friend_id]);
+    }, [props?.chat_group_id]);
     const callChannelDetails = async () =>{
-       await action.getFriendsDetails(access_token, dispatch, props?.friend_id)
+       await action.getFriendsDetails(access_token, dispatch, props?.chat_group_id)
     };
-    if(friendsDetails?.friend_id !== props?.friend_id){
+    if(friendsDetails?.chat_group_id !== props?.chat_group_id){
         return (
             <Layout {...props}>
             </Layout>
@@ -42,7 +42,7 @@ export async function getServerSideProps(context) {
                 description: description,
                 env: JSON.stringify(Utils.getCommonEnv(process?.env)),
                 localhost_url: Utils.getCurrentURL(context),
-                friend_id: params?.friend_id
+                chat_group_id: params?.chat_group_id
             },  
         };
     } catch (error) {

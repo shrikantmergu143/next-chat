@@ -13,7 +13,7 @@ export async function middleware(request) {
     ];
 
     const protectedUrlsForUnauth = [
-        App_url.link.Channel,
+        App_url.link.ChatGroup,
     ];
 
     if (access_token?.value) {

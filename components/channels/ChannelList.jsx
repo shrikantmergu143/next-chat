@@ -8,7 +8,7 @@ export default function ChannelList(props) {
 
   return (
     <div className={`channel_sidebar__static_list ${props?.className} pt-1`}>
-        {channelsList?.data?.map((item, index)=>(
+        {channelsList?.data?.map((item, index)=> item?.group_type === props?.group_type && (
             <React.Fragment key={index}>
                 <SideBarListItem {...item}  />
             </React.Fragment>

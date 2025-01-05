@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Scrollbar from "../../common/Scrollbar";
 import Icon from "../../common/Icon";
 import App_url from "../../common/constant";
-import ToolTip from "../../common/PopOver";
 import DropButton from "../../common/DropButton";
 import { useDispatch, useSelector } from "react-redux";
 import action from "../../../store/action";
 import ChannelList from "../../channels/ChannelList";
 import { setShowModal } from "../../../store/Actions";
-import FriendsList from "../../channels/FriendsList";
 
 export default function ChannelListTab(props) {
   const { access_token } = useSelector(App_url.allReducers);
   const [toggleChannel, setToggleChannel] = useState(false);
-  const [toggleFriend, setToggleFriend] = useState(false);
   const dispatch = useDispatch();
   const options = [
     {
@@ -59,7 +55,7 @@ export default function ChannelListTab(props) {
             />
           </div>
         </div>
-        {!toggleChannel && <ChannelList />}
+        {!toggleChannel && <ChannelList group_type="group" />}
     </React.Fragment>
   );
 }

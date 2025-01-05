@@ -1,4 +1,3 @@
-// pages/api/channels/index.js
 import Channels from '../../../models/Channels';
 import Authenticate from '../checkAuth';
 
