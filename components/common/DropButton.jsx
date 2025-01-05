@@ -31,7 +31,7 @@ export default function DropButton(props) {
         ) : (
           <React.Fragment>
             <span className={`${props?.classNameText} dropdown-span`}>{props?.title}</span>
-            <Icon className={'ms-1 xsm'} attrIcon={App_url.icons.Down} />
+            {props?.show_down && <Icon className={'ms-1 xsm'} attrIcon={App_url.icons.Down} />}
           </React.Fragment>
         )}
       </Dropdown.Toggle>
@@ -56,6 +56,7 @@ DropButton.propTypes = {
   onSelect: PropTypes.func,
   option: PropTypes.array,
   placement: PropTypes.string,
+  show_down: PropTypes.bool
 };
 
 DropButton.defaultProps = {
@@ -65,4 +66,5 @@ DropButton.defaultProps = {
   onSelect: () => {},
   option: [],
   placement: "auto",
+  show_down: true
 };
