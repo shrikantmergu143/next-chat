@@ -5,6 +5,7 @@ import App_url from "../common/constant";
 import ToolTip from "../common/PopOver";
 import Scrollbar from "../common/Scrollbar";
 import TextEditor from "./TextEditor";
+import {EditorText} from "./../common/text-editor/EditorText";
 
 export default function ChannelDetails(props) {
   const getLinkAvatar = useMemo(()=>{
@@ -35,7 +36,8 @@ export default function ChannelDetails(props) {
       <div className="p-view-body">
         <Scrollbar style={{ height: `calc(100vh - 213px)` }}></Scrollbar>
       </div>
-      <TextEditor />
+      {/* <TextEditor /> */}
+      <EditorText/>
     </React.Fragment>
   );
 }
