@@ -12,6 +12,7 @@
     "bootstrap": "^5.3.3",
     "buffer": "^6.0.3",
     "crypto": "^1.0.1",
+    "env-cmd": "^10.1.0",
     "mongodb": "^6.6.2",
     "mongoose": "^8.4.1",
     "next": "latest",
