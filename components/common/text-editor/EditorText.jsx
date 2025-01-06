@@ -7,7 +7,7 @@ export default {
 };
 
 export const EditorText = () => {
-  const [values, setValues] = useState({ text: '<p>This is our rich text editor and here we will display different options and functionalities</p><p>There are some elements like bold, italic, underline, strikethrough</p><br><p>First Title</p><p>Second Title</p><p>Third Title</p>' });
+  const [values, setValues] = useState({ text: '' });
 
   const handleChange = (event) => {
     const { name, value } = event.target;

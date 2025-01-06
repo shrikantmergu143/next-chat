@@ -55,7 +55,7 @@ const Editor = ({ field, html, classes, onChange, placeholder }) => {
     },
     {
       align: "left",
-      actionList: [{ function: ()=>{}, icon: App_url?.icons?.Send }],
+      actionList: [{ function: ()=>{}, icon: App_url?.icons?.Send, send:true }],
     },
   ];
   const handleFooterClick = () => {
@@ -68,11 +68,15 @@ const Editor = ({ field, html, classes, onChange, placeholder }) => {
         e.preventDefault();
         e.stopPropagation();
         props?.onClick?.(e);
-        handleFooterClick();
+        if(props?.send){
+
+        }else{
+          handleFooterClick();
+        }
       };
       const RenderButton = () => {
         return (
-          <Button icon={props.icon}  editorRef={editorRef} cmd={props?.cmd} onClick={onClick} />
+          <Button {...props} icon={props.icon}  editorRef={editorRef} cmd={props?.cmd} onClick={onClick} />
         );
       };
       if (props?.divider) {
@@ -112,14 +116,14 @@ const Editor = ({ field, html, classes, onChange, placeholder }) => {
   const contentLoad = () =>{
     return (
       <div className="p-view-footer" 
-        // onClick={handleFooterClick}
+        onClick={handleFooterClick}
       >
         <div className="position-relative h-100 w-100">
           <div className={`text-editor ${classes ? classes : ""}`}>
             {ButtonIconContent()}
             <div
               ref={editorRef}
-              className="editor editable"
+              className={`editor editable`}
               dangerouslySetInnerHTML={{ __html: html }}
               contentEditable={true}
               data-placeholder={placeholder}

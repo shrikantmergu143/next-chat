@@ -1,13 +1,13 @@
 import React from "react";
 import Icon from "../Icon";
 
-const Button = ({ icon, cmd, arg = null, editorRef, onClick }) => {
+const Button = ({ send = false, icon, cmd, arg = null, editorRef, onClick }) => {
   const handleClick = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    console.log("cmd", cmd)
-    
-    if (editorRef?.current) {
+    if(send){
+
+    }else if(editorRef?.current) {
       const editor = editorRef.current;
       editor.focus(); // Ensure editor is focused
 
@@ -20,13 +20,10 @@ const Button = ({ icon, cmd, arg = null, editorRef, onClick }) => {
         selection.removeAllRanges();
         selection.addRange(range);
       }
-      // Execute the command
       document.execCommand(cmd, false, arg);
-
-      // Trigger any additional actions
-      if (onClick) {
-        onClick(event);
-      }
+    }
+    if (onClick) {
+      onClick(event);
     }
   };
 
