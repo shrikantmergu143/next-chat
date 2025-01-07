@@ -17,6 +17,10 @@ export default function ChannelDetails(props) {
       : {url:App_url.icons.Lock}
     }
   })
+
+  useEffect(()=>{
+
+  },[])
   return (
     <React.Fragment>
       <div className="p-view_header">

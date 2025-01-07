@@ -70,6 +70,9 @@ const App_url = {
         API_USER_DETAILS:"api/user-details",
         API_CREATE_GROUP:"api/chat/create-group",
         API_GET_GROUP_DETAILS:"api/chat/get-group-details",
+        API_GET_CHAT_MESSAGES_LIST:"api/chat/get-message-list",
+        API_UPDATE_CHAT_MESSAGE:"api/chat/update-message",
+        API_CREATE_CHAT_MESSAGE:"api/chat/create-message",
     }
 }
 

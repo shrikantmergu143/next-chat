@@ -1,6 +1,6 @@
 import { GetRequestCallAPI } from "../components/api/GetRequest";
 import App_url from "../components/common/constant";
-import { setStoreChannelsDetails, setStoreChannelsList, setStoreFriendDetails, setStoreFriendList } from "./Actions";
+import { setStoreChannelsDetails, setStoreChannelsList, setStoreChatMessagesList, setStoreFriendDetails, setStoreFriendList } from "./Actions";
 
 const getChannelsList = async (access_token,  dispatch, payload) =>{
     const formData = { page: 1, limit: 40, search:"", group_type:"" };
@@ -76,10 +76,38 @@ const getFriendsDetails = async (access_token,  dispatch, payload) =>{
     //     }
     // }
 }
+const getChatMessagesList = async (access_token,  dispatch, payload) =>{
+    const formData = { page: 1, limit: 40, search:"", updated_at:"" };
+    if(payload?.page){
+        formData.page = payload.page
+    }
+    if(payload?.limit){
+        formData.limit = payload.limit
+    }
+    if(payload?.updated_at){
+        formData.updated_at = payload.updated_at
+    }
+    const response = await GetRequestCallAPI(`${App_url.api.API_GET_CHAT_MESSAGES_LIST}`, access_token, payload);
+    if(response?.status == 200){
+        if(dispatch){
+            dispatch(setStoreChatMessagesList(response?.data?.data))
+        }else{
+            return response;
+        }
+    }else{
+        if(dispatch){
+            dispatch(setStoreChatMessagesList())
+        }else{
+            return response;
+        }
+    }
+}
 const action = {
     getChannelsList: getChannelsList,
     getChannelsDetails: getChannelsDetails,
     getFriendList: getFriendList,
     getFriendsDetails: getFriendsDetails,
+    getChatMessagesList: getChatMessagesList,
+
 }
 export default action;

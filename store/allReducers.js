@@ -22,6 +22,9 @@ export const initialData = {
             total_pages: ""
         }
     },
+    chatMessagesList: {
+        data:[],
+    },
     ModalPopup:{
         title:"",
         data:{},
@@ -92,6 +95,11 @@ export const allReducers = (state = initialData, action) => {
             return{
                 ...state,
                 channelDetails: action?.payload,
+            }
+        case ActionTypes.SET_STORE_CHAT_MESSAGES_LIST:
+            return{
+                ...state,
+                chatMessagesList: action?.payload,
             }
         case ActionTypes.SET_STORE_DEVICE_ID:
             return{
