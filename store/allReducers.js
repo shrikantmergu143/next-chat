@@ -22,9 +22,7 @@ export const initialData = {
             total_pages: ""
         }
     },
-    chatMessagesList: {
-        data:[],
-    },
+    MessageList:{},
     ModalPopup:{
         title:"",
         data:{},
@@ -96,11 +94,34 @@ export const allReducers = (state = initialData, action) => {
                 ...state,
                 channelDetails: action?.payload,
             }
-        case ActionTypes.SET_STORE_CHAT_MESSAGES_LIST:
+        case ActionTypes.SET_STORE_CHAT_MESSAGES_LIST:{
+            const friend = action?.payload?.group_id;
+            const MessageState = state?.MessageList?.[friend];
+            const FriendMessage = [];
+            if(MessageState?.length){
+                action?.payload?.data?.map?.((item)=>{
+                    FriendMessage?.push(item);
+                })
+                MessageState?.map?.((item, index)=>{
+                    const checkMatch = FriendMessage?.find?.((item1)=>item?._id == item1?._id);
+                    if(!checkMatch){
+                        FriendMessage.push(item)
+                    }
+                })
+            }else{
+                action?.payload?.data?.map?.((item)=>{
+                    FriendMessage?.push(item);
+                })
+            }
+            const sortList = FriendMessage?.sort?.((a, b) => new Date(a.created_at) - new Date(b.created_at));
             return{
                 ...state,
-                chatMessagesList: action?.payload,
+                MessageList:{
+                    ...state?.MessageList,
+                    [friend]:sortList
+                }
             }
+        }
         case ActionTypes.SET_STORE_DEVICE_ID:
             return{
                 ...state,

@@ -38,9 +38,10 @@ export default function ChannelDetails(props) {
         />
       </div>
       <div className="p-view-body">
-        <Scrollbar style={{ height: `calc(100vh - 213px)` }}></Scrollbar>
+        <Scrollbar style={{ height: `calc(100vh - 213px)` }}>
+          {props?.children}
+        </Scrollbar>
       </div>
-      {/* <TextEditor /> */}
       <EditorText/>
     </React.Fragment>
   );

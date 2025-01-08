@@ -5,16 +5,22 @@ import ChannelDetails from '../../components/channels/ChannelDetails';
 import action from '../../store/action';
 import App_url from '../../components/common/constant';
 import { useDispatch, useSelector } from 'react-redux';
+import ChatMessageList from '../../components/channels/ChatMessageList';
 
 export default function ChannelId(props) {
-    const {access_token, channelDetails} = useSelector(App_url.allReducers);
+    const {access_token, channelDetails, MessageList} = useSelector(App_url.allReducers);
     const dispatch = useDispatch();
     useEffect(()=>{
         callChannelDetails()
+        callGetMessages()
     }, [props?.chat_group_id]);
+
     const callChannelDetails = async () =>{
        await action.getChannelsDetails(access_token, dispatch, props?.chat_group_id)
     };
+      const callGetMessages = async () =>{
+        await action.getChatMessagesList(access_token, dispatch, {group_id:props?.chat_group_id});
+      }
     if(channelDetails?.id !== props?.chat_group_id){
         return (
             <Layout {...props}>
@@ -23,7 +29,9 @@ export default function ChannelId(props) {
     }
     return (
         <Layout {...props}>
-            <ChannelDetails chatGroupDetails={channelDetails} />
+            <ChannelDetails chatGroupDetails={channelDetails} >
+                <ChatMessageList {...props}/>
+            </ChannelDetails>
         </Layout>
     );
 }

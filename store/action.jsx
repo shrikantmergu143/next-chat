@@ -87,16 +87,24 @@ const getChatMessagesList = async (access_token,  dispatch, payload) =>{
     if(payload?.updated_at){
         formData.updated_at = payload.updated_at
     }
-    const response = await GetRequestCallAPI(`${App_url.api.API_GET_CHAT_MESSAGES_LIST}`, access_token, payload);
+    const response = await GetRequestCallAPI(`${App_url.api.API_GET_CHAT_MESSAGES_LIST}/${payload?.group_id}`, access_token, formData);
+    console.log("response?.data?.data", response?.data?.data)
     if(response?.status == 200){
         if(dispatch){
-            dispatch(setStoreChatMessagesList(response?.data?.data))
+            dispatch(setStoreChatMessagesList({
+                data:response?.data?.data?.data,
+                group_id: payload?.group_id,
+                totalCount: payload?.totalCount
+            }))
         }else{
             return response;
         }
     }else{
         if(dispatch){
-            dispatch(setStoreChatMessagesList())
+            dispatch(setStoreChatMessagesList({
+                data:[],
+                group_id: payload?.group_id
+            }))
         }else{
             return response;
         }
