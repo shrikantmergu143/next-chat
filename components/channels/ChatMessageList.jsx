@@ -15,19 +15,22 @@ export default function ChatMessageList(props) {
             if (!groups[date]) {
                 groups[date] = [];
             }
-                groups[date].push(item);
+                groups[date]?.push?.(item);
             return groups;
         }, {});
         
         // Edit: to add it in the array format instead
-        const groupArrays = Object.keys(groups).map((date) => {
+        const groupArrays = Object.keys(groups)?.map?.((date) => {
             return {
                 date,
-                messagesList: groups[date]
+                messagesList: groups?.[date]
             };
         });
-
-        return groupArrays;
+        if(groupArrays?.length>0){
+            return groupArrays;
+        }else{
+            return [];
+        }
         
     },[MessageList?.[props?.chat_group_id]?.length, props?.chat_group_id]);
     console.log("MessageList", messageItemsList);
