@@ -5,7 +5,7 @@ import ChannelDetails from '../../components/channels/ChannelDetails';
 import action from '../../store/action';
 import App_url from '../../components/common/constant';
 import { useDispatch, useSelector } from 'react-redux';
-import ChatMessageList from '../../components/channels/ChatMessageList';
+import ChatMessageList from '../../components/chat-messages/ChatMessageList';
 
 export default function ChannelId(props) {
     const {access_token, channelDetails, MessageList} = useSelector(App_url.allReducers);
@@ -29,7 +29,7 @@ export default function ChannelId(props) {
     }
     return (
         <Layout {...props}>
-            <ChannelDetails chatGroupDetails={channelDetails} >
+            <ChannelDetails chatGroupDetails={channelDetails} group_id={props?.chat_group_id}>
                 <ChatMessageList {...props}/>
             </ChannelDetails>
         </Layout>

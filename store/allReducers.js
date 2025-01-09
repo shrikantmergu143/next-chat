@@ -122,6 +122,30 @@ export const allReducers = (state = initialData, action) => {
                 }
             }
         }
+        case ActionTypes.SET_STORE_CREATE_MESSAGE:{
+            const friend = action?.payload?.group_id;
+            const messageData = action?.payload?.data;
+            const MessageState = state?.MessageList?.[friend];
+            const FriendMessage = [];
+
+            MessageState?.map?.((item, index)=>{
+                const checkMatch = FriendMessage?.find?.((item1)=>item?._id == item1?._id);
+                if(!checkMatch){
+                    FriendMessage.push(item)
+                }
+            });
+            if(messageData){
+                FriendMessage.push(messageData);
+            }
+            const sortList = FriendMessage?.sort?.((a, b) => new Date(a.created_at) - new Date(b.created_at));
+            return{
+                ...state,
+                MessageList:{
+                    ...state?.MessageList,
+                    [friend]:sortList
+                }
+            }
+        }
         case ActionTypes.SET_STORE_DEVICE_ID:
             return{
                 ...state,

@@ -2,27 +2,46 @@ import React, { useRef } from "react";
 import Button from "./Button";
 import App_url from "../constant.js";
 
-const Editor = ({ field, html, classes, onChange, placeholder }) => {
+const Editor = ({ field, html, classes, onChange, placeholder, onSend }) => {
   const editorRef = useRef();
   const handlePaste = (event) => {
     event.preventDefault();
     const text = event.clipboardData.getData("text/plain");
     document.execCommand("insertHTML", false, text);
   };
-  const handleSave = (event) => {
+  const handleSave = (event, eventSend) => {
     event.preventDefault();
 
     const initialHtml = html;
     const el = editorRef.current;
     const newHtml = el ? el.innerHTML : event.target.value;
 
-    if (initialHtml !== newHtml) {
+    if (initialHtml !== newHtml && !eventSend) {
       const newEvent = Object.assign({}, event, {
         target: { name: field, value: newHtml },
       });
       onChange(newEvent);
     }
+    if(eventSend){
+      const newEvent = Object.assign({}, event, {
+        target: { name: field, value: newHtml },
+      });
+      onChange(newEvent);
+      onSend(newEvent);
+      el.innerText = "";
+    }
   };
+  const onSendMessage = () =>{
+    const initialHtml = html;
+    const el = editorRef.current;
+    const newHtml = el ? el.innerHTML : event.target.value;
+    const newEvent = Object.assign({}, {
+      target: { name: field, value: newHtml },
+    });
+    onChange(newEvent);
+    onSend(newEvent);
+    el.innerText = "";
+  }
   const buttonFooterAction = [
     {
       align: "left",
@@ -55,7 +74,7 @@ const Editor = ({ field, html, classes, onChange, placeholder }) => {
     },
     {
       align: "left",
-      actionList: [{ function: ()=>{}, icon: App_url?.icons?.Send, send:true }],
+      actionList: [{ function:onSendMessage, icon: App_url?.icons?.Send, send:true }],
     },
   ];
   const handleFooterClick = () => {
@@ -99,7 +118,25 @@ const Editor = ({ field, html, classes, onChange, placeholder }) => {
       {cmd: "insertUnorderedList", icon: App_url?.icons?.UnOrderList, },
       {cmd: "formatBlock", icon: App_url?.icons?.Quote, arg:"blockquote"  },
     ]
-
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        if (event.ctrlKey || event.shiftKey) {
+          event.preventDefault();
+          document.execCommand("insertHTML", false, "<br><br>");
+        } else {
+          event.preventDefault();
+          const el = editorRef.current;
+          const newHtml = el ? el.innerHTML : event.target.value;
+          const newEvent = Object.assign({}, event, {
+            target: { name: field, value: newHtml },
+          });
+          handleSave(event, true);
+          // onSend?.(newEvent);
+          
+        }
+      }
+    };
+  
     const ButtonIconContent = () => {
       return (
         <React.Fragment>
@@ -129,6 +166,7 @@ const Editor = ({ field, html, classes, onChange, placeholder }) => {
               data-placeholder={placeholder}
               onBlur={handleSave}
               onPaste={handlePaste}
+              onKeyDown={handleKeyDown}
             />
             <div className="footer-action">
               {buttonFooterAction.map((action, index) => (

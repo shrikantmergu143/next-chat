@@ -70,4 +70,10 @@ body.dark{
     --select-menu-bg-color: #fafafa;
     --form-select-option-bg: white;
     --bs-body-active-color: white;
+
+    --bg-avatar-sender:#f0eded;
+    --bg-message-hover:#eaeced;
+    --secondary-2:#828285;
+    --secondary-3:black;
+    --bg-date:#f0eded;
   }

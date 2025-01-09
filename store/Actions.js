@@ -11,6 +11,8 @@ export const ActionTypes = {
     SET_STORE_ACTIVE_TAB:"SET_STORE_ACTIVE_TAB",
     SET_STORE_DEVICE_ID:"SET_STORE_DEVICE_ID",
     SET_STORE_CHAT_MESSAGES_LIST:"SET_STORE_CHAT_MESSAGES_LIST",
+    SET_STORE_CREATE_MESSAGE:"SET_STORE_CREATE_MESSAGE",
+
 }
 export const setStoreDeviceId = (token) => {
     return {
@@ -76,6 +78,12 @@ export const setStoreFriendList = (token) => {
 export const setStoreChatMessagesList = (token) => {
     return {
        type: ActionTypes.SET_STORE_CHAT_MESSAGES_LIST,
+       payload: token,
+    }
+};
+export const setStoreCreateChatMessage = (token) => {
+    return {
+       type: ActionTypes.SET_STORE_CREATE_MESSAGE,
        payload: token,
     }
 };
