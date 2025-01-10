@@ -9,26 +9,29 @@ export default function ChatMessageList(props) {
     const { MessageList } = usePosterReducers();
     const messageItemsList = useMemo(()=>{
         const messageItem = MessageList?.[props?.chat_group_id];
-        const groups = messageItem?.reduce?.((groups, item) => {
-            const date = item?.created_at?.split?.('T')[0];
-            if (!groups[date]) {
-                groups[date] = [];
+        if(messageItem?.length){
+            const groups = messageItem?.reduce?.((groups, item) => {
+                const date = item?.created_at?.split?.('T')[0];
+                if (!groups[date]) {
+                    groups[date] = [];
+                }
+                    groups[date]?.push?.(item);
+                return groups;
+            }, {});
+            const groupArrays = Object?.keys?.(groups)?.map?.((date) => {
+                return {
+                    date,
+                    messagesList: groups?.[date]
+                };
+            });
+            if(groupArrays?.length>0){
+                return groupArrays;
+            }else{
+                return [];
             }
-                groups[date]?.push?.(item);
-            return groups;
-        }, {});
-        const groupArrays = Object?.keys?.(groups)?.map?.((date) => {
-            return {
-                date,
-                messagesList: groups?.[date]
-            };
-        });
-        if(groupArrays?.length>0){
-            return groupArrays;
         }else{
             return [];
         }
-        
     },[MessageList?.[props?.chat_group_id]?.length, props?.chat_group_id]);
 
     const callLoadMessageGroup = () =>{
