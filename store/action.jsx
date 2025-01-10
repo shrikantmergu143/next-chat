@@ -1,6 +1,6 @@
 import { GetRequestCallAPI } from "../components/api/GetRequest";
 import App_url from "../components/common/constant";
-import { setStoreChannelsDetails, setStoreChannelsList, setStoreChatMessagesList, setStoreFriendDetails, setStoreFriendList } from "./Actions";
+import { setStoreChannelsDetails, setStoreChannelsList, setStoreChatMessagesList, setStoreClearGroupMessage, setStoreFriendDetails, setStoreFriendList } from "./Actions";
 
 const getChannelsList = async (access_token,  dispatch, payload) =>{
     const formData = { page: 1, limit: 40, search:"", group_type:"" };
@@ -101,10 +101,14 @@ const getChatMessagesList = async (access_token,  dispatch, payload) =>{
         }
     }else{
         if(dispatch){
-            dispatch(setStoreChatMessagesList({
-                data:[],
-                group_id: payload?.group_id
-            }))
+            if(formData?.page == 1){
+                dispatch(setStoreClearGroupMessage(payload?.group_id))
+            }else{
+                dispatch(setStoreChatMessagesList({
+                    data:[],
+                    group_id: payload?.group_id
+                }))
+            }
         }else{
             return response;
         }

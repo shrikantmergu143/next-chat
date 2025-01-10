@@ -146,6 +146,16 @@ export const allReducers = (state = initialData, action) => {
                 }
             }
         }
+        case ActionTypes.SET_STORE_CLEAR_GROUP_MESSAGE:{
+            const friend = action?.payload;
+            return{
+                ...state,
+                MessageList:{
+                    ...state?.MessageList,
+                    [friend]:[]
+                }
+            }
+        }
         case ActionTypes.SET_STORE_DEVICE_ID:
             return{
                 ...state,
