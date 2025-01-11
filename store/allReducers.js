@@ -6,12 +6,10 @@ export const initialData = {
     access_token:"",
     channelsList: {
         data:[],
-        pagination: {
-            total_records: "",
-            limit: "",
-            page: "",
-            total_pages: ""
-        }
+        page: 1,
+        limit: 10,
+        totalRecords: 0,
+        totalPages: 0
     },
     friendsList: {
         data:[],
@@ -62,9 +60,29 @@ export const allReducers = (state = initialData, action) => {
             }
         }
         case ActionTypes.SET_STORE_CHANNELS_LIST:{
-            return {
-                ...state,
-                channelsList: action?.payload? action?.payload : initialData.channelsList,
+            if(action?.payload){
+                const groupData = action?.payload?.data?.map((item)=>{
+                    if(item?.group_type === "direct"){
+                        const getNotRegister = item?.invites?.find((item)=>item?.status != "accepted");
+                        if(getNotRegister?.email == state?.currentUser?.email){
+                            item.group_status = getNotRegister?.status
+                            item.getUser = state?.currentUser
+                        }
+                    }
+                    return item;
+                })
+                return {
+                    ...state,
+                    channelsList: {
+                        ...action?.payload,
+                        data: groupData
+                    },
+                }
+            }else{
+                return {
+                    ...state,
+                    channelsList: initialData.channelsList,
+                }
             }
         }
         case ActionTypes.SET_STORE_FRIEND_LIST:{
