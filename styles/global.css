@@ -65,6 +65,17 @@ body{
 }
 .white-theme{background-color: var(--bs-body-bg);color: var(--text-color);scrollbar-width: 0px;padding: 0px;font-size: 0.8em;}
 .white-theme::-webkit-scrollbar{width: 0px;}
+.radius-1 {--border-radius:4px;}
+.radius-2 {--border-radius:6px;}
+.radius-3 {--border-radius:8px;}
+.radius-4 {--border-radius:10px;}
+.radius-5 {--border-radius:12px;}
+.radius-6 {--border-radius:14px;}
+.radius-7 {--border-radius:16px;}
+.radius-8 {--border-radius:18px;}
+.radius-9 {--border-radius:20px;}
+.radius-10 {--border-radius:22px;}
+
 .fs-11 {font-size: var(--fs-11)}
 .fs-12 {font-size: var(--fs-12)}
 .fs-13 {font-size: var(--fs-13)}
@@ -136,6 +147,9 @@ body{
 .common_icon_image{--height: 26px; --width: 26px;height: var(--height);width: var(--width);display: inline-flex;align-items: center;justify-content: center;}
 .common_icon_image .picture-opacity-1 img{height: 100%;width: 100%;object-fit: contain;}
 .common_icon_image.md{--height: 36px;--width: 36px;}
+.common_icon_image.xl{--height: 50px;--width: 50px;}
+.common_icon_image.xxl{--height: 80px;--width: 80px;}
+.common_icon_image.xxxl{--height: 100px;--width: 100px;}
 body .dropdown{display: contents;}
 .btn.button, body .dropdown .btn.dropdown-toggle {--bs-btn-padding-x: 0.75rem;--bs-btn-padding-y: 3.562457px;--fr-secondary-p-border-color: #eee;--bs-btn-color: var(--text-color);--bs-btn-font-size: var(--fs-13);--bs-btn-font-weight: var(--fw-500);--bs-btn-line-height: 1.5;--bs-btn-color: var(--text-color);--bs-btn-bg: transparent;--bs-btn-border-color: transparent;--bs-btn-hover-color: var(--bs-btn-color);--bs-btn-hover-bg: var(--bs-btn-bg);--bs-btn-hover-border-color: var(--bs-btn-border-color);--bs-btn-focus-shadow-rgb: 130, 138, 145;--bs-btn-active-color: var(--bs-btn-color);--bs-btn-active-bg: var(--bs-btn-bg);--bs-btn-active-border-color: var(--bs-btn-border-color);--bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);--bs-btn-disabled-color: var(--bs-btn-color);--bs-btn-disabled-bg:  var(--bs-btn-bg);--bs-btn-disabled-border-color: var(--bs-btn-border-color);--bs-btn-border-radius: 0.5rem;padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x) !important;background: var(--background);display: inline-flex;align-items: center;justify-content: center;padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);font-family: var(--bs-font-sans-serif);font-size: var(--bs-btn-font-size);font-weight: var(--bs-btn-font-weight);line-height: var(--bs-btn-line-height);text-align: center;text-decoration: none;vertical-align: middle;cursor: pointer;-webkit-user-select: none;-moz-user-select: none;user-select: none;border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);border-radius: var(--bs-btn-border-radius)!important;background-color: var(--bs-btn-bg);transition: color .15s ease-in-out, background-color .15s ease-in-out, var(--fr-transition);color: var(--bs-btn-color);--bs-btn-active-border-color: transparent;transition: var(--button-transition);}
 .button.btn-md{--bs-btn-padding-x: 0.75rem;--bs-btn-padding-y: 7px;}
@@ -296,6 +310,11 @@ input::placeholder,input::-ms-input-placeholder {color: #BFBFCC !important;opaci
 .client_workspace__layout {border-radius: 6px;position: relative;overflow: hidden;box-shadow: -4px -4px 16px #00000017;border: 1px solid var(--border-color);display: flex;}
 .view_contents--sidebar{background-color:  var(--bg-secondary-color);height: calc(100vh -  44px);width: 300px;border-right: 1px solid var(--border-color);}
 .view_contents--chat-content{width: calc(100% - 300px);height: calc(100vh - 45px);position: relative;}
+.view_contents--chat-content .modal-invites-content{display: flex;align-items: center;justify-content: center;height: 100%;}
+.view_contents--chat-content .modal-invites{background-color: var(--modal-bg);border-radius: var(--border-radius);max-width: 350px;width: 100%;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;}
+.view_contents--chat-content .modal-invites .invites-body{
+  padding: 30px;
+}
 .p-client_workspace{padding-right: 5px;}
 .text-editor .divider{background-color: var(--border-color);flex-shrink: 0;align-self: center;width: 1px;height: 20px;margin: 2px 4px;}
 .bg-light {background-color: #f8f9fa;border: 1px solid #ddd;--bs-body-bg:white;padding: 20px;border-radius: 4px;--bs-heading-color: black;color: black;--bs-card-color:black;--bs-body-color: black}

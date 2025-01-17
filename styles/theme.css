@@ -45,6 +45,8 @@ body.dark{
     --lightningcss-light: ;
     --lightningcss-dark: initial;
     color-scheme: dark;
+    --modal-bg: #f8f8f814;
+    --modal-bg-color: #f8f8f814;
   }
   body.light, body .white-theme{
     --text-color: black;
@@ -76,4 +78,6 @@ body.dark{
     --secondary-2:#828285;
     --secondary-3:black;
     --bg-date:#f0eded;
+    --modal-bg: #f0eded;
+    --modal-bg-color: #f8f8f814;
   }
