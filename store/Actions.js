@@ -13,8 +13,15 @@ export const ActionTypes = {
     SET_STORE_CHAT_MESSAGES_LIST:"SET_STORE_CHAT_MESSAGES_LIST",
     SET_STORE_CREATE_MESSAGE:"SET_STORE_CREATE_MESSAGE",
     SET_STORE_CLEAR_GROUP_MESSAGE:"SET_STORE_CLEAR_GROUP_MESSAGE",
+    SET_STORE_THEME:"SET_STORE_THEME",
 
 }
+export const setStoreTheme = (token) => {
+    return {
+       type: ActionTypes.SET_STORE_THEME,
+       payload: token,
+    }
+};
 export const setStoreDeviceId = (token) => {
     return {
        type: ActionTypes.SET_STORE_DEVICE_ID,

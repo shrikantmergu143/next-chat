@@ -31,7 +31,8 @@ export const initialData = {
     channelDetails: null,
     friendsDetails: null,
     activeTab: "Home",
-    device_id:uuidv4()
+    device_id:uuidv4(),
+    theme:"light"
 };
 
 export const allReducers = (state = initialData, action) => {
@@ -178,6 +179,11 @@ export const allReducers = (state = initialData, action) => {
             return{
                 ...state,
                 device_id: action?.payload,
+            }
+        case ActionTypes.SET_STORE_THEME:
+            return{
+                ...state,
+                theme: action?.payload || initialData?.theme,
             }
         default:
             return state;

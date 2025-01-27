@@ -23,5 +23,5 @@ export async function getServerSideProps(context) {
       env: JSON.stringify(Utils.getCommonEnv(process?.env)),
       localhost_url: Utils.getCurrentURL(context)
     },
-  };z
+  };
 }

@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import App_url from './common/constant';
 
 const getCommonEnv = (env) =>{
     return{
@@ -280,7 +281,21 @@ function formatTime(dates) {
     minutes = minutes < 10 ? '0'+minutes : minutes;
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
-  }
+}
+function getThemeDefaultUser(theme){
+    if(theme == "dark"){
+        return App_url.icons.default_image;
+    }else{
+        return App_url.icons.default_user_light;
+    }
+}
+function getThemeDefaultGroup(theme){
+    if(theme == "dark"){
+        return App_url.icons.default_group;
+    }else{
+        return App_url.icons.default_group_light;
+    }
+}
 
 const Utils = {
     getCommonEnv: getCommonEnv,
@@ -293,5 +308,7 @@ const Utils = {
     parseCookies: parseCookies,
     AuthenticateVerify: AuthenticateVerify,
     formatTime:formatTime,
+    getThemeDefaultUser:getThemeDefaultUser,
+    getThemeDefaultGroup:getThemeDefaultGroup,
 }
 export default Utils;

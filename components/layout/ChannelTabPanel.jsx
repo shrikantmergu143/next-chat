@@ -1,8 +1,10 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import App_url from '../common/constant'
-import { setShowModal, setStoreActiveTab } from '../../store/Actions'
+import { setStoreActiveTab } from '../../store/Actions'
 import { useDispatch } from 'react-redux'
+import Utils from '../utils'
+import usePosterReducers from '../context/usePosterReducers'
 const DropButton = dynamic(()=>import('../common/DropButton'))
 const Avatar = dynamic(()=>import('../common/Avatar'))
 const Icon = dynamic(()=>import('../common/Icon'))
@@ -10,6 +12,7 @@ const PopOver = dynamic(()=>import('../common/PopOver'))
 
 export default function ChannelTabPannel(props) {
     const dispatch = useDispatch();
+    const {theme, currentUser} = usePosterReducers();
     const Loader = () =>{
         return(
             <div className='tab_rail'>
@@ -57,13 +60,44 @@ export default function ChannelTabPannel(props) {
     const callSelectedTab = (e, item) =>{
         dispatch(setStoreActiveTab(item?.name))
     }
-    
+    const optionsSetting = [
+        {
+            value:"active",
+            title: `${currentUser?.first_name} ${currentUser?.last_name}`,
+            subtitle: `Away`,
+            profile_url: Utils.getThemeDefaultUser(theme),
+            button: false
+        },
+        {divider: true},
+        {
+            value:"active",
+            title:"Set yourself as active",
+        },
+        {
+            value:"profile",
+            title:"Pause notifications",
+        },
+        {divider: true},
+        {
+            value:"profile",
+            title:"Profile",
+        },
+        {
+            value:"preferences",
+            title:"Preferences",
+        },
+        {divider: true},
+        {
+            value:"sign-out",
+            title:"Sign out",
+        },
+    ]
   return (
    <React.Suspense fallback={<Loader/>}>
      <div className='tab_rail'>
         <div className='button-unstyled account_switcher'>
             <div className='tabs__tab_content'>
-                <Avatar src={App_url.icons.default_image}/>
+                <Avatar src={Utils.getThemeDefaultUser(theme)}/>
             </div>
             <div className='tab-scroller'>
                 {popOverItems.map((item, index) => (
@@ -80,24 +114,15 @@ export default function ChannelTabPannel(props) {
                     </PopOver>
                 ))}
             </div>
-                <DropButton onSelect={props?.onSelect} placement={"top-start"} buttonClassName={"p-0 hover-none"} option={props?.optionsChannel}>
-                    <div className='tabs__tab_content'>
-                        <Icon
-                            attrIcon={App_url.icons.PlusIcon}
-                            button
-                            size={"lg"}
-                            buttonClassName={"rounded"}
-                            variant={"secondary"}
-                        />
-                    </div>
+            <DropButton onSelect={props?.onSelect} placement={"top-start"} buttonClassName={"p-0 hover-none"} option={props?.optionsChannel}>
+                <div className='tabs__tab_content'>
+                    <Icon attrIcon={App_url.icons.PlusIcon} button size={"lg"} buttonClassName={"rounded"} variant={"secondary"} />
+                </div>
             </DropButton>
             <div className='tabs__tab_content'>
-                <Icon
-                    attrIcon={App_url.icons.Setting}
-                    button
-                    size={"lg"}
-                    buttonClassName={"rounded"}
-                />
+                <DropButton width={250} onSelect={props?.onSelect} placement={"end"} buttonClassName={"p-0 hover-none"} option={optionsSetting}>
+                    <Icon attrIcon={App_url.icons.Setting} button size={"lg"} buttonClassName={"rounded"} />
+                </DropButton>
             </div>
         </div>
     </div>

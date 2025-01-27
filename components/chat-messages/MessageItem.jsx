@@ -6,7 +6,7 @@ import Utils from '../utils';
 
 const MessageItem = (item) =>{
 
-    const { channelDetails, currentUser } = usePosterReducers();
+    const { channelDetails, currentUser, theme } = usePosterReducers();
     const getUser = useMemo(()=>{
         if(item?.sender_id === currentUser?.id){
             return currentUser;
@@ -20,7 +20,7 @@ const MessageItem = (item) =>{
             <div className='c-message_kit__hover'>
                 <div className='c-message_kit__gutter'>
                     <div className='c-message_kit__gutter__left'>
-                        <Icon className="md rounded-2" image attrIcon={App_url.icons.default_image} />
+                        <Icon className="md rounded-2" image attrIcon={Utils.getThemeDefaultUser(theme)} />
                     </div>
                     <div className='c-message_kit__gutter__right'>
                         <span className='c-message__sender c-message_kit__sender'>

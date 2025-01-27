@@ -9,16 +9,17 @@ import usePosterReducers from "../context/usePosterReducers";
 import { setStoreCreateChatMessage } from "../../store/Actions";
 import { useDispatch } from "react-redux";
 import Button from "../common/Button";
+import Utils from "../utils";
 
 export default function ChannelDetails(props) {
-  const { access_token } = usePosterReducers();
+  const { access_token, theme } = usePosterReducers();
   const dispatch = useDispatch();
   const [values, setValues] = useState({ message: "" });
   const getLinkAvatar = useMemo(() => {
     if (props?.chatGroupDetails?.group_type === "direct") {
       return props?.chatGroupDetails?.profile_url
         ? { url: props?.chatGroupDetails?.profile_url, image: true }
-        : { url: App_url.icons.default_image, image: true };
+        : { url: Utils.getThemeDefaultUser(theme), image: true };
     } else {
       return props?.chatGroupDetails?.mode == "public"
         ? { url: App_url.icons.Hash }
@@ -77,8 +78,8 @@ export default function ChannelDetails(props) {
                 <p>Send you a friend request</p>
               </div>
               <div className="invites-footer">
-                <Button variant={"danger"} >Reject</Button>
-                <Button variant={"primary"} >Accept</Button>
+                <Button variant={"danger"} size={"lg"} className="w-100" >Reject</Button>
+                <Button variant={"green"} size={"lg"} className="w-100" >Accept</Button>
               </div>
             </div>
           </div>
