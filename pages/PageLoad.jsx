@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { usePosterReducers } from '../components/context/usePosterReducers';
 import { setStoreDeviceId, setStoreTheme } from '../store/Actions';
 import { uuidv4 } from '../components/utils';
@@ -15,16 +15,18 @@ export default function PageLoad() {
             dispatch(setStoreDeviceId(uuidv4()))
         }
     }
-    useEffect(()=>{
+    useLayoutEffect(()=>{
       if(theme == undefined){
         dispatch(setStoreTheme())
       }
-      if(theme){
+      if (theme) {
+        console.log("theme", theme);
         const html = document.querySelector("html");
         const body = document.querySelector("body");
-          html.classList.toggle(theme);
-          body.classList.toggle(theme);
-          html.setAttribute("theme", theme);
+        // html.classList.toggle(theme);
+        // body.classList.toggle(theme);
+        body.setAttribute("class", theme);
+        html.setAttribute("theme", theme);
       }
     },[theme])
   return (

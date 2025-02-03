@@ -1,7 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import App_url from '../common/constant'
-import { setStoreActiveTab } from '../../store/Actions'
+import { setStoreActiveTab, setStoreTheme } from '../../store/Actions'
 import { useDispatch } from 'react-redux'
 import Utils from '../utils'
 import usePosterReducers from '../context/usePosterReducers'
@@ -82,16 +82,25 @@ export default function ChannelTabPannel(props) {
             value:"profile",
             title:"Profile",
         },
+        // {
+        //     value:"preferences",
+        //     title:"Preferences",
+        // },
         {
-            value:"preferences",
-            title:"Preferences",
+            value:"theme",
+            title:<span>Theme-<span>{theme}</span></span>,
         },
         {divider: true},
         {
             value:"sign-out",
             title:"Sign out",
         },
-    ]
+    ];
+    const onSelect = (event) =>{
+        if(event?.value == "theme"){
+            dispatch(setStoreTheme(theme == "light"?"dark":"light"))
+        }
+    }
   return (
    <React.Suspense fallback={<Loader/>}>
      <div className='tab_rail'>
@@ -120,7 +129,7 @@ export default function ChannelTabPannel(props) {
                 </div>
             </DropButton>
             <div className='tabs__tab_content'>
-                <DropButton width={250} onSelect={props?.onSelect} placement={"end"} buttonClassName={"p-0 hover-none"} option={optionsSetting}>
+                <DropButton width={250} onSelect={onSelect} placement={"end"} buttonClassName={"p-0 hover-none"} option={optionsSetting}>
                     <Icon attrIcon={App_url.icons.Setting} button size={"lg"} buttonClassName={"rounded"} />
                 </DropButton>
             </div>

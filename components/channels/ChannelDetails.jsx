@@ -10,9 +10,11 @@ import { setStoreCreateChatMessage } from "../../store/Actions";
 import { useDispatch } from "react-redux";
 import Button from "../common/Button";
 import Utils from "../utils";
+import FriendRequestModal from "../common/modal/FriendRequestModal";
+import { PutRequestAPI } from "../api/PutRequest";
 
 export default function ChannelDetails(props) {
-  const { access_token, theme } = usePosterReducers();
+  const { access_token, theme, currentUser } = usePosterReducers();
   const dispatch = useDispatch();
   const [values, setValues] = useState({ message: "" });
   const getLinkAvatar = useMemo(() => {
@@ -57,34 +59,19 @@ export default function ChannelDetails(props) {
       }
     }
   };
-  if (props?.chatGroupDetails?.user_status != "accept") {
+  const onStatusChange = async (status) =>{
+    const payload = {
+      group_id: props?.group_id,
+      status:status,
+      user_id:currentUser?.id,
+      email: currentUser?.email,
+    }
+    const response = await PutRequestAPI(App_url.api.API_UPDATE_INVITE_GROUP, payload, access_token);
+    console.log("response", response)
+  }
+  if (props?.chatGroupDetails?.user_status?.status != "accepted") {
     return (
-      <React.Fragment>
-        <div className="modal-invites-content">
-          <div className="modal-invites radius-6">
-            <div className="invites-body">
-              <div className="invites-profile  text-center pb-3">
-                <Icon
-                  attrIcon={getLinkAvatar?.url}
-                  image={getLinkAvatar?.image}
-                  height={"120px"}
-                  width={"120px"}
-                />
-              </div>
-              <div className="invites-message text-center">
-                <h4 className="text-capitalize">
-                  {props?.chatGroupDetails?.channel_name ||props?.chatGroupDetails?.name}
-                </h4>
-                <p>Send you a friend request</p>
-              </div>
-              <div className="invites-footer">
-                <Button variant={"danger"} size={"lg"} className="w-100" >Reject</Button>
-                <Button variant={"green"} size={"lg"} className="w-100" >Accept</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </React.Fragment>
+      <FriendRequestModal onStatusChange={onStatusChange}  chatGroupDetails={props?.chatGroupDetails} />
     );
   }
   return (

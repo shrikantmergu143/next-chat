@@ -76,6 +76,7 @@ const App_url = {
         API_GET_CHAT_MESSAGES_LIST:"api/chat/get-message-list",
         API_UPDATE_CHAT_MESSAGE:"api/chat/update-message",
         API_CREATE_CHAT_MESSAGE:"api/chat/create-message",
+        API_UPDATE_INVITE_GROUP:"api/chat/update-invite-group"
     }
 }
 
