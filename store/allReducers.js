@@ -32,7 +32,8 @@ export const initialData = {
     friendsDetails: null,
     activeTab: "Home",
     device_id:uuidv4(),
-    theme:"light"
+    theme:"light",
+    socketResponse:null
 };
 
 export const allReducers = (state = initialData, action) => {
@@ -58,6 +59,12 @@ export const allReducers = (state = initialData, action) => {
             return {
                 ...state,
                 currentUser: action?.payload,
+            }
+        }
+        case ActionTypes.SET_STORE_SOCKET_RESPONSE:{
+            return {
+                ...state,
+                socketResponse: action?.payload,
             }
         }
         case ActionTypes.SET_STORE_CHANNELS_LIST:{

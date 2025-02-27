@@ -88,7 +88,7 @@ export default function ChannelTabPannel(props) {
         // },
         {
             value:"theme",
-            title:<span>Theme-<span>{theme}</span></span>,
+            title:<span>Theme <b>{theme}</b></span>,
         },
         {divider: true},
         {

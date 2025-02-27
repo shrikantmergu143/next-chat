@@ -14,6 +14,7 @@ export const ActionTypes = {
     SET_STORE_CREATE_MESSAGE:"SET_STORE_CREATE_MESSAGE",
     SET_STORE_CLEAR_GROUP_MESSAGE:"SET_STORE_CLEAR_GROUP_MESSAGE",
     SET_STORE_THEME:"SET_STORE_THEME",
+    SET_STORE_SOCKET_RESPONSE:"SET_STORE_SOCKET_RESPONSE",
 
 }
 export const setStoreTheme = (token) => {
@@ -104,6 +105,12 @@ export const setStoreCreateChatMessage = (token) => {
 export const setStoreFriendDetails = (token) => {
     return {
        type: ActionTypes.SET_STORE_FRIEND_DETAILS,
+       payload: token,
+    }
+};
+export const setStoreSocketResponse = (token) => {
+    return {
+       type: ActionTypes.SET_STORE_SOCKET_RESPONSE,
        payload: token,
     }
 };
