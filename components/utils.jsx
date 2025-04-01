@@ -140,6 +140,25 @@ function generateAuthToken(data) {
 
     return jwtToken;
 }
+const CustomCipher = {
+    encode(obj, key) {
+        const str = JSON.stringify(obj); // Convert object to string
+        return str.split('')
+                  .map((char, i) => 
+                    String.fromCharCode(char.charCodeAt(0) + key.charCodeAt(i % key.length))
+                  )
+                  .join('');
+    },
+
+    decode(encodedStr, key) {
+        const decodedStr = encodedStr.split('')
+                                     .map((char, i) => 
+                                       String.fromCharCode(char.charCodeAt(0) - key.charCodeAt(i % key.length))
+                                     )
+                                     .join('');
+        return JSON.parse(decodedStr); // Convert back to object
+    }
+};
 
 
 function base64UrlDecode(base64Url) {
@@ -310,5 +329,7 @@ const Utils = {
     formatTime:formatTime,
     getThemeDefaultUser:getThemeDefaultUser,
     getThemeDefaultGroup:getThemeDefaultGroup,
+    decode: CustomCipher.decode,
+    encode: CustomCipher.encode,
 }
 export default Utils;

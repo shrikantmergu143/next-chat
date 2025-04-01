@@ -18,13 +18,13 @@ const MessageItem = (item) =>{
         if(savedPin && pinVerified){
             return item?.message
         }
-        return Utils.generateAuthToken({message:item?.message})
+        return Utils.encode({message:item?.message}, process.env.TOKEN_KEY)
     },[item?.message, savedPin, pinVerified])
     const getUserInfo = useMemo(()=>{
         if(savedPin && pinVerified){
             return `${getUser?.first_name} ${getUser?.last_name}`
         }
-        return Utils.generateAuthToken({message:`${getUser?.first_name} ${getUser?.last_name}`})
+        return Utils.encode({message:`${getUser?.first_name} ${getUser?.last_name}`}, process.env.TOKEN_KEY)
     },[getUser, savedPin, pinVerified])
 
     return(

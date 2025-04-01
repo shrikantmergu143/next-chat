@@ -14,7 +14,7 @@ import FriendRequestModal from "../common/modal/FriendRequestModal";
 import { PutRequestAPI } from "../api/PutRequest";
 
 export default function ChannelDetails(props) {
-  const { access_token, theme, currentUser } = usePosterReducers();
+  const { access_token, theme, currentUser, savedPin, pinVerified } = usePosterReducers();
   const dispatch = useDispatch();
   const [values, setValues] = useState({ message: "" });
   const getLinkAvatar = useMemo(() => {
@@ -74,6 +74,12 @@ export default function ChannelDetails(props) {
 
     }
   }
+  const getUserInfo = useMemo(()=>{
+      if(savedPin && pinVerified){
+          return props?.chatGroupDetails?.channel_name || props?.chatGroupDetails?.name
+      }
+      return Utils.encode({message:props?.chatGroupDetails?.channel_name || props?.chatGroupDetails?.name}, process.env.TOKEN_KEY)
+  },[props?.chatGroupDetails, savedPin, pinVerified])
   if (props?.chatGroupDetails?.user_status?.status != "accepted") {
     return (
       <FriendRequestModal onStatusChange={onStatusChange}  chatGroupDetails={props?.chatGroupDetails} />
@@ -90,8 +96,7 @@ export default function ChannelDetails(props) {
                 image={getLinkAvatar?.image}
               />
               <span className="text-capitalize">
-                {props?.chatGroupDetails?.channel_name ||
-                  props?.chatGroupDetails?.name}
+                {getUserInfo}
               </span>
             </div>
           }
