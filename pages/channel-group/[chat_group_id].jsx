@@ -12,9 +12,14 @@ export default function ChannelId(props) {
     const dispatch = useDispatch();
     useEffect(()=>{
         callChannelDetails()
-        callGetMessages()
     }, [props?.chat_group_id]);
-
+    useEffect(() => {
+        // const interval = setInterval(() => {
+          callGetMessages();
+        // }, 2000);
+    
+        // return () => clearInterval(interval);
+      }, [props?.chat_group_id]);
     const callChannelDetails = async () =>{
        await action.getChannelsDetails(access_token, dispatch, props?.chat_group_id)
     };
@@ -29,7 +34,7 @@ export default function ChannelId(props) {
     }
     return (
         <Layout {...props}>
-            <ChannelDetails chatGroupDetails={channelDetails} group_id={props?.chat_group_id}>
+            <ChannelDetails chatGroupDetails={channelDetails} callGetMessages={callGetMessages} callBackUpdate={callChannelDetails} group_id={props?.chat_group_id}>
                 <ChatMessageList {...props}/>
             </ChannelDetails>
         </Layout>

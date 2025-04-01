@@ -1,7 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import App_url from '../common/constant'
-import { setStoreActiveTab, setStoreTheme } from '../../store/Actions'
+import { setStoreActiveTab, setStoreClearState, setStoreTheme } from '../../store/Actions'
 import { useDispatch } from 'react-redux'
 import Utils from '../utils'
 import usePosterReducers from '../context/usePosterReducers'
@@ -99,6 +99,9 @@ export default function ChannelTabPannel(props) {
     const onSelect = (event) =>{
         if(event?.value == "theme"){
             dispatch(setStoreTheme(theme == "light"?"dark":"light"))
+        }
+        if(event?.value == "sign-out"){
+            dispatch(setStoreClearState())
         }
     }
   return (

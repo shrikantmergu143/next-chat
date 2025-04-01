@@ -18,7 +18,7 @@ export default function Layout(props) {
     }else{
       navigate.push(App_url.link.Login)
     }
-  },[])
+  },[access_token])
   const callUserDetails = async () =>{
     const response = await GetRequestCallAPI(App_url.api.API_USER_DETAILS, access_token);
     if(response?.status === 200){

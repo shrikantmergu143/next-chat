@@ -39,23 +39,20 @@ const RoomPage = () => {
       setMyStream(stream);
     }
   
-    console.log(`Incoming Call`, from, offer);
     const ans = await peer.getAnswer(offer);
+    console.log(`Incoming Call`, {to: from, ans, offer});
     sendMessage({ type: "call:accepted", request: { to: from, ans } });
   };
 
   const sendStreams = useCallback(() => {
     if (!myStream) return;
-    
-    const senders = peer.peer.getSenders(); // Get existing senders
-  
+    const senders = peer.peer.getSenders();
     for (const track of myStream.getTracks()) {
       const existingSender = senders.find((sender) => sender.track?.kind === track.kind);
-      
       if (existingSender) {
-        existingSender.replaceTrack(track); // Replace track instead of adding again
+        existingSender.replaceTrack(track);
       } else {
-        peer.peer.addTrack(track, myStream); // Only add if not already added
+        peer.peer.addTrack(track, myStream);
       }
     }
   }, [myStream]);
@@ -89,7 +86,6 @@ const RoomPage = () => {
       peer.peer.removeEventListener("negotiationneeded", handleNegoNeeded);
     };
   }, [handleNegoNeeded, peer.peer]);
-  console.log("peer.peer", peer.peer)
 
   const handleNegoNeedIncoming = useCallback(async ({ from, offer }) => {
     const ans = await peer.getAnswer(offer);
@@ -124,15 +120,18 @@ const RoomPage = () => {
   }, []);
 
   useEffect(() => {
-    if(socketResponse && connect){
-      console.log("socketResponse", socketResponse)
-      const data = socketResponse
-      if (data?.type === "user:joined") handleUserJoined(data?.request);
-      else if (data?.type === "incoming:call") handleIncomingCall(data?.request);
-      else if (data?.type === "call:accepted") handleCallAccepted(data?.request);
-      else if (data?.type === "peer:nego:needed") handleNegoNeedIncoming(data?.request);
-      else if (data?.type === "peer:nego:final") handleNegoNeedFinal(data?.request);
-    };
+    if(connect){
+      connect?.addEventListener?.("message", (event) => {
+        const payload = JSON.parse(event.data);
+        const data = payload
+        if (data?.type === "user:joined") handleUserJoined(data?.request);
+        else if (data?.type === "incoming:call") handleIncomingCall(data?.request);
+        else if (data?.type === "call:accepted") handleCallAccepted(data?.request);
+        else if (data?.type === "peer:nego:needed") handleNegoNeedIncoming(data?.request);
+        else if (data?.type === "peer:nego:final") handleNegoNeedFinal(data?.request);
+      })
+    }
+
   }, [connect, socketResponse, handleUserJoined, handleIncomingCall, handleCallAccepted, handleNegoNeedIncoming, handleNegoNeedFinal]);
 
   useEffect(()=>{

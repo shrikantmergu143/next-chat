@@ -15,8 +15,15 @@ export const ActionTypes = {
     SET_STORE_CLEAR_GROUP_MESSAGE:"SET_STORE_CLEAR_GROUP_MESSAGE",
     SET_STORE_THEME:"SET_STORE_THEME",
     SET_STORE_SOCKET_RESPONSE:"SET_STORE_SOCKET_RESPONSE",
+    SET_STORE_CLEAR_STATE:"SET_STORE_CLEAR_STATE",
 
 }
+export const setStoreClearState = (token) => {
+    return {
+       type: ActionTypes.SET_STORE_CLEAR_STATE,
+       payload: token,
+    }
+};
 export const setStoreTheme = (token) => {
     return {
        type: ActionTypes.SET_STORE_THEME,

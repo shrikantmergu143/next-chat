@@ -68,6 +68,11 @@ export default function ChannelDetails(props) {
     }
     const response = await PutRequestAPI(App_url.api.API_UPDATE_INVITE_GROUP, payload, access_token);
     console.log("response", response)
+    if(response?.status == 200){
+      props?.callBackUpdate?.();
+    }else{
+
+    }
   }
   if (props?.chatGroupDetails?.user_status?.status != "accepted") {
     return (
@@ -91,6 +96,12 @@ export default function ChannelDetails(props) {
             </div>
           }
           show_down={false}
+        />
+        <Icon
+          attrIcon={App_url.icons.repeat}
+          button
+          onClick={props?.callGetMessages}
+          buttonClassName="ms-auto"
         />
       </div>
       <div className="p-view-body">

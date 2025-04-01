@@ -10,6 +10,7 @@ const App_url = {
         default_user_light: "/assets/icons/default_user_light.webp",
         HomeIcon: "/assets/icons/HomeIcon.svg",
         ChatIcon: "/assets/icons/ChatIcon.svg",
+        repeat: "/assets/icons/repeat.svg",
         Ellipsis: "/assets/icons/Ellipsis.svg",
         Notification: "/assets/icons/Notification.svg",
         PlusIcon: "/assets/icons/PlusIcon.svg",

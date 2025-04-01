@@ -3,6 +3,7 @@
   "scripts": {
     "build": "env-cmd -f .env.live next build",
     "dev": "next dev",
+    "dev-live": "env-cmd -f .env.live next dev",
     "dev-server": "node server.js",
     "start": "next start"
   },

@@ -296,7 +296,7 @@ input::placeholder,input::-ms-input-placeholder {color: #BFBFCC !important;opaci
 .form_group.common-input .right_text:not(:last-child){border-right-color: transparent!important;}
 .d-flex-center{display: flex;align-items: center;gap: 5px;}
 .p-view_header .d-content .button-down{--height: 16px;--width: 16px;}
-.p-view_header{padding: 10px 10px;border-bottom: 1px solid var(--fr-form-border);}
+.p-view_header{padding: 10px 10px;border-bottom: 1px solid var(--fr-form-border);display: flex;align-items: center;gap: 10px;}
 .text-editor{border: 1px solid var(--fr-form-border);--padding-editor: 0px 0px;padding: 10px;border-radius: var(--bs-border-radius);background-color: var(--bs-body-bg);}
 .text-editor .editor, .text-editor .toolbar{border: none;outline: 0px;padding: var(--padding-editor);font-size: 0.91em;}
 .text-editor .editor{padding: 5px 10px;max-height: 200px;overflow: auto;}

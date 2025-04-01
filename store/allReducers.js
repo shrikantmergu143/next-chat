@@ -192,6 +192,11 @@ export const allReducers = (state = initialData, action) => {
                 ...state,
                 theme: action?.payload || initialData?.theme,
             }
+        case ActionTypes.SET_STORE_CLEAR_STATE:
+            return{
+                ...initialData,
+                theme: state?.theme,
+            }
         default:
             return state;
     }
