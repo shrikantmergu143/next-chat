@@ -88,7 +88,7 @@ const getChatMessagesList = async (access_token,  dispatch, payload) =>{
         formData.updated_at = payload.updated_at
     }
     const response = await GetRequestCallAPI(`${App_url.api.API_GET_CHAT_MESSAGES_LIST}/${payload?.group_id}`, access_token, formData);
-    console.log("response?.data?.data", response?.data?.data)
+
     if(response?.status == 200){
         if(dispatch){
             dispatch(setStoreChatMessagesList({
