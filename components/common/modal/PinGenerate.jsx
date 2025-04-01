@@ -32,7 +32,7 @@ export default function PinGenerate() {
         return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
     }, [pinVerified, access_token]);
 
-    const handlePinSubmit = () => {
+    const handlePinSubmit = (pin) => {
         if (pin?.length === 4) {
             if (isSettingPin) {
                 dispatch(setPin(pin)); // Save PIN
@@ -44,11 +44,18 @@ export default function PinGenerate() {
                 return;
             }
             setShowModalState(false);
-        } else {
+            setPinState("");
+          } else {
+            setPinState("");
             alert("Enter a valid 4-digit PIN");
         }
-        setPinState("");
     };
+    const onChangeHandle = (e) =>{
+      setPinState(e?.target?.value);
+      if(e?.target?.value?.length === 4){
+        setTimeout(()=>handlePinSubmit(e?.target?.value), 1000);
+      }
+    }
 
     return (
         <Modal centered show={showModal} onHide={() => {}} backdrop="static">
@@ -57,13 +64,13 @@ export default function PinGenerate() {
                 <InputGroup
                     type="password"
                     value={pin}
-                    onChange={(e) => setPinState(e.target.value)}
+                    onChange={onChangeHandle}
                     otp
                     formClassName="col-8 mx-auto"
                 />
             </div>
             <div className="modal-footer">
-                <Button onClick={handlePinSubmit} disabled={pin?.length !== 4}>
+                <Button onClick={()=>handlePinSubmit(pin)} disabled={pin?.length !== 4}>
                     {isSettingPin ? "Set PIN" : "Verify PIN"}
                 </Button>
             </div>
