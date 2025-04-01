@@ -16,8 +16,24 @@ export const ActionTypes = {
     SET_STORE_THEME:"SET_STORE_THEME",
     SET_STORE_SOCKET_RESPONSE:"SET_STORE_SOCKET_RESPONSE",
     SET_STORE_CLEAR_STATE:"SET_STORE_CLEAR_STATE",
+    VERIFY_PIN:"VERIFY_PIN",
+    SET_PIN:"SET_PIN",
+    RESET_PIN:"RESET_PIN",
 
 }
+export const setPin = (pin) => ({
+    type: ActionTypes.SET_PIN,
+    payload: pin,
+});
+
+export const verifyPin = (status) => ({
+    type: ActionTypes.VERIFY_PIN,
+    payload: status,
+});
+
+export const resetPin = () => ({
+    type: ActionTypes.RESET_PIN,
+});
 export const setStoreClearState = (token) => {
     return {
        type: ActionTypes.SET_STORE_CLEAR_STATE,

@@ -3,6 +3,7 @@ import { usePosterReducers } from '../components/context/usePosterReducers';
 import { setStoreDeviceId, setStoreTheme } from '../store/Actions';
 import { uuidv4 } from '../components/utils';
 import { useDispatch } from 'react-redux';
+import PinGenerate from '../components/common/modal/PinGenerate';
 
 export default function PageLoad() {
     const {device_id, theme} = usePosterReducers();
@@ -31,7 +32,7 @@ export default function PageLoad() {
     },[theme])
   return (
     <div>
-        
+        <PinGenerate ip />
     </div>
   )
 }

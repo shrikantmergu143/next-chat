@@ -33,7 +33,8 @@ export const initialData = {
     activeTab: "Home",
     device_id:uuidv4(),
     theme:"light",
-    socketResponse:null
+    socketResponse:null,
+    pinEntered: false,
 };
 
 export const allReducers = (state = initialData, action) => {
@@ -197,6 +198,12 @@ export const allReducers = (state = initialData, action) => {
                 ...initialData,
                 theme: state?.theme,
             }
+        case ActionTypes.SET_PIN:
+            return { ...state, savedPin: action.payload, pinVerified: true };
+        case ActionTypes.VERIFY_PIN:
+            return { ...state, pinVerified: action.payload };
+        case ActionTypes.RESET_PIN:
+            return { ...state, savedPin: null, pinVerified: false };
         default:
             return state;
     }

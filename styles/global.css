@@ -272,7 +272,7 @@ thead tr th .form-check-input{--form-border: grey; --bs-border-width:1px}
 .form_group.common-input.input_group_icon .input-group,
 .form_group.common-input.normal-control .form-control {background: var(--fr-body-bg);border-radius: var(--bs-border-radius);}
 .form_group.common-input.normal-control .form-control.otp {width: 50px !important;height: 50px;}
-.form_group.common-input.form-group-otp {--fr-font-size: var(--fs-18) !important;--fr-input-fw: 500;--fr-border-color: #E4E4E7}
+.form_group.common-input.form-group-otp {--fr-font-size: var(--fs-18) !important;--fr-input-fw: 500;}
 .form_group.common-input.trans-primary {--fr-body-bg:var(--trans-primary)}
 .form_group.common-input.secondary-primary {--fr-body-bg: var(--fr-secondary-primary);--fr-border-color: var(--grey-light-color);}
 .form_group.common-input.secondary-primary .form-control:focus,.form_group.common-input.secondary-primary .form-select:focus {--fr-border-color: var(--grey-light-color);}

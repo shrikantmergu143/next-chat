@@ -6,7 +6,7 @@ import Utils from '../utils';
 
 const MessageItem = (item) =>{
 
-    const { channelDetails, currentUser, theme } = usePosterReducers();
+    const { channelDetails, currentUser, theme, savedPin, pinVerified } = usePosterReducers();
     const getUser = useMemo(()=>{
         if(item?.sender_id === currentUser?.id){
             return currentUser;
@@ -14,6 +14,18 @@ const MessageItem = (item) =>{
             return channelDetails?.members_details?.find?.((item1)=>item1?.id == item?.sender_id);
         }
     },[item?.id]);
+    const getMessage = useMemo(()=>{
+        if(savedPin && pinVerified){
+            return item?.message
+        }
+        return Utils.generateAuthToken({message:item?.message})
+    },[item?.message, savedPin, pinVerified])
+    const getUserInfo = useMemo(()=>{
+        if(savedPin && pinVerified){
+            return `${getUser?.first_name} ${getUser?.last_name}`
+        }
+        return Utils.generateAuthToken({message:`${getUser?.first_name} ${getUser?.last_name}`})
+    },[getUser, savedPin, pinVerified])
 
     return(
         <div id={`messages-id-${item?.index}`} className='message-content message-kit '>
@@ -25,14 +37,14 @@ const MessageItem = (item) =>{
                     <div className='c-message_kit__gutter__right'>
                         <span className='c-message__sender c-message_kit__sender'>
                             <span className='p-member_profile_hover_card'>
-                                {getUser?.first_name} {getUser?.last_name}
+                                {getUserInfo}
                             </span>
                             <span className='offscreen'>{Utils.formatTime(item?.created_at)}</span>
                         </span>
                         <div className='c-message_kit__blocks c-message_kit__blocks--rich_text'>
                             <div className='p-block_kit_renderer'>
                                 <div className='p-rich_text_block'>
-                                    <div dangerouslySetInnerHTML={{__html: item?.message}}></div>
+                                    <div dangerouslySetInnerHTML={{__html: getMessage}}></div>
                                 </div>
                             </div>
                         </div>

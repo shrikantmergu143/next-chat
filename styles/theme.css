@@ -13,6 +13,7 @@ body.dark{
     --bg-secondary-hover-color: white;
     --bs-dropdown-hover-bg: #2766a6;
     --fr-form-border: var(--border-color);
+    --fr--hover-border-color:var(--border-color);
     --select-menu-color: white;
     --select-menu-select-color: white;
     --select-menu-select-bg: #383d41;
@@ -68,6 +69,7 @@ body.dark{
     --bg-secondary-hover-color: white;
     --bs-dropdown-hover-bg: #f4f4f4;
     --fr-form-border: var(--border-color);
+    --fr--hover-border-color:var(--border-color);
     --select-menu-color: black;
     --select-menu-select-color: white;
     --select-menu-select-bg: #3573c2;

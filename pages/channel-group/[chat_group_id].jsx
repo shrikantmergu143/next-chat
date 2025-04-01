@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Utils from '../../components/utils';
 import Layout from '../../components/layout/Layout';
 import ChannelDetails from '../../components/channels/ChannelDetails';
@@ -10,15 +10,35 @@ import ChatMessageList from '../../components/chat-messages/ChatMessageList';
 export default function ChannelId(props) {
     const {access_token, channelDetails, MessageList} = useSelector(App_url.allReducers);
     const dispatch = useDispatch();
+    const [isTabActive, setIsTabActive] = useState(!document.hidden);
     useEffect(()=>{
         callChannelDetails()
     }, [props?.chat_group_id]);
+
     useEffect(() => {
-        const interval = setInterval(() => {
-          callGetMessages();
-        }, 3000);
-        return () => clearInterval(interval);
-      }, [props?.chat_group_id]);
+        const handleVisibilityChange = () => {
+            setIsTabActive(!document.hidden);
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!props?.chat_group_id) return;
+        let interval;
+        if (isTabActive) {
+            interval = setInterval(() => {
+                callGetMessages();
+            }, 3000);
+        }
+
+        return () => {
+            if (interval) clearInterval(interval);
+        };
+    }, [props?.chat_group_id, isTabActive]);
     const callChannelDetails = async () =>{
        await action.getChannelsDetails(access_token, dispatch, props?.chat_group_id)
     };
