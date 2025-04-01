@@ -23,7 +23,12 @@ export default function ChannelId(props) {
        await action.getChannelsDetails(access_token, dispatch, props?.chat_group_id)
     };
       const callGetMessages = async () =>{
-        await action.getChatMessagesList(access_token, dispatch, {group_id:props?.chat_group_id});
+        const payload = {group_id:props?.chat_group_id}
+        if(MessageList?.[props?.chat_group_id]){
+            const length = MessageList?.[props?.chat_group_id]?.length-1;
+            payload.updated_at = MessageList?.[props?.chat_group_id]?.[length]?.updated_at
+        }
+        await action.getChatMessagesList(access_token, dispatch, payload);
       }
     if(channelDetails?.id !== props?.chat_group_id){
         return (
