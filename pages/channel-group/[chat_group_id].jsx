@@ -14,11 +14,10 @@ export default function ChannelId(props) {
         callChannelDetails()
     }, [props?.chat_group_id]);
     useEffect(() => {
-        // const interval = setInterval(() => {
+        const interval = setInterval(() => {
           callGetMessages();
-        // }, 2000);
-    
-        // return () => clearInterval(interval);
+        }, 3000);
+        return () => clearInterval(interval);
       }, [props?.chat_group_id]);
     const callChannelDetails = async () =>{
        await action.getChannelsDetails(access_token, dispatch, props?.chat_group_id)
