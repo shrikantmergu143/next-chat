@@ -48,7 +48,7 @@ export default function ChannelId(props) {
             // const length = MessageList?.[props?.chat_group_id]?.length-1;
             // console.log("length", length, MessageList?.[props?.chat_group_id]?.[length]?.updated_at)
             payload.updated_at = new Date().toJSON()
-            payload.limit = 5
+            payload.limit = 40
         }
         await action.getChatMessagesList(access_token, dispatch, payload);
       }

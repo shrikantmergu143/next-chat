@@ -35,7 +35,7 @@ const MessageItem = (item) =>{
                        {!item?.hideAvatar ?  (
                         <Icon className="md rounded-2" image attrIcon={Utils.getThemeDefaultUser(theme)} />
                        ):(
-                        <span className='offscreen fs-11 text-start fw-6'>{Utils?.formatTime?.(item?.created_at)?.replaceAll?.("PM", "")?.replaceAll?.("AM", "")}</span>
+                        <span className='offscreen fs-11 text-start fw-6 ms-auto'>{Utils?.formatTime?.(item?.created_at)?.replaceAll?.("PM", "")?.replaceAll?.("AM", "")}</span>
                        )}
                     </div>
                     <div className='c-message_kit__gutter__right'>
