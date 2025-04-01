@@ -32,15 +32,19 @@ const MessageItem = (item) =>{
             <div className='c-message_kit__hover'>
                 <div className='c-message_kit__gutter'>
                     <div className='c-message_kit__gutter__left'>
+                       {!item?.hideAvatar ?  (
                         <Icon className="md rounded-2" image attrIcon={Utils.getThemeDefaultUser(theme)} />
+                       ):(
+                        <span className='offscreen fs-11 text-start fw-6'>{Utils?.formatTime?.(item?.created_at)?.replaceAll?.("PM", "")?.replaceAll?.("AM", "")}</span>
+                       )}
                     </div>
                     <div className='c-message_kit__gutter__right'>
-                        <span className='c-message__sender c-message_kit__sender'>
+                        {!item?.hideAvatar && <span className='c-message__sender c-message_kit__sender'>
                             <span className='p-member_profile_hover_card'>
                                 {getUserInfo}
                             </span>
                             <span className='offscreen'>{Utils.formatTime(item?.created_at)}</span>
-                        </span>
+                        </span>}
                         <div className='c-message_kit__blocks c-message_kit__blocks--rich_text'>
                             <div className='p-block_kit_renderer'>
                                 <div className='p-rich_text_block'>

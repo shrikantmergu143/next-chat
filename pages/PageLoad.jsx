@@ -32,7 +32,7 @@ export default function PageLoad() {
     },[theme])
   return (
     <div>
-        <PinGenerate ip />
+        <PinGenerate />
     </div>
   )
 }

@@ -7,32 +7,37 @@ import MessageItem from './MessageItem';
 
 export default function ChatMessageList(props) {
     const { MessageList } = usePosterReducers();
-    const messageItemsList = useMemo(()=>{
+    const messageItemsList = useMemo(() => {
         const messageItem = MessageList?.[props?.chat_group_id];
-        if(messageItem?.length){
-            const groups = messageItem?.reduce?.((groups, item) => {
-                const date = item?.created_at?.split?.('T')[0];
-                if (!groups[date]) {
-                    groups[date] = [];
-                }
-                    groups[date]?.push?.(item);
-                return groups;
-            }, {});
-            const groupArrays = Object?.keys?.(groups)?.map?.((date) => {
-                return {
-                    date,
-                    messagesList: groups?.[date]
-                };
-            });
-            if(groupArrays?.length>0){
-                return groupArrays;
-            }else{
-                return [];
+    
+        if (!messageItem?.length) return [];
+    
+        const groups = messageItem.reduce((groups, item, index, array) => {
+            const date = item?.created_at?.split?.('T')[0];
+    
+            if (!groups[date]) {
+                groups[date] = [];
             }
-        }else{
-            return [];
-        }
-    },[MessageList?.[props?.chat_group_id]?.length, props?.chat_group_id]);
+    
+            // Get the previous message
+            const previousItem = array[index - 1];
+    
+            // Check if the previous message exists, has the same sender, and is within 10 minutes
+            const hideAvatar =
+                previousItem &&
+                previousItem.sender_id === item.sender_id &&
+                (new Date(item.created_at) - new Date(previousItem.created_at)) / 60000 <= 10; // Convert ms to minutes
+    
+            groups[date].push({ ...item, hideAvatar });
+            return groups;
+        }, {});
+    
+        return Object.keys(groups).map((date) => ({
+            date,
+            messagesList: groups[date],
+        }));
+    }, [MessageList?.[props?.chat_group_id], props?.chat_group_id]);
+    
 
     const callLoadMessageGroup = () =>{
         return messageItemsList?.map?.((item, index)=>(
