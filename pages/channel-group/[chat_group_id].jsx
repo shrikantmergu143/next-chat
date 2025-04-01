@@ -24,11 +24,12 @@ export default function ChannelId(props) {
     };
       const callGetMessages = async () =>{
         const payload = {group_id:props?.chat_group_id}
-        // if(MessageList?.[props?.chat_group_id]){
-        //     const length = MessageList?.[props?.chat_group_id]?.length-1;
-        //     console.log("length", length, MessageList?.[props?.chat_group_id]?.[length]?.updated_at)
-        //     payload.updated_at = MessageList?.[props?.chat_group_id]?.[length]?.updated_at
-        // }
+        if(MessageList?.[props?.chat_group_id]){
+            // const length = MessageList?.[props?.chat_group_id]?.length-1;
+            // console.log("length", length, MessageList?.[props?.chat_group_id]?.[length]?.updated_at)
+            payload.updated_at = new Date().toJSON()
+            payload.limit = 5
+        }
         await action.getChatMessagesList(access_token, dispatch, payload);
       }
     if(channelDetails?.id !== props?.chat_group_id){
