@@ -5,7 +5,7 @@ import Icon from "../common/Icon";
 import App_url from "../common/constant";
 import emoji_new from "./emoji_new.json";
 
-const ITEMS_PER_PAGE = 50;
+const ITEMS_PER_PAGE = 2000000;
 
 const EmojiPicker = (props) => {
     const [SelectEmojiTab, setSelectEmojiTab] = useState("Smileys and emotions");
