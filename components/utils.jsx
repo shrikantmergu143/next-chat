@@ -315,6 +315,14 @@ function getThemeDefaultGroup(theme){
         return App_url.icons.default_group_light;
     }
 }
+export const gotoMainPageMessage = (messageinfo) => {
+  var messagegoid = document.getElementById("messageid" + messageinfo);
+  messagegoid?.scrollIntoView({ block: "start", inline: "center" });
+  messagegoid?.classList?.add("activereplymessagepages")
+  setTimeout(() => {
+      messagegoid?.classList?.remove("activereplymessagepages");
+  }, 1000);
+}
 
 const Utils = {
     getCommonEnv: getCommonEnv,
@@ -331,5 +339,6 @@ const Utils = {
     getThemeDefaultGroup:getThemeDefaultGroup,
     decode: CustomCipher.decode,
     encode: CustomCipher.encode,
+    gotoMainPageMessage:gotoMainPageMessage
 }
 export default Utils;

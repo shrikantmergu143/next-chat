@@ -185,7 +185,7 @@ export default function InputGroup(props) {
     return cleanedValue;
   }
   function changeHandler(e) {
-    if (props?.inputType !== "select") {
+    if (props?.inputType !== "select" && props?.type !== "textarea") {
       const substring = "";
       if (e.target.value != " ") {
         e.target.value = removeMultipleBlankSpace(e.target.value, substring);
@@ -224,6 +224,11 @@ export default function InputGroup(props) {
     }
     if (props?.validLength && e.target.value?.length > 200) {
       e.target.value = props?.value
+    }
+    if(props?.type == "textarea"){
+      // Resize the textarea based on the content
+      e.target.style.height = 'auto!important';  // Reset height to auto to shrink back
+      e.target.style.height = `${e.target.scrollHeight}px!important`;  // Set height to scrollHeight
     }
     onChange(e);
   }
@@ -270,8 +275,9 @@ export default function InputGroup(props) {
     props?.onChange(data, e);
   }
   const onKeyDown = (e) =>{
-    if(e.keyCode == 13 && e.key == "Enter"){
+    if(e.keyCode == 13 && e.key == "Enter" && !e.shiftKey && !e.ctrlKey){
       if(props?.onSubmit){
+        e.preventDefault();
         props?.onSubmit(props?.value);
       }
     }
@@ -439,6 +445,32 @@ export default function InputGroup(props) {
           />
         )
       }
+      if(props?.type == "textarea"){
+        return (
+          <Form.Control
+            // id={id}
+            type={props?.number ? "text" : type}
+            onWheel={(e) => e.target.blur()}
+            placeholder={placeholder}
+            name={name}
+            as={props?.type == "textarea"?"textarea":"input"}
+            onChange={changeHandler}
+            className={` ${props?.rightLabel || props?.rightLabel1 ? "right-input" : ""}  ${props?.leftLabel ? "left-input" : ""} ${className}`}
+            onClick={props?.onClick}
+            {...data}
+            // onKeyDown={(e) => EmptySpaceFieldValid(e, props, changeHandler)}
+            value={props?.value}
+            isInvalid={error ? true : false}
+            disabled={props?.disabled}
+            autoFocus={props?.autoFocus}
+            onKeyDown={onKeyDown}
+            onBlur={props?.onBlur}
+            onFocus={props?.onFocus}
+            style={{ resize: 'none', overflow: 'hidden' }} // Disable manual resizing and hide scrollbars
+            rows={2}
+          />
+        )
+      }
       return (
         <Form.Control
           // id={id}
@@ -446,6 +478,7 @@ export default function InputGroup(props) {
           onWheel={(e) => e.target.blur()}
           placeholder={placeholder}
           name={name}
+          as={props?.type == "textarea"?"textarea":"input"}
           onChange={changeHandler}
           className={` ${props?.rightLabel || props?.rightLabel1 ? "right-input" : ""}  ${props?.leftLabel ? "left-input" : ""} ${className}`}
           onClick={props?.onClick}

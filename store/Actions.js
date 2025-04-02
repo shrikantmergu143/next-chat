@@ -19,7 +19,8 @@ export const ActionTypes = {
     VERIFY_PIN:"VERIFY_PIN",
     SET_PIN:"SET_PIN",
     RESET_PIN:"RESET_PIN",
-
+    SET_UPDATE_PAGINATION_LIST:"SET_UPDATE_PAGINATION_LIST",
+    SET_STORE_PAGINATION_LIST:"SET_STORE_PAGINATION_LIST",
 }
 export const setPin = (pin) => ({
     type: ActionTypes.SET_PIN,
@@ -137,3 +138,15 @@ export const setStoreSocketResponse = (token) => {
        payload: token,
     }
 };
+export const setUpdatePaginationList = (payload)=>{
+    return{
+        type: ActionTypes.SET_UPDATE_PAGINATION_LIST,
+        payload: payload
+    }
+}
+export const setStorePaginationList = (payload)=>{
+    return{
+        type: ActionTypes.SET_STORE_PAGINATION_LIST,
+        payload: payload
+    }
+}

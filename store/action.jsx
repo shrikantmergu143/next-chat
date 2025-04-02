@@ -95,20 +95,22 @@ const getChatMessagesList = async (access_token,  dispatch, payload) =>{
                 data:response?.data?.data?.data,
                 group_id: payload?.group_id,
                 totalCount: payload?.totalCount
-            }))
+            }));
+            return response;
         }else{
             return response;
         }
     }else{
         if(dispatch){
-            if(formData?.page == 1){
-                dispatch(setStoreClearGroupMessage(payload?.group_id))
-            }else{
-                dispatch(setStoreChatMessagesList({
-                    data:[],
-                    group_id: payload?.group_id
-                }))
-            }
+            // if(formData?.page == 1){
+            //     dispatch(setStoreClearGroupMessage(payload?.group_id))
+            // }else{
+            //     // dispatch(setStoreChatMessagesList({
+            //     //     data:[],
+            //     //     group_id: payload?.group_id
+            //     // }))
+            // }
+            return response;
         }else{
             return response;
         }

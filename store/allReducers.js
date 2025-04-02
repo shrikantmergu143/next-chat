@@ -35,6 +35,11 @@ export const initialData = {
     theme:"light",
     socketResponse:null,
     pinEntered: false,
+    pagination:{
+        page_data:[],
+        page_size:50,
+        page_number:1
+    }
 };
 
 export const allReducers = (state = initialData, action) => {
@@ -204,6 +209,39 @@ export const allReducers = (state = initialData, action) => {
             return { ...state, pinVerified: action.payload };
         case ActionTypes.RESET_PIN:
             return { ...state, savedPin: null, pinVerified: false };
+        case ActionTypes.SET_STORE_PAGINATION_LIST:{
+            return {
+                ...state,
+                pagination:{
+                    ...initialData?.pagination,
+                    page_data:action?.payload?.page_data,
+                    page_size:action?.payload?.page_size,
+                    page_number:action?.payload?.page_number,
+                }
+            }
+        };
+        case ActionTypes.SET_UPDATE_PAGINATION_LIST:{
+            const OldPagination = state?.pagination?.page_data;
+            const newData = action?.payload;
+            let old_page_number = state?.pagination?.page_number || 1;
+            if(newData?.length > 0){
+                newData?.map((item)=>{
+                    if(OldPagination?.filter((items)=>items.id === item?.id)?.length === 0){
+                        OldPagination?.push(item);
+                    }
+                });
+                old_page_number += 1;
+            }
+            return {
+                ...state,
+                pagination:{
+                    ...initialData?.pagination,
+                    page_data:OldPagination,
+                    page_size:state?.pagination?.page_size || 40,
+                    page_number:old_page_number
+                }
+            }
+        }
         default:
             return state;
     }

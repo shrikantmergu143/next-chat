@@ -40,8 +40,8 @@ export default function ChatMessageList(props) {
     
 
     const callLoadMessageGroup = () =>{
-        return messageItemsList?.map?.((item, index)=>(
-            <React.Fragment key={index}>
+        return messageItemsList?.map?.((item, index1)=>(
+            <React.Fragment key={index1}>
                 <div className='message-grouped'>
                     <div className='c-virtual_list__item'>
                         <span className='sticky-top date-message'>{item?.date} <Icon attrIcon={App_url.icons.Down} className={"ms-1"} size="xsm" /></span>
@@ -49,7 +49,7 @@ export default function ChatMessageList(props) {
                     <div className='messages_list'>
                         {item?.messagesList?.map?.((item, index)=>(
                             <React.Fragment key={index}>
-                                <MessageItem  {...item} index={index} />
+                                <MessageItem  {...item} index={`${index}.${index1}`} />
                             </React.Fragment>
                         ))}
                     </div>

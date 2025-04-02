@@ -7,17 +7,28 @@ import Scrollbar from "../common/Scrollbar";
 import Editor from "../common/text-editor/Editor";
 import { PostRequestAPI } from "../api/PostRequest";
 import usePosterReducers from "../context/usePosterReducers";
-import { setStoreCreateChatMessage } from "../../store/Actions";
+import { setStoreCreateChatMessage, setUpdatePaginationList } from "../../store/Actions";
 import { useDispatch } from "react-redux";
 import Button from "../common/Button";
 import Utils from "../utils";
 import FriendRequestModal from "../common/modal/FriendRequestModal";
 import { PutRequestAPI } from "../api/PutRequest";
+import MessageEditor from "../common/text-editor/MessageEditor";
+export function PaginationList(array, page_size, page_number) {
+  if(array){
+      return array?.sort(( a, b )=> {
+          return  new Date(b?.created_at) -  new Date(a?.created_at)
+  })?.slice((page_number - 1) * page_size, page_number * page_size);
+  }else{
+      return [];
+  }
+}
 
 export default function ChannelDetails(props) {
-  const { access_token, theme, currentUser, savedPin, pinVerified } = usePosterReducers();
+  const { access_token, theme, currentUser, savedPin, pinVerified, MessageList, pagination } = usePosterReducers();
   const dispatch = useDispatch();
   const [values, setValues] = useState({ message: "" });
+  const [loader, setLoader] = useState(false);
   const getLinkAvatar = useMemo(() => {
     if (props?.chatGroupDetails?.group_type === "direct") {
       return props?.chatGroupDetails?.profile_url
@@ -81,6 +92,33 @@ export default function ChannelDetails(props) {
       }
       return Utils.encode({message:props?.chatGroupDetails?.channel_name || props?.chatGroupDetails?.name}, process.env.TOKEN_KEY)
   },[props?.chatGroupDetails, savedPin, pinVerified])
+
+  const onScroll = (e) =>{
+    const MessagesAllList = MessageList?.[props?.group_id];
+    const scrollTop = e?.scrollTop
+      const scrollHeight = e?.scrollHeight;
+      let min_height = 290;
+      if(screen.height>1000){
+          min_height = 522;
+      }else if(screen.height>960){
+          min_height = 500;
+      }else if(screen.height>840){
+          min_height = 420;
+      }else if(screen.height>750){
+          min_height = 290;
+      }
+      const maxScrollTop = scrollHeight - scrollTop - min_height;
+      if(scrollTop === 0 && loader !== true){
+        props?.callGetMessages();
+          // const Data = PaginationList(MessagesAllList, 40, (pagination?.page_number||1)+1);
+          // console.log("Data", Data, MessagesAllList)
+          // if(Data?.length){
+          //     setLoader(true);
+          //     dispatch(setUpdatePaginationList(Data?.reverse()));
+          //     setTimeout(()=>setLoader(false), 2000)
+          // }
+      }
+  }
   if (props?.chatGroupDetails?.user_status?.status != "accepted") {
     return (
       <FriendRequestModal onStatusChange={onStatusChange}  chatGroupDetails={props?.chatGroupDetails} />
@@ -88,11 +126,11 @@ export default function ChannelDetails(props) {
   }
   const renderText = () =>{
     return(
-      <Editor
+      <MessageEditor
         field="message"
         html={values?.message}
         onChange={handleChange}
-        placeholder="Temporal placeholder..."
+        // placeholder="Temporal placeholder..."
         onSend={onSendMessage}
       />
     )
@@ -122,7 +160,7 @@ export default function ChannelDetails(props) {
         />
       </div>
       <div className="p-view-body">
-        <Scrollbar style={{ height: `calc(100vh - 213px)` }}>
+        <Scrollbar style={{ height: `calc(100vh - 210px)` }} onScroll={onScroll}>
           {props?.children}
         </Scrollbar>
       </div>

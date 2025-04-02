@@ -13,7 +13,7 @@ const MessageItem = (item) =>{
         }else{
             return channelDetails?.members_details?.find?.((item1)=>item1?.id == item?.sender_id);
         }
-    },[item?.id]);
+    },[item?._id]);
     const getMessage = useMemo(()=>{
         if(savedPin && pinVerified){
             return item?.message
@@ -29,7 +29,7 @@ const MessageItem = (item) =>{
 
     return(
         <div id={`messages-id-${item?.index}`} className='message-content message-kit '>
-            <div className='c-message_kit__hover'>
+            <div className='c-message_kit__hover' id={`messageid${item?._id}`}>
                 <div className='c-message_kit__gutter'>
                     <div className='c-message_kit__gutter__left'>
                        {!item?.hideAvatar ?  (

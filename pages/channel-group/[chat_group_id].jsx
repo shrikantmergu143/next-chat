@@ -6,9 +6,10 @@ import action from '../../store/action';
 import App_url from '../../components/common/constant';
 import { useDispatch, useSelector } from 'react-redux';
 import ChatMessageList from '../../components/chat-messages/ChatMessageList';
+import { setStorePaginationList } from '../../store/Actions';
 
 export default function ChannelId(props) {
-    const {access_token, channelDetails, MessageList} = useSelector(App_url.allReducers);
+    const {access_token, channelDetails, MessageList, pagination} = useSelector(App_url.allReducers);
     const dispatch = useDispatch();
     const [isTabActive, setIsTabActive] = useState(!document.hidden);
     useEffect(()=>{
@@ -19,6 +20,7 @@ export default function ChannelId(props) {
         const handleVisibilityChange = () => {
             setIsTabActive(!document.hidden);
         };
+        callGetMessages(new Date().toJSON());
 
         document.addEventListener("visibilitychange", handleVisibilityChange);
         return () => {
@@ -31,7 +33,7 @@ export default function ChannelId(props) {
         let interval;
         if (isTabActive) {
             interval = setInterval(() => {
-                callGetMessages();
+                callGetMessages(new Date().toJSON());
             }, 3000);
         }
 
@@ -42,15 +44,31 @@ export default function ChannelId(props) {
     const callChannelDetails = async () =>{
        await action.getChannelsDetails(access_token, dispatch, props?.chat_group_id)
     };
-      const callGetMessages = async () =>{
+    const callGetMessages = async (date) =>{
         const payload = {group_id:props?.chat_group_id}
-        if(MessageList?.[props?.chat_group_id]){
-            // const length = MessageList?.[props?.chat_group_id]?.length-1;
-            // console.log("length", length, MessageList?.[props?.chat_group_id]?.[length]?.updated_at)
-            payload.updated_at = new Date().toJSON()
+        if(MessageList?.[props?.chat_group_id]?.length){
+            const length = MessageList?.[props?.chat_group_id]?.length-1;
+            console.log("length", length, MessageList?.[props?.chat_group_id]?.[length]?.updated_at)
+            payload.updated_at = MessageList?.[props?.chat_group_id]?.[0]?.updated_at || new Date().toJSON();
             payload.limit = 40
         }
-        await action.getChatMessagesList(access_token, dispatch, payload);
+        if(date){
+            payload.updated_at = date
+        }
+        const response = await action.getChatMessagesList(access_token, dispatch, payload);
+        if(response?.status === 200){
+            if(MessageList?.[props?.chat_group_id]?.[0]){
+                Utils.gotoMainPageMessage(MessageList?.[props?.chat_group_id]?.[0]?._id);
+            }
+            if(!MessageList?.[props?.chat_group_id]?.length){
+                dispatch(setStorePaginationList({
+                    page_data: response?.data?.data?.data,
+                    page_size: 40,
+                    page_number: 1
+                }))
+            }
+        }else{
+        }
       }
       const renderDom = () =>{
         return(
