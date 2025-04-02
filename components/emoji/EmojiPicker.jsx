@@ -91,7 +91,7 @@ const EmojiPicker = (props) => {
                     />
                 </div>
 
-                <Scrollbar style={{ height: 206 }} ref={scrollRef} onScroll={handleScroll}>
+                <Scrollbar style={{ height: 206 }} >
                     <ul className="emoji-list">
                         {paginatedEmojis.map((emoji, index) => (
                             <li
