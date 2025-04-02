@@ -1,9 +1,12 @@
-import React, { useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Button from "./Button";
 import App_url from "../constant.js";
+import EmojiPicker from "../../emoji/EmojiPicker.jsx";
+import EmojiButton from "./EmojiButton.jsx";
 
 const Editor = ({ field, html, classes, onChange, placeholder, onSend }) => {
   const editorRef = useRef();
+  const [showEmoji, onShowEmoji]= useState(false)
   const handlePaste = (event) => {
     event.preventDefault();
     const text = event.clipboardData.getData("text/plain");
@@ -42,45 +45,11 @@ const Editor = ({ field, html, classes, onChange, placeholder, onSend }) => {
     onSend(newEvent);
     el.innerText = "";
   }
-  const buttonFooterAction = [
-    {
-      align: "left",
-      actionList: [
-        {
-          title: "Bold",
-          function: ()=>{},
-          icon: App_url?.icons?.PlusIcon,
-          className: "rounded",
-        },
-        {
-          title: "Alphabet",
-          function: ()=>{},
-          icon: App_url?.icons?.Alphabet,
-        },
-        { title: "Smile", function: ()=>{}, icon: App_url?.icons?.Smile },
-        { divider: true },
-        {
-          title: "VideoRecording",
-          function: ()=>{},
-          icon: App_url?.icons?.VideoRecording,
-        },
-        { divider: true },
-        {
-          title: "AudioRecording",
-          function: ()=>{},
-          icon: App_url?.icons?.AudioRecording,
-        },
-      ],
-    },
-    {
-      align: "left",
-      actionList: [{ function:onSendMessage, icon: App_url?.icons?.Send, send:true }],
-    },
-  ];
+
   const handleFooterClick = () => {
-    if (editorRef.current) {
-      editorRef.current.focus();
-    }
+    // if (editorRef.current) {
+    //   editorRef.current.focus();
+    // }
   };
     const ButtonEditor = (props) => {
       const onClick = (e) => {
@@ -95,7 +64,10 @@ const Editor = ({ field, html, classes, onChange, placeholder, onSend }) => {
       };
       const RenderButton = () => {
         return (
-          <Button {...props} icon={props.icon}  editorRef={editorRef} cmd={props?.cmd} onClick={onClick} />
+          <div className="button-view">
+            <Button {...props} icon={props.icon}  editorRef={editorRef} cmd={props?.cmd} onClick={onClick} />
+            {props?.render || props?.render?.()}
+          </div>
         );
       };
       if (props?.divider) {
@@ -150,10 +122,57 @@ const Editor = ({ field, html, classes, onChange, placeholder, onSend }) => {
         </React.Fragment>
       );
     };
+    const handleInsertImage = (imageUrl) => {
+      const el = editorRef.current;
+      if (!el) return;
+  
+      const imgTag = `<img src="${imageUrl?.image}" alt="emoji" style="width: 24px; height: 24px;">`;
+  
+      document.execCommand("insertHTML", false, imgTag);
+  };
+    const emojiPickerMemo = useMemo(() => (showEmoji ? <EmojiPicker onEmojiClick={handleInsertImage} /> : null), [showEmoji]);
+
+    const renderBottom = () =>{
+      return(
+        <div className="footer-action">
+          <div className={`action-left`}>
+            <ButtonEditor
+              title={ "Bold"}
+              onClick={ ()=>{}}
+              icon={ App_url?.icons?.PlusIcon}
+              className={ "rounded"}
+            />
+            <ButtonEditor
+              title={ "Alphabet"}
+              onClick={ ()=>{}}
+              icon={ App_url?.icons?.Alphabet}
+              className={ "rounded"}
+            />
+            <EmojiButton
+              editorRef={editorRef}
+              ButtonEditor={ButtonEditor}
+            />
+            <ButtonEditor
+              title={ "VideoRecording"}
+              onClick={ ()=>{}}
+              icon={ App_url?.icons?.VideoRecording}
+              className={ "rounded"}
+            />
+          </div>
+          <div className={`action-left`}>
+            <ButtonEditor
+              icon={App_url?.icons?.Send}
+              onClick={onSendMessage}
+              send={true}
+            />
+          </div>
+        </div>
+      )
+    }
   const contentLoad = () =>{
     return (
       <div className="p-view-footer" 
-        onClick={handleFooterClick}
+        // onClick={handleFooterClick}
       >
         <div className="position-relative h-100 w-100">
           <div className={`text-editor ${classes ? classes : ""}`}>
@@ -168,23 +187,7 @@ const Editor = ({ field, html, classes, onChange, placeholder, onSend }) => {
               onPaste={handlePaste}
               onKeyDown={handleKeyDown}
             />
-            <div className="footer-action">
-              {buttonFooterAction.map((action, index) => (
-                <React.Fragment>
-                  <div className={`action-${action?.align}`}>
-                    {action?.actionList.map((item, index) => (
-                      <React.Fragment key={index}>
-                        <ButtonEditor
-                          {...item}
-                          className={`text-button ${item?.className}`}
-                          onClick={item.function}
-                        />
-                      </React.Fragment>
-                    ))}
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
+            {renderBottom()}
           </div>
         </div>
       </div>

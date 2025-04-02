@@ -21,21 +21,24 @@ export default function Images(props) {
   }, [props.src]);
 
 
-  return (
-    <picture className={`picture-opacity-1 ${props?.imageClassName}`}>
-      {imageSrc && <source type={props.type} srcSet={imageSrc} />}
-      {imageSrc && (
-        <img
-          src={imageSrc}
-          alt={props.alt}
-          loading="eager"
-          className={props.className}
-          width={props?.width}
-          height={props?.height}
-        />
-      )}
-    </picture>
-  );
+  const loadImage = () =>{
+    return(
+      <picture className={`picture-opacity-1 ${props?.imageClassName}`}>
+        {imageSrc && <source type={props.type} srcSet={imageSrc} />}
+        {imageSrc && (
+          <img
+            src={imageSrc}
+            alt={props.alt}
+            loading="eager"
+            className={props.className}
+            width={props?.width}
+            height={props?.height}
+          />
+        )}
+      </picture>
+    )
+  }
+  return loadImage();
 }
 
 Images.propTypes = {

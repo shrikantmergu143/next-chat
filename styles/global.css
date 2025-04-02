@@ -354,6 +354,7 @@ input::placeholder,input::-ms-input-placeholder {color: #BFBFCC !important;opaci
 .editor textarea {border: 1px dashed #aaa;box-sizing: border-box;display: block;margin-bottom: 10px;max-width: 100%;min-height: 100px;outline: none;width: 100%;}
 .editor textarea:focus {border-color: #333;}
 .editor .dropdown {position: relative;display: inline-block;}
+.editor .button-view{position: relative;}
 
 .message-wrapper{padding-top: 5px;}
 .message-wrapper .c-virtual_list__item{width: 100%;position: sticky;padding: 2px;display: flex;align-items: center;justify-content: center;top: 8px;z-index: 5;}
@@ -369,3 +370,24 @@ input::placeholder,input::-ms-input-placeholder {color: #BFBFCC !important;opaci
 .messages_list .message-kit .c-message_kit__gutter .c-message_kit__blocks{color: var(--secondary-3);line-height: 1.46668;}
 .messages_list .message-kit .c-message_kit__hover:hover{background-color: var(--bg-message-hover);}
 .message-grouped::before{content: "";border-bottom: 1px solid var(--fr-form-border);width: 100%;display: block;z-index: 0;position: relative;top: 18px;}
+
+.emoji-content{
+  position: absolute;
+  height: 300px;bottom: 43px;
+  width: 250px;
+  background-color: var(--select-menu-select-bg);
+  z-index: 19;
+  box-shadow: var(--bs-box-shadow);
+}
+.emoji-content .emoji-section{
+  padding: 0px 10px;
+}
+.emoji-content .emoji-list {
+  display: flex;align-items: center;
+  list-style: none;
+  padding: 0px;flex-wrap: wrap;
+}
+.emoji-content .emoji-list li{max-width: 40px;height: 40px;display: flex;align-items: center;font-size: 23px;display: flex;align-items: center;justify-content: center;width: 100%;}
+.emoji-content .emoji-type{padding: 10px;display: flex;align-items: center;justify-content: space-between;}
+.emoji-content .search-emoji{padding-bottom: 10px;}
+.emoji-content .search-emoji input{width: 100%;outline: none;}

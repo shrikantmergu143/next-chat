@@ -85,6 +85,17 @@ export default function ChannelDetails(props) {
       <FriendRequestModal onStatusChange={onStatusChange}  chatGroupDetails={props?.chatGroupDetails} />
     );
   }
+  const renderText = () =>{
+    return(
+      <Editor
+        field="message"
+        html={values?.message}
+        onChange={handleChange}
+        placeholder="Temporal placeholder..."
+        onSend={onSendMessage}
+      />
+    )
+  }
   return (
     <React.Fragment>
       <div className="p-view_header">
@@ -114,13 +125,7 @@ export default function ChannelDetails(props) {
           {props?.children}
         </Scrollbar>
       </div>
-      <Editor
-        field="message"
-        html={values?.message}
-        onChange={handleChange}
-        placeholder="Temporal placeholder..."
-        onSend={onSendMessage}
-      />
+      {renderText()}
     </React.Fragment>
   );
 }

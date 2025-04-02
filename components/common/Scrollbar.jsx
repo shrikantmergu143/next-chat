@@ -20,6 +20,8 @@ export default function Scrollbar(props) {
         renderTrackHorizontal={renderTrack}
         renderThumbVertical={renderThumb}
         className="ScrollbarsSidebar"
+        ref={props?.ref}
+        onScrollFrame={props?.onScroll}
     >
         {props?.children}
     </Scrollbars>

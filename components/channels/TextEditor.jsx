@@ -3,6 +3,7 @@ import App_url from "../common/constant";
 import Icon from "../common/Icon";
 import ToolTip from "../common/PopOver";
 import { useWebSocket } from "../context/SocketContext";
+import EmojiPicker from "../emoji/EmojiPicker";
 
 function TextEditor(props) {
   const [content, setContent] = useState("");
@@ -257,7 +258,7 @@ function TextEditor(props) {
           function: handleBold,
           icon: App_url?.icons?.Alphabet,
         },
-        { title: "Smile", function: handleBold, icon: App_url?.icons?.Smile },
+        { title: "Smile", function: handleBold, icon: App_url?.icons?.Smile, render:()=><EmojiPicker/> },
         { divider: true },
         {
           title: "VideoRecording",
@@ -285,11 +286,15 @@ function TextEditor(props) {
       props?.function(e);
       handleFooterClick();
     };
+    console.log("props?.render", props?.render)
     const renderButton = () => {
       return (
-        <button className={`${props?.className}`} onClick={onClick}>
-          <Icon attrIcon={props.icon} />
-        </button>
+        <div className="button-view">
+            <button className={`${props?.className}`} onClick={onClick}>
+              <Icon attrIcon={props.icon} />
+            </button>
+            {props?.render?.()}
+        </div>
       );
     };
     if (props?.divider) {

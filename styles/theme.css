@@ -1,3 +1,12 @@
+
+@font-face {
+  font-family: 'TwemojiMozilla-Regular';
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: 0.6px;
+  src: local('TwemojiMozilla-colr'), url('./../public/emoji.woff2') format('truetype');
+}
+
 body.dark{
     --text-color: #f8f8f8;
     --bs-body-bg: #1b1e21!important;

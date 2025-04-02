@@ -27,7 +27,7 @@ export default function ChannelId(props) {
     }, []);
 
     useEffect(() => {
-        if (!props?.chat_group_id) return;
+        if (!props?.chat_group_id || window.location.hostname === "localhost") return;
         let interval;
         if (isTabActive) {
             interval = setInterval(() => {
@@ -52,6 +52,13 @@ export default function ChannelId(props) {
         }
         await action.getChatMessagesList(access_token, dispatch, payload);
       }
+      const renderDom = () =>{
+        return(
+            <ChannelDetails chatGroupDetails={channelDetails} callGetMessages={callGetMessages} callBackUpdate={callChannelDetails} group_id={props?.chat_group_id}>
+                <ChatMessageList {...props}/>
+            </ChannelDetails>
+        )
+      }
     if(channelDetails?.id !== props?.chat_group_id){
         return (
             <Layout {...props}>
@@ -60,9 +67,7 @@ export default function ChannelId(props) {
     }
     return (
         <Layout {...props}>
-            <ChannelDetails chatGroupDetails={channelDetails} callGetMessages={callGetMessages} callBackUpdate={callChannelDetails} group_id={props?.chat_group_id}>
-                <ChatMessageList {...props}/>
-            </ChannelDetails>
+            {renderDom()}
         </Layout>
     );
 }

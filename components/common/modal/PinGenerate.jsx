@@ -19,15 +19,20 @@ export default function PinGenerate() {
     useEffect(() => {
         const handleVisibilityChange = () => {
             if (!access_token) return;
+            if(window.location.hostname === "localhost"){
+                setShowModalState(false);
+                dispatch(verifyPin(true));
+                return ;
+            }
             if (!document.hidden && !pinVerified) {
                 setShowModalState(true);
             }
-            if (document.hidden) {
+            if (document.hidden && window.location.hostname !== "localhost") {
                 setShowModalState(true);
                 dispatch(verifyPin(false)); // Reset PIN verification on tab switch
             }
         };
-
+        handleVisibilityChange();
         document.addEventListener("visibilitychange", handleVisibilityChange);
         return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
     }, [pinVerified, access_token]);
