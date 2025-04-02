@@ -16,8 +16,9 @@ const EmojiButton = ({ editorRef, ButtonEditor }) => {
     if (!el) return;
 
     const imgTag = `<img src="${imageUrl?.image}" alt="emoji" style="width: 24px; height: 24px;">`;
-
-    document.execCommand("insertHTML", false, imgTag);
+    const ImageEmoji = imageUrl?.emoji;
+    console.log("ImageEmoji", ImageEmoji)
+    document.execCommand("insertHTML", false, imageUrl?.emoji?ImageEmoji:imgTag);
   };
   const emojiPickerMemo = useMemo(
     () => (showEmoji ? <EmojiPicker onEmojiClick={handleInsertImage} /> : null),
@@ -31,7 +32,7 @@ const EmojiButton = ({ editorRef, ButtonEditor }) => {
         onClick={() => onShowEmoji(!showEmoji)}
         icon={App_url?.icons?.Smile}
         className={"rounded"}
-        // render={emojiPickerMemo}
+        render={emojiPickerMemo}
       />
     );
   };

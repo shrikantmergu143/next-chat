@@ -1,3 +1,4 @@
+"use client"; // Required for Next.js 13+ (App Router)
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import DropButton from "../common/DropButton";
 import Icon from "../common/Icon";

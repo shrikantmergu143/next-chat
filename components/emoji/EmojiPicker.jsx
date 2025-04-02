@@ -3,6 +3,7 @@ import emoji from "./emoji.json";
 import Scrollbar from "../common/Scrollbar";
 import Icon from "../common/Icon";
 import App_url from "../common/constant";
+import emoji_new from "./emoji_new.json";
 
 const ITEMS_PER_PAGE = 50;
 
@@ -14,16 +15,23 @@ const EmojiPicker = (props) => {
 
     const selectEmoji = (emoji) => {
         if (props.onEmojiClick) {
-            props.onEmojiClick({
-                emoji: `${window.location.origin}/assets/emoji/${emoji?.codepoint}/emoji.svg`,
-                image: `${window.location.origin}/assets/emoji/${emoji?.codepoint}/512.webp`,
-            });
+            if(emoji?.codepoint){
+                props.onEmojiClick({
+                    // emoji: `${window.location.origin}/assets/emoji/${emoji?.codepoint}/emoji.svg`,
+                    image: `${window.location.origin}/assets/emoji/${emoji?.codepoint}/512.webp`,
+                });
+            }
+            if(emoji?.emoji){
+                props.onEmojiClick({
+                    emoji: emoji?.emoji,
+                });
+            }
         }
     };
 
     const filteredEmojis = useMemo(() => {
         return (
-            emoji?.icons
+            emoji_new
                 ?.filter((elm) => elm?.categories?.includes(SelectEmojiTab))
                 ?.filter((elm) =>
                     searchEmojiValue === ""
@@ -91,7 +99,8 @@ const EmojiPicker = (props) => {
                                 className="flex justify-center items-center text-2xl cursor-pointer bg-transparent rounded-3xl drop-shadow-lg transition-transform transform hover:scale-110 hover:shadow-2xl hover:bg-gradient-to-br from-yellow-200 to-yellow-400"
                                 onClick={() => selectEmoji(emoji)}
                             >
-                                <Icon image attrIcon={`${window.location.origin}/assets/emoji/${emoji?.codepoint}/emoji.svg`} />
+                                {emoji?.codepoint && <Icon image attrIcon={`${window.location.origin}/assets/emoji/${emoji?.codepoint}/emoji.svg`} />}
+                                {emoji?.emoji}
                             </li>
                         ))}
                         {paginatedEmojis.length === 0 && (

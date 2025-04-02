@@ -123,15 +123,40 @@ const Editor = ({ field, html, classes, onChange, placeholder, onSend }) => {
       );
     };
     const handleInsertImage = (imageUrl) => {
-      const el = editorRef.current;
+      const el = editorRef.current; // Target the editor
       if (!el) return;
-  
+    
+      const ImageEmoji = imageUrl?.emoji; // Emoji text (if any)
       const imgTag = `<img src="${imageUrl?.image}" alt="emoji" style="width: 24px; height: 24px;">`;
-  
-      document.execCommand("insertHTML", false, imgTag);
-  };
-    const emojiPickerMemo = useMemo(() => (showEmoji ? <EmojiPicker onEmojiClick={handleInsertImage} /> : null), [showEmoji]);
-
+    
+      const selection = window.getSelection();
+      if (!selection.rangeCount) return;
+    
+      const range = selection.getRangeAt(0);
+    
+      // Ensure the selection is inside the editor
+      if (!el.contains(range.commonAncestorContainer)) {
+        el.focus(); // Focus the editor if the selection is outside
+        return;
+      }
+    
+      range.deleteContents(); // Clear selected content
+    
+      if (ImageEmoji) {
+        // ✅ Insert emoji as text
+        document.execCommand("insertText", false, ImageEmoji);
+      } else {
+        // ✅ Insert image as HTML
+        document.execCommand("insertHTML", false, imgTag);
+      }
+    
+      el.focus(); // Refocus the editor after insertion
+    };
+    
+  const emojiPickerMemo = useMemo(
+    () => (showEmoji ? <EmojiPicker onEmojiClick={handleInsertImage} /> : null),
+    [showEmoji]
+  );
     const renderBottom = () =>{
       return(
         <div className="footer-action">
@@ -148,9 +173,12 @@ const Editor = ({ field, html, classes, onChange, placeholder, onSend }) => {
               icon={ App_url?.icons?.Alphabet}
               className={ "rounded"}
             />
-            <EmojiButton
-              editorRef={editorRef}
-              ButtonEditor={ButtonEditor}
+            <ButtonEditor
+              title={"Smile"}
+              onClick={() => onShowEmoji(!showEmoji)}
+              icon={App_url?.icons?.Smile}
+              className={"rounded"}
+              render={emojiPickerMemo}
             />
             <ButtonEditor
               title={ "VideoRecording"}
@@ -172,7 +200,7 @@ const Editor = ({ field, html, classes, onChange, placeholder, onSend }) => {
   const contentLoad = () =>{
     return (
       <div className="p-view-footer" 
-        // onClick={handleFooterClick}
+        onClick={handleFooterClick}
       >
         <div className="position-relative h-100 w-100">
           <div className={`text-editor ${classes ? classes : ""}`}>
