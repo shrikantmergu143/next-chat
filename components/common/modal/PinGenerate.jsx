@@ -20,7 +20,11 @@ export default function PinGenerate() {
         const handleVisibilityChange = () => {
             if (!access_token) return;
             if(window.location.hostname === "localhost"){
-                setShowModalState(false);
+                if(savedPin === undefined){
+                    setShowModalState(true);
+                }else{
+                    setShowModalState(false);
+                }
                 dispatch(verifyPin(true));
                 return ;
             }

@@ -14,11 +14,14 @@ const EmojiButton = ({ editorRef, ButtonEditor }) => {
   const handleInsertImage = (imageUrl) => {
     const el = editorRef.current;
     if (!el) return;
-
     const imgTag = `<img src="${imageUrl?.image}" alt="emoji" style="width: 24px; height: 24px;">`;
-    const ImageEmoji = imageUrl?.emoji;
-    console.log("ImageEmoji", ImageEmoji)
-    document.execCommand("insertHTML", false, imageUrl?.emoji?ImageEmoji:imgTag);
+    const ImageEmoji = `<span class="emoji-span" emoji="${imageUrl?.emoji}" />`;
+    el.focus(); // Ensure the editor is focused
+    if(imageUrl?.emoji){
+      document.execCommand("insertHTML", false, ImageEmoji);
+    }else{
+      document.execCommand("insertHTML", false, imgTag);
+    }
   };
   const emojiPickerMemo = useMemo(
     () => (showEmoji ? <EmojiPicker onEmojiClick={handleInsertImage} /> : null),
