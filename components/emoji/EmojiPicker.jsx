@@ -47,9 +47,9 @@ const EmojiPicker = (props) => {
 
     // Handle infinite scroll
     const handleScroll = ({ top }) => {
-        if (top > 0.9) { // Adjust threshold
-            setPage((prevPage) => prevPage + 1);
-        }
+        // if (top > 0.9) { // Adjust threshold
+        //     setPage((prevPage) => prevPage + 1);
+        // }
     };
 
     useEffect(() => {
