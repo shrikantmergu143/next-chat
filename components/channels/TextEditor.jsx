@@ -286,7 +286,6 @@ function TextEditor(props) {
       props?.function(e);
       handleFooterClick();
     };
-    console.log("props?.render", props?.render)
     const renderButton = () => {
       return (
         <div className="button-view">
@@ -347,7 +346,6 @@ function TextEditor(props) {
       </React.Fragment>
     );
   };
-  console.log("content", content);
   const renderTextEditor = () => {
     return (
       <div

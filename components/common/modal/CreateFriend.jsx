@@ -47,7 +47,6 @@ export default function CreateFriend(props) {
           mode:"private",
         }
         const response = await PostRequestAPI(App_url.api.API_CREATE_GROUP, payload, access_token);
-        console.log("response",response)
         if(response?.status === 200){
           action.getChannelsList(access_token, dispatch);
           CloseModal();

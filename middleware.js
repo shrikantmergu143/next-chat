@@ -18,14 +18,12 @@ export async function middleware(request) {
 
     if (access_token?.value) {
         if (protectedUrlsForAuth.includes(requestedUrl)) {
-            // console.log(`Redirecting authenticated user away from: ${requestedUrl}`);
             return NextResponse.redirect(new URL('/', request.url));
         } else {
             return NextResponse.next();
         }
     } else {
         if (protectedUrlsForUnauth.includes(requestedUrl)) {
-            // console.log(`Redirecting unauthenticated user to login from: ${requestedUrl}`);
             return NextResponse.redirect(new URL('/login', request.url));
         } else {
             return NextResponse.next();

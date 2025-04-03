@@ -128,7 +128,6 @@ const Editor = ({ field, html, classes, onChange, placeholder, onSend }) => {
   
       const imgTag = `<img src="${imageUrl?.image}" alt="emoji" style="width: 24px; height: 24px;">`;
       const ImageEmoji = `<span className="emoji-span">${imageUrl?.emoji}</span>`;
-      console.log("ImageEmoji", ImageEmoji)
       document.execCommand("insertHTML", false, imgTag);
     };
   const emojiPickerMemo = useMemo(

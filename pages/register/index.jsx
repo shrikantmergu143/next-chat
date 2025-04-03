@@ -66,7 +66,6 @@ export default function Home() {
                 username:formData?.username,
             }
             const response = await PostRequestAPI(`${App_url.api.API_SIGN_UP}`,payload);
-            console.log("resp", response)
             if(response?.status === 200){
                 dispatch(setStoreAccessToken(response?.data?.data?.access_token));
                 navigate.push(App_url.link.Home)

@@ -226,7 +226,6 @@ export const GetErrorValidation = (errors) =>{
 export const ErrorValidateMsg = (response, state, show = true)=>{
   if(response?.status === 400){
       let val = true
-      console.log("response", response)
       if(typeof response?.data?.errors === "object"){
           if(state){
               let error = "";
@@ -246,7 +245,6 @@ export const ErrorValidateMsg = (response, state, show = true)=>{
                   convertedData?.map((item)=>{
                       const value = item?.value?.toString()?.replaceAll(",", " ")
                       const text = value?.replaceAll("value", item?.key)
-                      console.log("error", text, val)
                       if(val == true){
                           val = false;
                           toast.info(text);

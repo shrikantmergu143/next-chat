@@ -43,13 +43,13 @@ export default function ChannelId(props) {
         }else{
         }
     }
-    const renderDom = useMemo(() =>{
+    const renderDom = () =>{
         return(
             <ChannelDetails chatGroupDetails={channelDetails} callGetMessages={callGetMessages} callBackUpdate={callChannelDetails} group_id={props?.chat_group_id}>
                 <ChatMessageList {...props} callGetMessages={callGetMessages} group_id={props?.chat_group_id} />
             </ChannelDetails>
         )
-    }, [])
+    }
     if(channelDetails?.id !== props?.chat_group_id){
         return (
             <Layout {...props}>
@@ -58,7 +58,7 @@ export default function ChannelId(props) {
     }
     return (
         <Layout {...props}>
-            {renderDom}
+            {renderDom()}
         </Layout>
     );
 }

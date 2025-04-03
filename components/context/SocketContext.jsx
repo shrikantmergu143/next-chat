@@ -34,7 +34,6 @@ function Context(props) {
         const socket = new WebSocket(`ws://${process.env.REACT_APP_API}/ws/${access_token}`);
         
         socket.addEventListener("open", () => {
-          console.log("WebSocket connection established.");
           dispatch({ type: "WEBSOCKET_CONNECTED", payload: socket });
         });
 
@@ -51,7 +50,6 @@ function Context(props) {
         });
 
         socket.addEventListener("close", () => {
-          console.log("WebSocket connection closed. Reconnecting...");
           setTimeout(connectWebSocket, 3000);
         });
 
@@ -64,7 +62,6 @@ function Context(props) {
     return () => {
       if (connection) {
         connection.close();
-        console.log("WebSocket connection closed.");
       }
     };
   }, [access_token]);

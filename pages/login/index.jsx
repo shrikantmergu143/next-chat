@@ -71,7 +71,6 @@ export default function Home() {
             }
             // if(response?.status){
                 const response = await PostRequestAPI(`${App_url.api.API_LOGIN}`,payload);
-                console.log("response", response)
                 if(response?.status === 200){
                     dispatch(setStoreAccessToken(response?.data?.data?.access_token));
                     navigate.push(App_url.link.Home)

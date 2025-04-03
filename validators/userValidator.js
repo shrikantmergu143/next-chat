@@ -87,7 +87,6 @@ export function authenticateToken(authorizationHeader, req) {
   const userDetails = Utils.validateJWT(token);
   if (userDetails?.status) {
     req.user = userDetails?.payload;
-    console.log("req.user", req.user);
   }
   return userDetails;
 }

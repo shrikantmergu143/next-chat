@@ -1,12 +1,29 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import usePosterReducers from '../context/usePosterReducers'
 import Icon from '../common/Icon';
 import App_url from '../common/constant';
 import MessageItem from './MessageItem';
 import Scrollbar from '../common/Scrollbar';
+import { PaginationList } from '../channels/ChannelDetails';
+import { setUpdatePaginationList } from '../../store/Actions';
+import { useDispatch } from 'react-redux';
 
 function ChatMessageList(props) {
-    const { MessageList } = usePosterReducers();
+    const dispatch = useDispatch();
+    const [loader, setLoader] = useState(false)
+    const { MessageList, pagination } = usePosterReducers();
+    const scrollRef = useRef();
+    const scrollToBottom = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollToBottom();
+        }
+    };
+
+    useEffect(() => {
+        scrollToBottom(); // Scroll to bottom when component mounts
+    }, [props?.chat_group_id]);
+
+
     const messageItemsList = useMemo(() => {
         const messageItem = MessageList?.[props?.chat_group_id];
     
@@ -74,17 +91,16 @@ function ChatMessageList(props) {
           const maxScrollTop = scrollHeight - scrollTop - min_height;
           if(scrollTop === 0 && loader !== true){
             props?.callGetMessages();
-              // const Data = PaginationList(MessagesAllList, 40, (pagination?.page_number||1)+1);
-              // console.log("Data", Data, MessagesAllList)
-              // if(Data?.length){
-              //     setLoader(true);
-              //     dispatch(setUpdatePaginationList(Data?.reverse()));
-              //     setTimeout(()=>setLoader(false), 2000)
-              // }
+              const Data = PaginationList(MessagesAllList, 40, (pagination?.page_number||1)+1);
+              if(Data?.length){
+                  setLoader(true);
+                  dispatch(setUpdatePaginationList(Data?.reverse()));
+                  setTimeout(()=>setLoader(false), 2000)
+              }
           }
       }
   return (
-    <Scrollbar style={{ height: `calc(100vh - 210px)` }} onScroll={onScroll}>
+    <Scrollbar ref={scrollRef} style={{ height: `calc(100vh - 210px)` }} onScroll={onScroll}>
         <div className='message-wrapper'>
             {callLoadMessageGroup()}
         </div>

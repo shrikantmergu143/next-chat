@@ -79,7 +79,6 @@ export default function ChannelDetails(props) {
       email: currentUser?.email,
     }
     const response = await PutRequestAPI(App_url.api.API_UPDATE_INVITE_GROUP, payload, access_token);
-    console.log("response", response)
     if(response?.status == 200){
       props?.callBackUpdate?.();
     }else{

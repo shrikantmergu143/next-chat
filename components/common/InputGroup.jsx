@@ -128,7 +128,6 @@ export default function InputGroup(props) {
 
     if (rules && rules[name]) {
       const error = validate(updatedValue, rules[name], props?.label);
-      console.log("error",error)
       setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
     }
 

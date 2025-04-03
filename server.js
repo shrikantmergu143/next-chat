@@ -16,13 +16,10 @@ app.prepare().then(() => {
   const wss = new WebSocket.Server({ noServer: true });
 
   wss.on('connection', (ws) => {
-    console.log('Client connected');
     ws.on('message', (message) => {
-      console.log(`Received message => ${message}`);
       ws.send(`Hello, you sent -> ${message}`);
     });
     ws.on('close', () => {
-      console.log('Client disconnected');
     });
   });
 
@@ -34,6 +31,5 @@ app.prepare().then(() => {
 
   server.listen(3000, (err) => {
     if (err) throw err;
-    console.log('> Ready on http://localhost:3000');
   });
 });
