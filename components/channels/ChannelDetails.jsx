@@ -93,32 +93,7 @@ export default function ChannelDetails(props) {
       return Utils.encode({message:props?.chatGroupDetails?.channel_name || props?.chatGroupDetails?.name}, process.env.TOKEN_KEY)
   },[props?.chatGroupDetails, savedPin, pinVerified])
 
-  const onScroll = (e) =>{
-    const MessagesAllList = MessageList?.[props?.group_id];
-    const scrollTop = e?.scrollTop
-      const scrollHeight = e?.scrollHeight;
-      let min_height = 290;
-      if(screen.height>1000){
-          min_height = 522;
-      }else if(screen.height>960){
-          min_height = 500;
-      }else if(screen.height>840){
-          min_height = 420;
-      }else if(screen.height>750){
-          min_height = 290;
-      }
-      const maxScrollTop = scrollHeight - scrollTop - min_height;
-      if(scrollTop === 0 && loader !== true){
-        props?.callGetMessages();
-          // const Data = PaginationList(MessagesAllList, 40, (pagination?.page_number||1)+1);
-          // console.log("Data", Data, MessagesAllList)
-          // if(Data?.length){
-          //     setLoader(true);
-          //     dispatch(setUpdatePaginationList(Data?.reverse()));
-          //     setTimeout(()=>setLoader(false), 2000)
-          // }
-      }
-  }
+
   if (props?.chatGroupDetails?.user_status?.status != "accepted") {
     return (
       <FriendRequestModal onStatusChange={onStatusChange}  chatGroupDetails={props?.chatGroupDetails} />
@@ -160,9 +135,7 @@ export default function ChannelDetails(props) {
         />
       </div>
       <div className="p-view-body">
-        <Scrollbar style={{ height: `calc(100vh - 210px)` }} onScroll={onScroll}>
           {props?.children}
-        </Scrollbar>
       </div>
       {renderText()}
     </React.Fragment>

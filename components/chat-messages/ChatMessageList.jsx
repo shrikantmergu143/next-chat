@@ -2,10 +2,10 @@ import React, { useMemo } from 'react'
 import usePosterReducers from '../context/usePosterReducers'
 import Icon from '../common/Icon';
 import App_url from '../common/constant';
-import Utils from '../utils';
 import MessageItem from './MessageItem';
+import Scrollbar from '../common/Scrollbar';
 
-export default function ChatMessageList(props) {
+function ChatMessageList(props) {
     const { MessageList } = usePosterReducers();
     const messageItemsList = useMemo(() => {
         const messageItem = MessageList?.[props?.chat_group_id];
@@ -57,9 +57,38 @@ export default function ChatMessageList(props) {
             </React.Fragment>
         ))
     }
+      const onScroll = (e) =>{
+        const MessagesAllList = MessageList?.[props?.group_id];
+        const scrollTop = e?.scrollTop
+          const scrollHeight = e?.scrollHeight;
+          let min_height = 290;
+          if(screen.height>1000){
+              min_height = 522;
+          }else if(screen.height>960){
+              min_height = 500;
+          }else if(screen.height>840){
+              min_height = 420;
+          }else if(screen.height>750){
+              min_height = 290;
+          }
+          const maxScrollTop = scrollHeight - scrollTop - min_height;
+          if(scrollTop === 0 && loader !== true){
+            props?.callGetMessages();
+              // const Data = PaginationList(MessagesAllList, 40, (pagination?.page_number||1)+1);
+              // console.log("Data", Data, MessagesAllList)
+              // if(Data?.length){
+              //     setLoader(true);
+              //     dispatch(setUpdatePaginationList(Data?.reverse()));
+              //     setTimeout(()=>setLoader(false), 2000)
+              // }
+          }
+      }
   return (
-    <div className='message-wrapper'>
-        {callLoadMessageGroup()}
-    </div>
+    <Scrollbar style={{ height: `calc(100vh - 210px)` }} onScroll={onScroll}>
+        <div className='message-wrapper'>
+            {callLoadMessageGroup()}
+        </div>
+    </Scrollbar>
   )
 }
+export default React.memo(ChatMessageList)

@@ -11,36 +11,10 @@ import { setStorePaginationList } from '../../store/Actions';
 export default function ChannelId(props) {
     const {access_token, channelDetails, MessageList, pagination} = useSelector(App_url.allReducers);
     const dispatch = useDispatch();
-    const [isTabActive, setIsTabActive] = useState(!document.hidden);
     useEffect(()=>{
         callChannelDetails()
     }, [props?.chat_group_id]);
 
-    useEffect(() => {
-        const handleVisibilityChange = () => {
-            setIsTabActive(!document.hidden);
-        };
-        callGetMessages(new Date().toJSON());
-
-        document.addEventListener("visibilitychange", handleVisibilityChange);
-        return () => {
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (!props?.chat_group_id || window.location.hostname === "localhost") return;
-        let interval;
-        if (isTabActive) {
-            interval = setInterval(() => {
-                callGetMessages(new Date().toJSON());
-            }, 3000);
-        }
-
-        return () => {
-            if (interval) clearInterval(interval);
-        };
-    }, [props?.chat_group_id, isTabActive]);
     const callChannelDetails = async () =>{
        await action.getChannelsDetails(access_token, dispatch, props?.chat_group_id)
     };
@@ -68,14 +42,14 @@ export default function ChannelId(props) {
             }
         }else{
         }
-      }
-      const renderDom = useMemo(() =>{
+    }
+    const renderDom = useMemo(() =>{
         return(
             <ChannelDetails chatGroupDetails={channelDetails} callGetMessages={callGetMessages} callBackUpdate={callChannelDetails} group_id={props?.chat_group_id}>
-                <ChatMessageList {...props}/>
+                <ChatMessageList {...props} callGetMessages={callGetMessages} group_id={props?.chat_group_id} />
             </ChannelDetails>
         )
-      }, [channelDetails, callGetMessages, callChannelDetails, props?.chat_group_id])
+    }, [])
     if(channelDetails?.id !== props?.chat_group_id){
         return (
             <Layout {...props}>

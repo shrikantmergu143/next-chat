@@ -3,7 +3,7 @@ import React from 'react'
 import Scrollbars from 'react-custom-scrollbars-2'
 import PropTypes from "prop-types"
 
-export default function Scrollbar(props) {
+function Scrollbar(props) {
     const renderTrack = ({ style, ...props }) => {
         const trackStyle = {
           display: "none"
@@ -33,3 +33,4 @@ Scrollbar.propTypes = {
 Scrollbar.defaultProps = {
     style:{},
 }
+export default React.memo(Scrollbar);

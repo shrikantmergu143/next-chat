@@ -8,7 +8,7 @@ import { GetRequestCallAPI } from '../api/GetRequest'
 import { setShowModal, setStoreAccessToken, setStoreTheme, setStoreUserDetails } from '../../store/Actions'
 import { useRouter } from 'next/router'
 
-export default function Layout(props) {
+function Layout(props) {
   const {access_token, theme} = useSelector(App_url.allReducers);
   const dispatch = useDispatch();
   const navigate = useRouter();
@@ -85,3 +85,4 @@ export default function Layout(props) {
     </div>
   )
 }
+export default React.memo(Layout);
