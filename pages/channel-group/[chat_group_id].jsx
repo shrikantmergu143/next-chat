@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Utils from '../../components/utils';
 import Layout from '../../components/layout/Layout';
 import ChannelDetails from '../../components/channels/ChannelDetails';
@@ -48,7 +48,6 @@ export default function ChannelId(props) {
         const payload = {group_id:props?.chat_group_id}
         if(MessageList?.[props?.chat_group_id]?.length){
             const length = MessageList?.[props?.chat_group_id]?.length-1;
-            console.log("length", length, MessageList?.[props?.chat_group_id]?.[length]?.updated_at)
             payload.updated_at = MessageList?.[props?.chat_group_id]?.[0]?.updated_at || new Date().toJSON();
             payload.limit = 40
         }
@@ -70,13 +69,13 @@ export default function ChannelId(props) {
         }else{
         }
       }
-      const renderDom = () =>{
+      const renderDom = useMemo(() =>{
         return(
             <ChannelDetails chatGroupDetails={channelDetails} callGetMessages={callGetMessages} callBackUpdate={callChannelDetails} group_id={props?.chat_group_id}>
                 <ChatMessageList {...props}/>
             </ChannelDetails>
         )
-      }
+      }, [channelDetails, callGetMessages, callChannelDetails, props?.chat_group_id])
     if(channelDetails?.id !== props?.chat_group_id){
         return (
             <Layout {...props}>
@@ -85,7 +84,7 @@ export default function ChannelId(props) {
     }
     return (
         <Layout {...props}>
-            {renderDom()}
+            {renderDom}
         </Layout>
     );
 }
