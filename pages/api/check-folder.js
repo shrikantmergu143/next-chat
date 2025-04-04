@@ -5,16 +5,16 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: "Emoji code is required" });
     }
 
-    // Get the full base URL dynamically from the request
-    const protocol = req.headers["x-forwarded-proto"] || (req.connection.encrypted ? "https" : "http");
-    const host = req.headers.host;
+    // Dynamically get the base URL
+    const protocol = req.headers["x-forwarded-proto"] || "https";
+    const host = req.headers.host || process.env.VERCEL_URL; // Fallback for Vercel
     const baseURL = `${protocol}://${host}`;
 
-    // Define possible file paths
+    // Define possible file paths (from /public folder in Next.js)
     const basePath = `/assets/emoji/${emojiCode}`;
     const possibleFiles = [`${basePath}/512.webp`, `${basePath}/emoji.svg`];
 
-    // Function to check if the file exists by sending a `HEAD` request
+    // Function to check if a file exists using `fetch`
     const checkFileExists = async (filePath) => {
         try {
             const response = await fetch(`${baseURL}${filePath}`, { method: "HEAD" });
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
         }
     };
 
-    // Check all files
+    // Check available files
     const existingFiles = (await Promise.all(possibleFiles.map(checkFileExists))).filter(Boolean);
 
     if (existingFiles.length === 0) {
