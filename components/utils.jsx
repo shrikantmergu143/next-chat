@@ -313,19 +313,19 @@ function getThemeDefaultGroup(theme){
         return App_url.icons.default_group_light;
     }
 }
-export const gotoMainPageMessage = (message_info) => {
+export const gotoMainPageMessage = (message_info, state) => {
     const messageElement = document.getElementById("messageid" + message_info);
     const scrollContainer = document.querySelector("#chat-scroller-view"); // 'view' div from renderView
     console.log("messageElement scrollContainer", messageElement, scrollContainer)
     if (messageElement && scrollContainer) {
       const messageOffsetTop = messageElement.offsetTop;
       scrollContainer.scrollTop = messageOffsetTop - 50; // Adjust offset if needed
-  
-      // Highlight effect
-      messageElement.classList.add("active_reply_message_pages");
-      setTimeout(() => {
-        messageElement.classList.remove("active_reply_message_pages");
-      }, 1000);
+      if(!state){
+        messageElement.classList.add("active_reply_message_pages");
+        setTimeout(() => {
+            messageElement.classList.remove("active_reply_message_pages");
+        }, 1000);
+      }
     }
   };
   

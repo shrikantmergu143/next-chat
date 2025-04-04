@@ -67,6 +67,7 @@ export default function ChannelDetails(props) {
             data: response?.data?.data,
           })
         );
+        setTimeout(()=>Utils.gotoMainPageMessage(response?.data?.data?._id, true),100);
       } else {
       }
     }
