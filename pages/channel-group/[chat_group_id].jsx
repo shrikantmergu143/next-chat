@@ -28,11 +28,12 @@ export default function ChannelId(props) {
         if(date){
             payload.updated_at = date
         }
+        const message_get = MessageList?.[props?.chat_group_id]?.[0];
         const response = await action.getChatMessagesList(access_token, dispatch, payload);
+        if(message_get){
+            Utils.gotoMainPageMessage(message_get?._id);
+        }
         if(response?.status === 200){
-            if(MessageList?.[props?.chat_group_id]?.[0]){
-                Utils.gotoMainPageMessage(MessageList?.[props?.chat_group_id]?.[0]?._id);
-            }
             if(!MessageList?.[props?.chat_group_id]?.length){
                 dispatch(setStorePaginationList({
                     page_data: response?.data?.data?.data,
