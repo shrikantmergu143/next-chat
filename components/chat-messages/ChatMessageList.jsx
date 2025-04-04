@@ -86,9 +86,9 @@ function ChatMessageList(props) {
               min_height = 290;
           }
 
-          if(scrollTop <= 10 && loader !== true){
+          if(scrollTop == 0 && loader !== true){
             setLoader(true);
-            await props?.callGetMessages();
+            await props?.callGetMessages(MessagesAllList?.[0]?.updated_at);
             setLoader(false);
               const Data = PaginationList(MessagesAllList, 40, (pagination?.page_number||1)+1);
               if(Data?.length){

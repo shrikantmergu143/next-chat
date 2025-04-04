@@ -21,7 +21,6 @@ export default function ChannelId(props) {
     const callGetMessages = async (date) =>{
         const payload = {group_id:props?.chat_group_id}
         if(MessageList?.[props?.chat_group_id]?.length){
-            const length = MessageList?.[props?.chat_group_id]?.length-1;
             payload.updated_at = MessageList?.[props?.chat_group_id]?.[0]?.updated_at || new Date().toJSON();
             payload.limit = 40
         }

@@ -375,8 +375,7 @@ input::placeholder,input::-ms-input-placeholder {color: #BFBFCC !important;opaci
 .message-grouped::before{content: "";border-bottom: 1px solid var(--fr-form-border);width: 100%;display: block;z-index: 0;position: relative;top: 18px;}
 .messages_list .message-kit .c-message_kit__gutter .c-message_kit__gutter__left .offscreen{opacity: 0;}
 .messages_list .message-kit .c-message_kit__gutter:hover .c-message_kit__gutter__left .offscreen{opacity: 1;}
-.messages_list .message-kit .active_reply_message_pages{
-  background: var(--bg-avatar-sender);}
+.messages_list .message-kit .active_reply_message_pages{background: var(--bg-avatar-sender);}
 /* .messages_list .message-kit .c-message_kit__gutter .c-message_kit__blocks .p-rich_text_block{font-family: 'emoji';} */
 
 .emojis{position: relative;}
