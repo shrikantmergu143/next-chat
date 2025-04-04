@@ -5,6 +5,11 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: "Emoji code is required" });
     }
 
+    // Get the full base URL dynamically from the request
+    const protocol = req.headers["x-forwarded-proto"] || (req.connection.encrypted ? "https" : "http");
+    const host = req.headers.host;
+    const baseURL = `${protocol}://${host}`;
+
     // Define possible file paths
     const basePath = `/assets/emoji/${emojiCode}`;
     const possibleFiles = [`${basePath}/512.webp`, `${basePath}/emoji.svg`];
@@ -12,8 +17,8 @@ export default async function handler(req, res) {
     // Function to check if the file exists by sending a `HEAD` request
     const checkFileExists = async (filePath) => {
         try {
-            const response = await fetch(`http://localhost:3000${filePath}`, { method: "HEAD" });
-            return response.ok ? filePath : null;
+            const response = await fetch(`${baseURL}${filePath}`, { method: "HEAD" });
+            return response.ok ? `${baseURL}${filePath}` : null;
         } catch (error) {
             return null;
         }
