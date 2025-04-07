@@ -59,6 +59,9 @@ const MessageItem = (item) => {
   return (
     <div id={`messages-id-${item?.index}`} className='message-content message-kit '>
       <div className='c-message_kit__hover' id={`messageid${item?._id}`}>
+        {/* <div className='message-tool'>
+          <Icon className="md rounded-2" attrIcon={App_url.icons.Check} button />
+        </div> */}
           <div className='c-message_kit__gutter'>
               <div className='c-message_kit__gutter__left'>
                   {!item?.hideAvatar ? (

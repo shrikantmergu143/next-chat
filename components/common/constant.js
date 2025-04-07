@@ -45,6 +45,7 @@ const App_url = {
         Activities: "/assets/icons/Activities.svg",
         Travel: "/assets/icons/Travel.svg",
         Food: "/assets/icons/Food.svg",
+        Check: "/assets/icons/Check.svg",
         Objects: "/assets/icons/Objects.svg",
         Flags: "/assets/icons/Flags.svg",
         Tag: "/assets/icons/Tag.svg",

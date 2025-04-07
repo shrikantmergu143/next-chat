@@ -65,6 +65,7 @@ body.dark{
     --bs-dropdown-theme: #313436;
     --primary-theme: #f8f8f840;
     --primary-theme-hover: #f8f8f814;
+    --message-tool: #4c4e51;
   }
   body.light, body .white-theme{
     --text-color: black;
@@ -102,4 +103,5 @@ body.dark{
     --bs-green-color: white;
     --bs-danger-color: white;
     --bs-dropdown-theme: #f0eded;
-  }
+    --message-tool: #4c4e51;
+}

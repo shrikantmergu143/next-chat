@@ -36,6 +36,7 @@ export const config = {
         bodyParser: false,
     },
     matcher: [
+        '/((?!_next/static|_next/image|favicon.ico|assets).*)',
         '/login', 
         '/register', 
         '/channel', 
