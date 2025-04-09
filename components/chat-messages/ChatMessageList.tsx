@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import usePosterReducers from '../context/usePosterReducers';
 import Icon from '../common/Icon';
 import App_url from '../common/constant';
+import MessageItem from './MessageItem';
 import { PaginationList } from '../channels/ChannelDetails';
 import { setUpdatePaginationList } from '../../store/Actions';
 import { useDispatch } from 'react-redux';
@@ -10,7 +11,7 @@ function ChatMessageList(props) {
     const dispatch = useDispatch();
     const [loader, setLoader] = useState(false);
     const { MessageList, pagination } = usePosterReducers();
-    const scrollRef = useRef();
+    const scrollRef = useRef<any>(null);
     const [previousHeight, setPreviousHeight] = useState(0);
 
     const scrollToBottom = () => {
@@ -39,8 +40,7 @@ function ChatMessageList(props) {
             const hideAvatar =
                 previousItem &&
                 previousItem.sender_id === item.sender_id &&
-                (new Date(item.created_at) - new Date(previousItem.created_at)) / 60000 <= 10;
-
+                (new Date(item.created_at).getTime() - new Date(previousItem.created_at).getTime()) / 60000 <= 10
             groups[date].push({ ...item, hideAvatar });
             return groups;
         }, {});
