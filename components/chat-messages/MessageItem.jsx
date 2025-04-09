@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import usePosterReducers from '../context/usePosterReducers';
 import Icon from '../common/Icon';
 import App_url from '../common/constant';
 import Utils from '../utils';
 import EmojiReplacer from './EmojiReplacer';
 import emojiList from "./../emoji/emoji_new.json";
+import DropButton from '../common/DropButton';
 // Function to replace emojis with images or fallback to emoji text
 const replaceEmojisWithComponents = (htmlString) => {
     if (!htmlString) return "";
@@ -41,6 +42,8 @@ const replaceEmojisWithComponents = (htmlString) => {
 };
 
 const MessageItem = (item) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const { channelDetails, currentUser, theme, savedPin, pinVerified } = usePosterReducers();
   const getUser = useMemo(() => {
       return item?.sender_id === currentUser?.id ? currentUser : 
@@ -56,12 +59,36 @@ const MessageItem = (item) => {
           Utils.encode({ message: `${getUser?.first_name} ${getUser?.last_name}` }, process.env.TOKEN_KEY);
   }, [getUser, savedPin, pinVerified]);
 
+  const options = [
+    {
+      value:"edit",
+      title:"Edit message",
+    },
+    {
+      value:"delete",
+      title:"Delete message...",
+      variant:"danger"
+    },
+  ]
+  const renderMessageTool = () =>{
+    if(!isHovered) return;
+    return (
+      <div className='message-tool'>
+        <Icon button className="md rounded-2 green" attrIcon={App_url.icons.Check} />
+        {/* <Icon button className="md rounded-2" attrIcon={App_url.icons.Edit} /> */}
+        <DropButton iconButton option={options}>
+          <Icon className="md rounded-2" attrIcon={App_url.icons.Dot} />
+        </DropButton>
+      </div>
+    )
+  }
   return (
-    <div id={`messages-id-${item?.index}`} className='message-content message-kit '>
+    <div id={`messages-id-${item?.index}`} className='message-content message-kit '
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className='c-message_kit__hover' id={`messageid${item?._id}`}>
-        {/* <div className='message-tool'>
-          <Icon className="md rounded-2" attrIcon={App_url.icons.Check} button />
-        </div> */}
+        {renderMessageTool()}
           <div className='c-message_kit__gutter'>
               <div className='c-message_kit__gutter__left'>
                   {!item?.hideAvatar ? (
@@ -91,4 +118,4 @@ const MessageItem = (item) => {
   );
 };
 
-export default MessageItem;
+export default React.memo(MessageItem);

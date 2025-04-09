@@ -42,7 +42,6 @@ const EmojiReplacer = ({ emojiCode }) => {
                 img.onerror = () => reject();
             });
         };
-
         const loadEmojiImage = async () => {
             try {
                 const webpPath = await tryLoadImage("512.webp");
@@ -63,16 +62,9 @@ const EmojiReplacer = ({ emojiCode }) => {
     return (
         <span className="emoji-span" ref={containerRef}>
             {imageUrl ? (
-                <Icon
-                    attrIcon={imageUrl}
-                    image
-                    size="xsm"
-                />
+                <Icon attrIcon={imageUrl} image size="xsm" />
             ) : (
-                <span
-                    className="emoji-span"
-                    emoji={String.fromCodePoint(parseInt(emojiCode, 16))}
-                />
+                <span className="emoji-span" emoji={String.fromCodePoint(parseInt(emojiCode, 16))} />
             )}
         </span>
     );

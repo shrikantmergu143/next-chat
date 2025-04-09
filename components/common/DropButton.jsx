@@ -30,7 +30,7 @@ export default function DropButton(props) {
               <Images src={item?.profile_url} height={30} width={30} className='profile_url' />
             </span>
           )}
-          <div className='title-drop'>
+          <div className={`title-drop ${!item?.profile_url?"plan-text":""}`}>
             {item?.title && <span className='d-flex title'>{item?.title}</span>}
             {item?.subtitle && <span className='d-flex subtitle fs-14 fw-600'>{item?.subtitle}</span>}
           </div>
@@ -44,7 +44,7 @@ export default function DropButton(props) {
     }
     if(button){
       return(
-        <Dropdown.Item className='dropdown-item'  key={index} onClick={() => {
+        <Dropdown.Item className={`dropdown-item variant-${item?.variant}`}  key={index} onClick={() => {
           props?.onSelect(item);
           setShow(false); // Hide the menu after selecting an option
         }}>
@@ -53,7 +53,7 @@ export default function DropButton(props) {
       )
     }
     return(
-      <Dropdown.ItemText className='dropdown-item button'  key={index} >
+      <Dropdown.ItemText className={`dropdown-item button variant-${item?.variant}`}  key={index} >
        {renderView(item)}
       </Dropdown.ItemText>
     )
@@ -62,7 +62,7 @@ export default function DropButton(props) {
     <Dropdown className={`dropdown ${props?.className}`} style={{}} show={show} onToggle={handleToggle} drop={props?.placement}>
       <Dropdown.Toggle
         variant='hover-secondary-1'
-        className={`${props?.buttonClassName}`}
+        className={`${props?.buttonClassName} ${props?.iconButton?"btn-icons":""}`}
         onClick={handleToggle}
       >
         {props?.children ? (
@@ -89,6 +89,7 @@ DropButton.propTypes = {
   className: PropTypes.string,
   buttonClassName: PropTypes.string,
   title: PropTypes.string,
+  iconButton: PropTypes.string,
   width: PropTypes.number,
   onSelect: PropTypes.func,
   option: PropTypes.array,
