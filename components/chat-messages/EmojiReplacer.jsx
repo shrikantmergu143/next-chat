@@ -36,7 +36,7 @@ const EmojiReplacer = ({ emojiCode }) => {
         const tryLoadImage = (fileName) => {
             return new Promise((resolve, reject) => {
                 const img = new Image();
-                const path = `${window.location.origin}/assets/emoji/${emojiCode}/${fileName}`;
+                const path = `${window.location.origin}/assets/emoji/${emojiCode?.toLowerCase?.()}/${fileName}`;
                 img.src = path;
                 img.onload = () => resolve(path);
                 img.onerror = () => reject();
