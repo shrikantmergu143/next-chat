@@ -1,5 +1,6 @@
 import { uuidv4 } from "../components/utils";
 import { ActionTypes } from "./Actions";
+import { IAllReducers } from "./type";
 
 export const initialData = {
     currentUser:{},
@@ -42,7 +43,7 @@ export const initialData = {
     }
 };
 
-export const allReducers = (state:any = initialData, action:any) => {
+export const allReducers = (state:any = initialData, action:IAllReducers) => {
     switch (action?.type) {
         case ActionTypes.SET_STORE_ACTIVE_TAB:{
             return {
@@ -239,6 +240,17 @@ export const allReducers = (state:any = initialData, action:any) => {
                     page_data:OldPagination,
                     page_size:state?.pagination?.page_size || 40,
                     page_number:old_page_number
+                }
+            }
+        }
+        case ActionTypes.SET_STORE_DELETE_MESSAGE:{
+            const messages = state?.MessageList?.[action?.payload?.group_id];
+            const listFilter = messages?.filter((item)=>item?._id !== action?.payload?.message_id);
+            return{
+                ...state,
+                MessageList:{
+                    ...state?.MessageList,
+                    [action?.payload?.group_id]:listFilter
                 }
             }
         }

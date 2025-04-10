@@ -10,6 +10,8 @@ type IDropButton = {
   buttonClassName?: string;
   width?: number;
   onSelect?: Function;
+  onClick?: Function;
+  onToggle?: Function;
   option?: any[];
   placement?: DropDirection;
   classNameText?: string;
@@ -28,8 +30,13 @@ export default function DropButton(props:IDropButton) {
       e.preventDefault();
       e.stopPropagation();
     }
+    props?.onToggle?.(!show)
     setShow(!show);
   };
+  const onClick = (e) =>{
+    handleToggle(e);
+    props?.onClick?.(e);
+  }
   const styles = {}
 
   if(props?.width){
@@ -76,7 +83,7 @@ export default function DropButton(props:IDropButton) {
       <Dropdown.Toggle
         variant='hover-secondary-1'
         className={`${props?.buttonClassName} ${props?.iconButton?"btn-icons":""}`}
-        onClick={handleToggle}
+        onClick={onClick}
       >
         {props?.children ? (
           <React.Fragment>

@@ -86,7 +86,10 @@ export default function ChannelDetails(props: ChannelDetailsProps) {
           group_id: props.group_id,
           data: response.data.data,
         }));
-        setTimeout(() => Utils.gotoMainPageMessage(response?.data?.data?._id, true), 100);
+        // console.log("response?.data", response?.data)
+        if(response?.data?.data?._id){
+          setTimeout(() => Utils.gotoMainPageMessage(response?.data?.data?._id, true), 100);
+        }
       }
     }
   };
@@ -139,6 +142,7 @@ export default function ChannelDetails(props: ChannelDetailsProps) {
           button
           onClick={props?.callGetMessages}
           buttonClassName="ms-auto"
+          variant="secondary-1"
         />
       </div>
       <div className="p-view-body">{props?.children}</div>

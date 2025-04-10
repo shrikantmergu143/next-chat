@@ -1,3 +1,5 @@
+import { IStoreDeleteMessage } from "./type";
+
 export const ActionTypes = {
     GET_CURRENT_URL: "GET_CURRENT_URL",
     SET_STORE_ACCESS_TOKEN:"SET_STORE_ACCESS_TOKEN",
@@ -21,6 +23,7 @@ export const ActionTypes = {
     RESET_PIN:"RESET_PIN",
     SET_UPDATE_PAGINATION_LIST:"SET_UPDATE_PAGINATION_LIST",
     SET_STORE_PAGINATION_LIST:"SET_STORE_PAGINATION_LIST",
+    SET_STORE_DELETE_MESSAGE:"SET_STORE_DELETE_MESSAGE",
 }
 export const setPin = (pin) => ({
     type: ActionTypes.SET_PIN,
@@ -147,6 +150,12 @@ export const setUpdatePaginationList = (payload)=>{
 export const setStorePaginationList = (payload)=>{
     return{
         type: ActionTypes.SET_STORE_PAGINATION_LIST,
+        payload: payload
+    }
+}
+export const setStoreDeleteMessage = (payload:IStoreDeleteMessage)=>{
+    return{
+        type: ActionTypes.SET_STORE_DELETE_MESSAGE,
         payload: payload
     }
 }

@@ -6,6 +6,10 @@ import Utils from '../utils';
 import EmojiReplacer from './EmojiReplacer';
 import emojiList from "../emoji/emoji_new.json";
 import DropButton from '../common/DropButton';
+import { useDispatch } from 'react-redux';
+import { DeleteRequest } from '../api/DeleteRequest';
+import { IMessageItem } from '../../store/type';
+import { setStoreDeleteMessage } from '../../store/Actions';
 // Function to replace emojis with images or fallback to emoji text
 const replaceEmojisWithComponents = (htmlString) => {
     if (!htmlString) return "";
@@ -40,11 +44,14 @@ const replaceEmojisWithComponents = (htmlString) => {
     };
     return Array.from(doc.body.childNodes).map(processNode);
 };
-
-const MessageItem = (item) => {
+interface IMessageItemProps extends IMessageItem{
+  setShowMenu?: Function;
+  showMenu?: any;
+}
+const MessageItem = (item:IMessageItemProps) => {
+  const dispatch = useDispatch();
   const [isHovered, setIsHovered] = useState(false);
-
-  const { channelDetails, currentUser, theme, savedPin, pinVerified } = usePosterReducers();
+  const { channelDetails, currentUser, theme, savedPin, pinVerified, access_token } = usePosterReducers();
   const getUser = useMemo(() => {
       return item?.sender_id === currentUser?.id ? currentUser : 
           channelDetails?.members_details?.find?.((member) => member?.id == item?.sender_id);
@@ -70,24 +77,50 @@ const MessageItem = (item) => {
       variant:"danger"
     },
   ]
+  const onSelectMenu =async (event) =>{
+    if(event?.value == "delete"){
+      const response = await DeleteRequest(`${App_url.api.API_DELETE_MESSAGE}/${item?._id}`, null, access_token);
+      if(response?.status == 200){
+        dispatch(setStoreDeleteMessage({
+          group_id: item?.group_id,
+          message_id: item?._id,
+        }))
+      }else{
+
+      }
+      console.log("response", response);
+    }
+  }
+  const onToggle = (event) =>{
+    item?.setShowMenu?.(event?item?._id:"");
+  }
   const renderMessageTool = () =>{
-    if(!isHovered) return;
+    if(!isHovered || (item?.showMenu && item?.showMenu != item?._id)) return;
     return (
-      <div className='message-tool'>
-        <Icon button className="md rounded-2 green" attrIcon={App_url.icons.Check} />
-        {/* <Icon button className="md rounded-2" attrIcon={App_url.icons.Edit} /> */}
-        <DropButton iconButton option={options} >
+      <div className={`message-tool ${item?.showMenu == item?._id?"menu-open":""}`}>
+        <Icon button className="md rounded-2 green" variant='secondary-1' attrIcon={App_url.icons.Check} />
+        {item?.sender_id == currentUser?.id && (
+          <DropButton iconButton option={options} onClick={()=>item?.setShowMenu?.(item?._id)} onToggle={onToggle} onSelect={onSelectMenu} >
           <Icon className="md rounded-2" attrIcon={App_url.icons.Dot} />
         </DropButton>
+        )}
       </div>
     )
   }
+  const onMouseEnter = () => {
+    setIsHovered(true)
+  }
+  const onMouseLeave = () => {
+    if(item?.showMenu != item?._id){
+      setIsHovered(false)
+    }
+  }
   return (
-    <div id={`messages-id-${item?.index}`} className='message-content message-kit '
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <div id={`messages-id-${item?.index}`} className={`message-content message-kit ${item?.showMenu == item?._id?"message-opened":"message-closed"} `}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
-      <div className='c-message_kit__hover' id={`messageid${item?._id}`}>
+      <div className='c-message_kit__hover' id={`messageid_${item?._id}`}>
         {renderMessageTool()}
           <div className='c-message_kit__gutter'>
               <div className='c-message_kit__gutter__left'>

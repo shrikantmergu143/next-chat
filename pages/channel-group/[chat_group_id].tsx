@@ -29,7 +29,7 @@ export default function ChannelId(props) {
         }
         const message_get = MessageList?.[props?.chat_group_id]?.[0];
         const response = await action.getChatMessagesList(access_token, dispatch, payload);
-        if(message_get){
+        if(message_get && response?.status == 200){
             Utils.gotoMainPageMessage(message_get?._id);
         }
         if(response?.status === 200){

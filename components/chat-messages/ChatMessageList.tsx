@@ -6,13 +6,16 @@ import MessageItem from './MessageItem';
 import { PaginationList } from '../channels/ChannelDetails';
 import { setUpdatePaginationList } from '../../store/Actions';
 import { useDispatch } from 'react-redux';
-
-function ChatMessageList(props) {
+type IChatMessageList = {
+    group_id: string;
+    callGetMessages: Function
+}
+function ChatMessageList(props:IChatMessageList) {
     const dispatch = useDispatch();
     const [loader, setLoader] = useState(false);
     const { MessageList, pagination } = usePosterReducers();
     const scrollRef = useRef<any>(null);
-    const [previousHeight, setPreviousHeight] = useState(0);
+    const [showMenu, setShowMenu] = useState("");
 
     const scrollToBottom = () => {
         const el = scrollRef.current;
@@ -26,10 +29,10 @@ function ChatMessageList(props) {
         setTimeout(() => {
             scrollToBottom();
         }, 100);
-    }, [props?.chat_group_id]);
+    }, [props?.group_id]);
 
     const messageItemsList = useMemo(() => {
-        const messageItem = MessageList?.[props?.chat_group_id];
+        const messageItem = MessageList?.[props?.group_id];
         if (!messageItem?.length) return [];
 
         const groups = messageItem.reduce((groups, item, index, array) => {
@@ -49,7 +52,7 @@ function ChatMessageList(props) {
             date,
             messagesList: groups[date],
         }));
-    }, [MessageList?.[props?.chat_group_id], props?.chat_group_id]);
+    }, [MessageList?.[props?.group_id], props?.group_id]);
 
     const callLoadMessageGroup = () => {
         return messageItemsList?.map((item, index1) => (
@@ -63,7 +66,7 @@ function ChatMessageList(props) {
                 <div className='messages_list'>
                     {item?.messagesList?.map((msg, index) => (
                         <div key={index} id={`messageid${msg?.id}`}>
-                            <MessageItem {...msg} index={`${index}.${index1}`} />
+                            <MessageItem {...msg} showMenu={showMenu} setShowMenu={setShowMenu} index={`${index}.${index1}`} group_id={props?.group_id} />
                         </div>
                     ))}
                 </div>

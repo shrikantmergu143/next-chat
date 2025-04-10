@@ -314,7 +314,7 @@ function getThemeDefaultGroup(theme?:any){
     }
 }
 export const gotoMainPageMessage = (message_info?:any, state?:any) => {
-    const messageElement = document.getElementById("messageid" + message_info);
+    const messageElement = document.getElementById("messageid_" + message_info);
     const scrollContainer = document.querySelector("#chat-scroller-view"); // 'view' div from renderView
     console.log("messageElement scrollContainer", messageElement, scrollContainer)
     if (messageElement && scrollContainer) {

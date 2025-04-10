@@ -13,15 +13,13 @@ body{
 body.dark{
     --text-color: #f8f8f8;
     --bs-body-bg: #1b1e21!important;
-    --primary-theme: #f8f8f840;
-    --primary-theme-hover: #f8f8f814;
     --dt_blend-mode-interaction: lighten;
     --border-color: #797c814d;
     --bs-border-color: var(--border-color);
     --bg-secondary-color:#10121499;
     --bs-body-color: var(--text-color);
     --bs-emphasis-color: #4b5156;
-    --bs-secondary-color: white;
+    /* --bs-secondary-color: white; */
     --bg-secondary-hover-color: white;
     --bs-dropdown-hover-bg: #2766a6;
     --fr-form-border: var(--border-color);
