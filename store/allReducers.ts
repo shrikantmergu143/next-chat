@@ -1,6 +1,6 @@
 import { uuidv4 } from "../components/utils";
 import { ActionTypes } from "./Actions";
-import { IAllReducers } from "./type";
+import { IAllReducers, IReducers } from "./type";
 
 export const initialData = {
     currentUser:{},
@@ -43,7 +43,8 @@ export const initialData = {
     }
 };
 
-export const allReducers = (state:any = initialData, action:IAllReducers) => {
+
+export const allReducers = (state:IReducers = initialData, action:IAllReducers) => {
     switch (action?.type) {
         case ActionTypes.SET_STORE_ACTIVE_TAB:{
             return {

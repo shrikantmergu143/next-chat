@@ -8,7 +8,7 @@ const persistConfig = {
     storage
 };
 
-const reducers = combineReducers({
+const reducers:any = combineReducers({
     allReducers: allReducers
 })
 
