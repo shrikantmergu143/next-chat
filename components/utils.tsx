@@ -313,18 +313,31 @@ function getThemeDefaultGroup(theme?:any){
         return App_url.icons.default_group_light;
     }
 }
-export const gotoMainPageMessage = (message_info?:any, state?:any) => {
-    const messageElement = document.getElementById("messageid_" + message_info);
-    const scrollContainer = document.querySelector("#chat-scroller-view"); // 'view' div from renderView
-    console.log("messageElement scrollContainer", messageElement, scrollContainer)
-    if (messageElement && scrollContainer) {
-      const messageOffsetTop = messageElement.offsetTop;
-      scrollContainer.scrollTop = messageOffsetTop - 50; // Adjust offset if needed
-      if(!state){
-        messageElement.classList.add("active_reply_message_pages");
-        setTimeout(() => {
+export const gotoMainPageMessage = (messageId?: string, state?: boolean) => {
+    const messageElement = document.getElementById("messageid_" + messageId);
+    const scrollContainer = document.querySelector("#chat-scroller-view") as HTMLElement;
+  
+    if (scrollContainer) {
+        if(state){
+            return scrollContainer.scrollTop = scrollContainer.scrollHeight;
+        }
+      if (messageElement) {
+        // Scroll to the message element
+        messageElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+  
+        // Highlight if not state triggered
+        if (!state) {
+          messageElement.classList.add("active_reply_message_pages");
+          setTimeout(() => {
             messageElement.classList.remove("active_reply_message_pages");
-        }, 1000);
+          }, 1000);
+        }
+      } else {
+        // Scroll to bottom if element not found
+        scrollContainer.scrollTop = scrollContainer.scrollHeight;
       }
     }
   };

@@ -88,7 +88,7 @@ export default function ChannelDetails(props: ChannelDetailsProps) {
         }));
         // console.log("response?.data", response?.data)
         if(response?.data?.data?._id){
-          setTimeout(() => Utils.gotoMainPageMessage(response?.data?.data?._id, true), 4000);
+          setTimeout(() => Utils.gotoMainPageMessage(response?.data?.data?._id, true), 100);
         }
       }
     }
