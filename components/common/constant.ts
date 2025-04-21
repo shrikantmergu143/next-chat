@@ -1,6 +1,6 @@
 const App_url = {
     allReducers: (state) => state.allReducers,
-    icons:{
+    icons: {
         ArrowLeft: "/assets/icons/ArrowLeft.svg",
         ClockIcon: "/assets/icons/ClockIcon.svg",
         SearchIcon: "/assets/icons/SearchIcon.svg",
@@ -62,31 +62,35 @@ const App_url = {
         // Eraser: "/assets/icons/Eraser.svg",
 
     },
-    link:{
-        Register:"/register",
-        Login:"/login",
-        Home:"/",
-        Channel:"/channel",
-        ChatGroup:"/channel-group",
-        Friend:"/friend",
+    link: {
+        Register: "/register",
+        Login: "/login",
+        Home: "/",
+        Channel: "/channel",
+        ChatGroup: "/channel-group",
+        Friend: "/friend",
     },
-    api:{
+    api: {
         API_AUTH_LOGIN: "api/login",
         API_REGISTER: "api/register",
-        API_CHANNELS:"api/channels",
-        SEND_FRIEND_REQUEST:"api/friends",
+        API_CHANNELS: "api/channels",
+        SEND_FRIEND_REQUEST: "api/friends",
         // express.ts api
-        API_LOGIN:"api/sign-in",
-        API_SIGN_UP:"api/sign-up",
-        API_GET_GROUPS:"api/chat/get-group",
-        API_USER_DETAILS:"api/user-details",
-        API_CREATE_GROUP:"api/chat/create-group",
-        API_GET_GROUP_DETAILS:"api/chat/get-group-details",
-        API_GET_CHAT_MESSAGES_LIST:"api/chat/get-message-list",
-        API_UPDATE_CHAT_MESSAGE:"api/chat/update-message",
-        API_CREATE_CHAT_MESSAGE:"api/chat/create-message",
-        API_UPDATE_INVITE_GROUP:"api/chat/update-invite-group",
-        API_DELETE_MESSAGE:"api/chat/delete-message"
+        API_LOGIN: "api/sign-in",
+        API_SIGN_UP: "api/sign-up",
+        API_GET_GROUPS: "api/chat/get-group",
+        API_USER_DETAILS: "api/user-details",
+        API_CREATE_GROUP: "api/chat/create-group",
+        API_GET_GROUP_DETAILS: "api/chat/get-group-details",
+        API_GET_CHAT_MESSAGES_LIST: "api/chat/get-message-list",
+        API_UPDATE_CHAT_MESSAGE: "api/chat/update-message",
+        API_CREATE_CHAT_MESSAGE: "api/chat/create-message",
+        API_UPDATE_INVITE_GROUP: "api/chat/update-invite-group",
+        API_DELETE_MESSAGE: "api/chat/delete-message",
+        CHAT_NOTIFICATION_ADD: "api/chat/notifications/add",
+        CHAT_NOTIFICATION_DETAILS: "api/chat/notifications", //:user_id,
+        CHAT_NOTIFICATION_GET: "api/chat/notifications/get",
+        CHAT_NOTIFICATION_MARK_READ: "api/chat/notifications/mark-read", // :group_id
     }
 }
 

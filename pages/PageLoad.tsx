@@ -12,7 +12,7 @@ import PinGenerate from "../components/common/modal/PinGenerate";
 import action from "../store/action";
 
 function PageLoad(props) {
-  const { device_id, theme, pagination, MessageList, access_token } = usePosterReducers();
+  const { device_id, theme, pagination, MessageList, access_token, notificationList } = usePosterReducers();
   const dispatch = useDispatch();
   const intervalRef = useRef(null); // Ref for interval
   const isTabActive = useRef(true); // Track tab activity
@@ -21,6 +21,11 @@ function PageLoad(props) {
     pageLoad();
   }, []);
 
+  useEffect(() => {
+    if(access_token){
+      action?.getNotificationList(access_token, dispatch);
+    }
+  },[access_token])
   const pageLoad = () => {
     if (!device_id) {
       dispatch(setStoreDeviceId(uuidv4()));

@@ -191,7 +191,9 @@ body .dropdown .btn.dropdown-toggle::after{display: none;}
 .custome_scroller{background-color: #f1f8fd51;border-radius: 30px;}
 .channel_sidebar__static_list{cursor: pointer;border-radius: 6px;padding: 0 8px;}
 .channel_sidebar__static_list .button{align-items: center!important;}
-.channel_sidebar__static_list .button span{width: 100%;text-align: left;}
+.channel_sidebar__static_list .button span.ellipsis{width: 100%;text-align: left;}
+.channel_sidebar__static_list .button span.ellipsis:not(:last-child){max-width: calc(100% - 24px);}
+.channel_sidebar__static_list .button .notification_count{height: 20px;width: 20px;padding: 2px;display: flex;align-items: center;justify-content: center;background-color: var(--bs-danger-color);border-radius: 200px;line-height: 1;font-size: 10px;margin-left: auto;}
 .channel_sidebar__static_list .list-sidebar{position: relative;padding-left: 40px!important;}
 .channel_sidebar__static_list .list-sidebar .avatar_image{position: absolute;left: 10px;height: 100%;display: flex;align-items: center;justify-content: center;padding: 2px 0px;}
 .channel_sidebar__static_list .list-sidebar .avatar_image .common_icon_image.ssm{--height: 20px;--width: 20px}

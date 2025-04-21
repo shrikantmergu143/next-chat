@@ -20,6 +20,9 @@ export default function IButton(props) {
     e.preventDefault();
     // e.stopPropagation();
     if (props?.to) {
+      setLoader(true);
+      await props?.onClick?.(e);
+      setLoader(false);
       navigate?.push?.(props?.to); // Replace router.push with window.location.href
     } else {
       setLoader(true);

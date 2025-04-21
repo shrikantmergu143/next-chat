@@ -1,4 +1,4 @@
-import { IStoreDeleteMessage } from "./type";
+import { IChatNotification, IStoreDeleteMessage } from "./type";
 
 export const ActionTypes = {
     GET_CURRENT_URL: "GET_CURRENT_URL",
@@ -24,6 +24,8 @@ export const ActionTypes = {
     SET_UPDATE_PAGINATION_LIST:"SET_UPDATE_PAGINATION_LIST",
     SET_STORE_PAGINATION_LIST:"SET_STORE_PAGINATION_LIST",
     SET_STORE_DELETE_MESSAGE:"SET_STORE_DELETE_MESSAGE",
+    SET_STORE_NOTIFICATION_LIST:"SET_STORE_NOTIFICATION_LIST",
+    SET_STORE_NOTIFICATION_READ:"SET_STORE_NOTIFICATION_READ",
 }
 export const setPin = (pin) => ({
     type: ActionTypes.SET_PIN,
@@ -156,6 +158,18 @@ export const setStorePaginationList = (payload)=>{
 export const setStoreDeleteMessage = (payload:IStoreDeleteMessage)=>{
     return{
         type: ActionTypes.SET_STORE_DELETE_MESSAGE,
+        payload: payload
+    }
+}
+export const setStoreNotificationList = (payload?:IChatNotification)=>{
+    return{
+        type: ActionTypes.SET_STORE_NOTIFICATION_LIST,
+        payload: payload
+    }
+}
+export const setStoreNotificationRead = (payload?:any)=>{
+    return{
+        type: ActionTypes.SET_STORE_NOTIFICATION_READ,
         payload: payload
     }
 }

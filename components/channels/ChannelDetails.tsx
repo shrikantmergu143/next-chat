@@ -11,6 +11,7 @@ import Utils from "../utils";
 import FriendRequestModal from "../common/modal/FriendRequestModal";
 import { PutRequestAPI } from "../api/PutRequest";
 import MessageEditor from "../common/text-editor/MessageEditor";
+import action from "../../store/action";
 
 // Type definitions for props
 interface ChatGroupDetails {
@@ -89,6 +90,7 @@ export default function ChannelDetails(props: ChannelDetailsProps) {
         // console.log("response?.data", response?.data)
         if(response?.data?.data?._id){
           setTimeout(() => Utils.gotoMainPageMessage(response?.data?.data?._id, true), 100);
+          action.addNotificationCount(access_token, response?.data?.data?._id);
         }
       }
     }

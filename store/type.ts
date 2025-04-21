@@ -22,6 +22,7 @@ export type IReducers = {
     socketResponse: any;
     pinEntered: any;
     pagination: any;
+    notificationList: IChatNotification[];
 }
 export type IMessagesStatus = {
     read_at: String;
@@ -46,3 +47,10 @@ export type IMessageItem={
     __v?: any;
     hideAvatar?:Boolean;
 };
+export type IChatNotification = {
+    user_id: string;
+    group_id: string;
+    unread_message_ids: (string)[];
+    updated_at: Date;
+    count: number;
+}

@@ -1,6 +1,7 @@
 import { GetRequestCallAPI } from "../components/api/GetRequest";
+import { PostRequestAPI } from "../components/api/PostRequest";
 import App_url from "../components/common/constant";
-import { setStoreChannelsDetails, setStoreChannelsList, setStoreChatMessagesList, setStoreClearGroupMessage, setStoreFriendDetails, setStoreFriendList } from "./Actions";
+import { setStoreChannelsDetails, setStoreChannelsList, setStoreChatMessagesList, setStoreClearGroupMessage, setStoreFriendDetails, setStoreFriendList, setStoreNotificationList, setStoreNotificationRead } from "./Actions";
 
 const getChannelsList = async (access_token:string,  dispatch?:any, payload?:any) =>{
     const formData = { page: 1, limit: 40, search:"", group_type:"" };
@@ -114,12 +115,39 @@ const getChatMessagesList = async (access_token,  dispatch, payload) =>{
         }
     }
 }
+const addNotificationCount = async (access_token: string, message_id: string)=>{
+    const response = await PostRequestAPI(App_url.api.CHAT_NOTIFICATION_ADD, {message_id: message_id}, access_token, );
+    return response;
+}
+const getNotificationList = async (access_token: string, dispatch?:any)=>{
+    const response = await GetRequestCallAPI(`${App_url.api.CHAT_NOTIFICATION_GET}`, access_token, );
+    if(dispatch){
+        if(response?.status == 200){
+            dispatch(setStoreNotificationList(response?.data?.data))
+        }else{
+            dispatch(setStoreNotificationList())
+        }
+    }
+}
+const getReadNotificationList = async (access_token: string, group_id?:any, dispatch?:any)=>{
+    const response = await GetRequestCallAPI(`${App_url.api.CHAT_NOTIFICATION_MARK_READ}/${group_id}`, access_token);
+    if(dispatch){
+        if(response?.status == 200){
+            dispatch(setStoreNotificationRead(group_id))
+        }else{
+            dispatch(setStoreNotificationRead(group_id))
+        }
+    }
+}
+
 const action = {
     getChannelsList: getChannelsList,
     getChannelsDetails: getChannelsDetails,
     getFriendList: getFriendList,
     getFriendsDetails: getFriendsDetails,
     getChatMessagesList: getChatMessagesList,
-
+    addNotificationCount: addNotificationCount,
+    getNotificationList: getNotificationList,
+    getReadNotificationList: getReadNotificationList,
 }
 export default action;

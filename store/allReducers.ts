@@ -36,6 +36,7 @@ export const initialData = {
     theme:"light",
     socketResponse:null,
     pinEntered: false,
+    notificationList: [],
     pagination:{
         page_data:[],
         page_size:50,
@@ -253,6 +254,30 @@ export const allReducers = (state:IReducers = initialData, action:IAllReducers) 
                     ...state?.MessageList,
                     [action?.payload?.group_id]:listFilter
                 }
+            }
+        }
+        case ActionTypes.SET_STORE_NOTIFICATION_LIST:{
+            return{
+                ...state,
+                notificationList:action?.payload? action?.payload : initialData?.notificationList,
+            }
+        }
+        case ActionTypes.SET_STORE_NOTIFICATION_READ:{
+            const notificationList = [];
+            state?.notificationList?.map((item)=>{
+                if(item?.group_id != action?.payload){
+                    item.count = 0;
+                    notificationList.push(item);
+                }
+            })
+            notificationList.push({
+                group_id: action?.payload,
+                count: 0
+            });
+
+            return{
+                ...state,
+                notificationList:notificationList
             }
         }
         default:
