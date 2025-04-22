@@ -85,6 +85,7 @@ const MessageItem = (item:IMessageItemProps) => {
     const observer = new IntersectionObserver(
       async ([entry]) => {
         if (entry.isIntersecting && !hasMarkedRead.current && item?.sender_id !== currentUser?.id && !item?.messages_status[currentUser?.id]) {
+          console.log("item?.messages_status", item?.messages_status[currentUser?.id])
           hasMarkedRead.current = true;
           try {
             await action.callReadMessage(item?._id, access_token, dispatch); // 👈 API to mark as read

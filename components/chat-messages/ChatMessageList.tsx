@@ -52,7 +52,7 @@ function ChatMessageList(props:IChatMessageList) {
             date,
             messagesList: groups[date],
         }));
-    }, [MessageList?.[props?.group_id], props?.group_id]);
+    }, [MessageList?.[props?.group_id]?.length, props?.group_id]);
 
     const callLoadMessageGroup = () => {
         return messageItemsList?.map((item, index1) => (
