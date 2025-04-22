@@ -54,3 +54,7 @@ export type IChatNotification = {
     updated_at: Date;
     count: number;
 }
+export type IStoreMessageRead = {
+    group_id: string;
+    messages_list: IMessageItem[];
+}

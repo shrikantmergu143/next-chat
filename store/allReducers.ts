@@ -181,6 +181,32 @@ export const allReducers = (state:IReducers = initialData, action:IAllReducers) 
                 }
             }
         }
+        case ActionTypes.SET_STORE_UPDATE_MESSAGE:{
+            const friend = action?.payload?.group_id;
+            const messageData = action?.payload?.data;
+            const MessageState = state?.MessageList?.[friend];
+            const FriendMessage = [];
+
+            MessageState?.map?.((item, index)=>{
+                const checkMatch = FriendMessage?.find?.((item1)=>item?._id == item1?._id);
+                if(!checkMatch){
+                    FriendMessage.push(item)
+                }else{
+                    FriendMessage.push(messageData);
+                }
+            });
+            // if(messageData){
+            //     FriendMessage.push(messageData);
+            // }
+            const sortList = FriendMessage?.sort?.((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+            return{
+                ...state,
+                MessageList:{
+                    ...state?.MessageList,
+                    [friend]:sortList
+                }
+            }
+        }
         case ActionTypes.SET_STORE_CLEAR_GROUP_MESSAGE:{
             const friend = action?.payload;
             return{

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import usePosterReducers from '../context/usePosterReducers';
 import Icon from '../common/Icon';
 import App_url from '../common/constant';
@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { DeleteRequest } from '../api/DeleteRequest';
 import { IMessageItem } from '../../store/type';
 import { setStoreDeleteMessage } from '../../store/Actions';
+import action from '../../store/action';
 // Function to replace emojis with images or fallback to emoji text
 const replaceEmojisWithComponents = (htmlString) => {
     if (!htmlString) return "";
@@ -50,6 +51,8 @@ interface IMessageItemProps extends IMessageItem{
 }
 const MessageItem = (item:IMessageItemProps) => {
   const dispatch = useDispatch();
+  const messageRef = useRef(null);
+  const hasMarkedRead = useRef(false); // to prevent duplicate calls
   const [isHovered, setIsHovered] = useState(false);
   const { channelDetails, currentUser, theme, savedPin, pinVerified, access_token } = usePosterReducers();
   const getUser = useMemo(() => {
@@ -77,6 +80,32 @@ const MessageItem = (item:IMessageItemProps) => {
       variant:"danger"
     },
   ]
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      async ([entry]) => {
+        if (entry.isIntersecting && !hasMarkedRead.current && item?.sender_id !== currentUser?.id && !item?.messages_status[currentUser?.id]) {
+          hasMarkedRead.current = true;
+          try {
+            await action.callReadMessage(item?._id, access_token, dispatch); // 👈 API to mark as read
+            console.log(`Message ${item?._id} marked as read`);
+          } catch (error) {
+            console.error('Failed to mark message as read:', error);
+          }
+        }
+      },
+      { threshold: 0.5 } // visible when at least 50% of the message is in view
+    );
+  
+    if (messageRef.current) {
+      observer.observe(messageRef.current);
+    }
+  
+    return () => {
+      if (messageRef.current) observer.unobserve(messageRef.current);
+    };
+  }, [item?._id, currentUser?.id]);
+
   const onSelectMenu =async (event) =>{
     if(event?.value == "delete"){
       const response = await DeleteRequest(`${App_url.api.API_DELETE_MESSAGE}/${item?._id}`, null, access_token);
@@ -116,7 +145,7 @@ const MessageItem = (item:IMessageItemProps) => {
     }
   }
   return (
-    <div id={`messages-id-${item?.index}`} className={`message-content message-kit ${item?.showMenu == item?._id?"message-opened":"message-closed"} `}
+    <div id={`messages-id-${item?.index}`}   ref={messageRef} className={`message-content message-kit ${item?.showMenu == item?._id?"message-opened":"message-closed"} `}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

@@ -1,7 +1,7 @@
 import { GetRequestCallAPI } from "../components/api/GetRequest";
 import { PostRequestAPI } from "../components/api/PostRequest";
 import App_url from "../components/common/constant";
-import { setStoreChannelsDetails, setStoreChannelsList, setStoreChatMessagesList, setStoreClearGroupMessage, setStoreFriendDetails, setStoreFriendList, setStoreNotificationList, setStoreNotificationRead } from "./Actions";
+import { setStoreChannelsDetails, setStoreChannelsList, setStoreChatMessagesList, setStoreClearGroupMessage, setStoreCreateChatMessage, setStoreFriendDetails, setStoreFriendList, setStoreNotificationList, setStoreNotificationRead, setStoreUpdateChatMessage } from "./Actions";
 
 const getChannelsList = async (access_token:string,  dispatch?:any, payload?:any) =>{
     const formData = { page: 1, limit: 40, search:"", group_type:"" };
@@ -139,6 +139,32 @@ const getReadNotificationList = async (access_token: string, group_id?:any, disp
         }
     }
 }
+const callReadMessage = async (message_id, access_token, dispatch) =>{
+    const ids = {message_ids: []};
+    if(message_id){
+        if(typeof message_id === "string"){
+            ids.message_ids = [message_id]
+        }else{
+            message_id?.map((item)=>ids?.message_ids?.push(item));
+        }
+    }
+    const response = await PostRequestAPI(`${App_url.api.CHAT_MESSAGES_READ}`, ids, access_token);
+    // console.log("response", response)
+    if(dispatch){
+        if(response?.status == 200){
+            const messageList = response?.data?.data;
+            messageList?.map?.(item=>{
+                dispatch(setStoreUpdateChatMessage({
+                    group_id: item.group_id,
+                    data: item,
+                }));
+            })
+            // dispatch(setStoreNotificationRead(group_id))
+        }else{
+            // dispatch(setStoreNotificationRead(group_id))
+        }
+    }
+}
 
 const action = {
     getChannelsList: getChannelsList,
@@ -149,5 +175,6 @@ const action = {
     addNotificationCount: addNotificationCount,
     getNotificationList: getNotificationList,
     getReadNotificationList: getReadNotificationList,
+    callReadMessage: callReadMessage,
 }
 export default action;

@@ -1,4 +1,4 @@
-import { IChatNotification, IStoreDeleteMessage } from "./type";
+import { IChatNotification, IStoreDeleteMessage, IStoreMessageRead } from "./type";
 
 export const ActionTypes = {
     GET_CURRENT_URL: "GET_CURRENT_URL",
@@ -14,6 +14,7 @@ export const ActionTypes = {
     SET_STORE_DEVICE_ID:"SET_STORE_DEVICE_ID",
     SET_STORE_CHAT_MESSAGES_LIST:"SET_STORE_CHAT_MESSAGES_LIST",
     SET_STORE_CREATE_MESSAGE:"SET_STORE_CREATE_MESSAGE",
+    SET_STORE_UPDATE_MESSAGE:"SET_STORE_UPDATE_MESSAGE",
     SET_STORE_CLEAR_GROUP_MESSAGE:"SET_STORE_CLEAR_GROUP_MESSAGE",
     SET_STORE_THEME:"SET_STORE_THEME",
     SET_STORE_SOCKET_RESPONSE:"SET_STORE_SOCKET_RESPONSE",
@@ -26,6 +27,7 @@ export const ActionTypes = {
     SET_STORE_DELETE_MESSAGE:"SET_STORE_DELETE_MESSAGE",
     SET_STORE_NOTIFICATION_LIST:"SET_STORE_NOTIFICATION_LIST",
     SET_STORE_NOTIFICATION_READ:"SET_STORE_NOTIFICATION_READ",
+    SET_STORE_MESSAGE_READ:"SET_STORE_MESSAGE_READ",
 }
 export const setPin = (pin) => ({
     type: ActionTypes.SET_PIN,
@@ -131,6 +133,12 @@ export const setStoreCreateChatMessage = (token?:any) => {
        payload: token,
     }
 };
+export const setStoreUpdateChatMessage = (token?:any) => {
+    return {
+       type: ActionTypes.SET_STORE_UPDATE_MESSAGE,
+       payload: token,
+    }
+};
 export const setStoreFriendDetails = (token?:any) => {
     return {
        type: ActionTypes.SET_STORE_FRIEND_DETAILS,
@@ -170,6 +178,12 @@ export const setStoreNotificationList = (payload?:IChatNotification)=>{
 export const setStoreNotificationRead = (payload?:any)=>{
     return{
         type: ActionTypes.SET_STORE_NOTIFICATION_READ,
+        payload: payload
+    }
+}
+export const setStoreMessageRead = (payload?:IStoreMessageRead)=>{
+    return{
+        type: ActionTypes.SET_STORE_MESSAGE_READ,
         payload: payload
     }
 }

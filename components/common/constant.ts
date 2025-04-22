@@ -86,6 +86,7 @@ const App_url = {
         API_UPDATE_CHAT_MESSAGE: "api/chat/update-message",
         API_CREATE_CHAT_MESSAGE: "api/chat/create-message",
         API_UPDATE_INVITE_GROUP: "api/chat/update-invite-group",
+        CHAT_MESSAGES_READ: "api/chat/read-message",
         API_DELETE_MESSAGE: "api/chat/delete-message",
         CHAT_NOTIFICATION_ADD: "api/chat/notifications/add",
         CHAT_NOTIFICATION_DETAILS: "api/chat/notifications", //:user_id,
