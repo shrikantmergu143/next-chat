@@ -188,16 +188,12 @@ export const allReducers = (state:IReducers = initialData, action:IAllReducers) 
             const FriendMessage = [];
 
             MessageState?.map?.((item, index)=>{
-                const checkMatch = FriendMessage?.find?.((item1)=>item?._id == item1?._id);
-                if(!checkMatch){
-                    FriendMessage.push(item)
-                }else{
+                if(messageData?._id == item?._id){
                     FriendMessage.push(messageData);
+                }else{
+                    FriendMessage.push(item)
                 }
             });
-            // if(messageData){
-            //     FriendMessage.push(messageData);
-            // }
             const sortList = FriendMessage?.sort?.((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
             return{
                 ...state,

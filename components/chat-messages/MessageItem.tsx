@@ -85,23 +85,19 @@ const MessageItem = (item:IMessageItemProps) => {
     const observer = new IntersectionObserver(
       async ([entry]) => {
         if (entry.isIntersecting && !hasMarkedRead.current && item?.sender_id !== currentUser?.id && !item?.messages_status[currentUser?.id]) {
-          console.log("item?.messages_status", item?.messages_status[currentUser?.id])
           hasMarkedRead.current = true;
           try {
-            await action.callReadMessage(item?._id, access_token, dispatch); // 👈 API to mark as read
-            console.log(`Message ${item?._id} marked as read`);
+            await action.callReadMessage(item?._id, access_token, dispatch);
           } catch (error) {
-            console.error('Failed to mark message as read:', error);
+            // console.error('Failed to mark message as read:', error);
           }
         }
       },
-      { threshold: 0.5 } // visible when at least 50% of the message is in view
+      { threshold: 0.5 }
     );
-  
     if (messageRef.current) {
       observer.observe(messageRef.current);
     }
-  
     return () => {
       if (messageRef.current) observer.unobserve(messageRef.current);
     };
@@ -129,6 +125,9 @@ const MessageItem = (item:IMessageItemProps) => {
     return (
       <div className={`message-tool ${item?.showMenu == item?._id?"menu-open":""}`}>
         <Icon button className="md rounded-2 green" variant='secondary-1' attrIcon={App_url.icons.Check} />
+        <Icon button className="md rounded-2" variant='secondary-1' title="Share" attrIcon={App_url.icons.Thread} />
+        <Icon button className="md rounded-2" variant='secondary-1' title="Share" attrIcon={App_url.icons.Share} />
+        <Icon button className="md rounded-2" variant='secondary-1' title="Share" attrIcon={App_url.icons.Save} />
         {item?.sender_id == currentUser?.id && (
           <DropButton iconButton option={options} onClick={()=>item?.setShowMenu?.(item?._id)} onToggle={onToggle} onSelect={onSelectMenu} >
           <Icon className="md rounded-2" attrIcon={App_url.icons.Dot} />
