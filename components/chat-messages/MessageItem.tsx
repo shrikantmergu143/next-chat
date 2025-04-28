@@ -11,40 +11,84 @@ import { DeleteRequest } from '../api/DeleteRequest';
 import { IMessageItem } from '../../store/type';
 import { setStoreDeleteMessage } from '../../store/Actions';
 import action from '../../store/action';
-// Function to replace emojis with images or fallback to emoji text
+// // Function to replace emojis with images or fallback to emoji text
+// const replaceEmojisWithComponents = (htmlString) => {
+//     if (!htmlString) return "";
+//     const parser = new DOMParser();
+//     const doc = parser.parseFromString(htmlString, "text/html");
+//     const processNode = (node) => {
+//       if (node.nodeType === Node.TEXT_NODE) {
+//         const text = node.nodeValue;
+//         const newNodes = [];
+//         for (let char of text) {
+//           if (char.match(/\p{Emoji}/u)) {
+//             const emojiEntry = emojiList.find((e) => e.emoji === char);
+//             if (emojiEntry) {
+//               const emojiCode = char.codePointAt(0).toString(16).toUpperCase();
+//               newNodes.push(<EmojiReplacer key={emojiCode} emojiCode={emojiCode} />);
+//             } else {
+//               newNodes.push(<span key={char}>{char}</span>);
+//             }
+//           } else {
+//             newNodes.push(char);
+//           }
+//         }
+//         return newNodes;
+//       } else if (node.nodeType === Node.ELEMENT_NODE) {
+//         return React.createElement(
+//           node.tagName.toLowerCase(),
+//           {},
+//           ...Array.from(node.childNodes).map(processNode)
+//         );
+//       }
+//       return null;
+//     };
+//     return Array.from(doc.body.childNodes).map(processNode);
+// };
 const replaceEmojisWithComponents = (htmlString) => {
-    if (!htmlString) return "";
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlString, "text/html");
-    const processNode = (node) => {
-      if (node.nodeType === Node.TEXT_NODE) {
-        const text = node.nodeValue;
-        const newNodes = [];
-        for (let char of text) {
-          if (char.match(/\p{Emoji}/u)) {
-            const emojiEntry = emojiList.find((e) => e.emoji === char);
-            if (emojiEntry) {
-              const emojiCode = char.codePointAt(0).toString(16).toUpperCase();
-              newNodes.push(<EmojiReplacer key={emojiCode} emojiCode={emojiCode} />);
-            } else {
-              newNodes.push(<span key={char}>{char}</span>);
-            }
+  if (!htmlString) return "";
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, "text/html");
+
+  const emojiRegex = /\p{Emoji}/gu; // Match any emoji
+
+  const processNode = (node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.nodeValue;
+      const parts = text.split(emojiRegex);
+      const emojis = text.match(emojiRegex) || [];
+
+      const combinedNodes = [];
+
+      parts.forEach((part, index) => {
+        if (part) {
+          combinedNodes.push(part);
+        }
+        if (emojis[index]) {
+          const emojiEntry = emojiList.find((e) => e.emoji === emojis[index]);
+          if (emojiEntry) {
+            const emojiCode = emojis[index].codePointAt(0).toString(16).toUpperCase();
+            combinedNodes.push(<EmojiReplacer key={emojiCode + index} emojiCode={emojiCode} />);
           } else {
-            newNodes.push(char);
+            combinedNodes.push(<span key={"fallback-" + index}>{emojis[index]}</span>);
           }
         }
-        return newNodes;
-      } else if (node.nodeType === Node.ELEMENT_NODE) {
-        return React.createElement(
-          node.tagName.toLowerCase(),
-          {},
-          ...Array.from(node.childNodes).map(processNode)
-        );
-      }
-      return null;
-    };
-    return Array.from(doc.body.childNodes).map(processNode);
+      });
+
+      return combinedNodes;
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      return React.createElement(
+        node.tagName.toLowerCase(),
+        {},
+        ...Array.from(node.childNodes).map(processNode)
+      );
+    }
+    return null;
+  };
+
+  return Array.from(doc.body.childNodes).map(processNode);
 };
+
 interface IMessageItemProps extends IMessageItem{
   setShowMenu?: Function;
   showMenu?: any;
